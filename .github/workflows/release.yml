@@ -12,6 +12,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
       - run: |
+          curl https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> $GITHUB_PATH
+      - run: |
           pnpm i
           pnpm build -l en
       - name: upload
@@ -28,6 +31,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
+      - run: |
+          curl https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> $GITHUB_PATH
       - run: |
           pnpm i
           pnpm build -l zh
