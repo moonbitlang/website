@@ -1,0 +1,106 @@
+{
+  "name": "my-ext",
+  "displayName": "Moonbit Fiddle",
+  "description": "Moonbit Fiddle",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "publisher": "moonbit",
+  "license": "UNLICENSED",
+  "browser": "./lib/extension.js",
+  "icon": "./extension-icon.png",
+  "repository": "https://github.com/moonbitlang/moonbit-docs",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "moonbit",
+        "path": "./snippets/snippets.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "moonbit",
+        "aliases": [
+          "Moonbit",
+          "moonbit"
+        ],
+        "extensions": [
+          ".mbt"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./moonbit.png",
+          "dark": "./moonbit.png"
+        }
+      },
+      {
+        "id": "moonpkg",
+        "aliases": [
+          "Moonpkg",
+          "moonpkg"
+        ],
+        "extensions": [
+          "moon.pkg"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "moonmod",
+        "aliases": [
+          "Moonmod",
+          "moonmod"
+        ],
+        "extensions": [
+          "moon.mod"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "moonbit",
+        "scopeName": "source.mbt",
+        "path": "./syntaxes/moonbit.tmLanguage.json"
+      },
+      {
+        "language": "moonpkg",
+        "scopeName": "source.moonpkg",
+        "path": "./syntaxes/moonpkg.tmLanguage.json"
+      },
+      {
+        "language": "moonmod",
+        "scopeName": "source.moonmod",
+        "path": "./syntaxes/moonmod.tmLanguage.json"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "extension.my-ext.open-preview",
+          "group": "z_commands"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "extension.my-ext.open-preview",
+        "category": "Moonbit Fiddle",
+        "title": "Open Preview",
+        "icon": "$(open-preview)"
+      }
+    ],
+    "configurationDefaults": {
+      "[moonbit]": {
+        "editor.tabSize": 2,
+        "editor.minimap.enabled": false
+      }
+    }
+  },
+  "activationEvents": [
+    "onFileSystem:memfs"
+  ]
+}

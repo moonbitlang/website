@@ -1,0 +1,31 @@
+{
+  "name": "moonfiddle",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "publisher": "moonbit",
+  "license": "UNLICENSED",
+  "browser": "./lib/extension.js",
+  "contributes": {
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "moonfiddle.open-preview",
+          "group": "z_commands"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "moonfiddle.open-preview",
+        "category": "Moonbit Fiddle",
+        "title": "Open Preview",
+        "icon": "$(open-preview)"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onFileSystem:memfs"
+  ]
+}

@@ -1,0 +1,17 @@
+static
+**/.git
+**/node_modules
+**/data
+**/build
+**/.docusaurus
+**/weekly
+**/docusaurus-plugin-content-blog-weekly-updates
+**/docusaurus-plugin-content-docs
+**/docusaurus-plugin-content-blog
+**/blog
+prism
+
+.gitlab-ci.yml
+**/.gitignore
+**/pnpm-lock.yaml
+.env

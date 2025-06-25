@@ -1,0 +1,70 @@
+{
+  "name": "website",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "data": "tsx ./scripts/gen-data.ts",
+    "build": "docusaurus build",
+    "postbuild": "cp -R static-gallery/* build/gallery/",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "typecheck": "tsc --project .",
+    "format": "prettier . --write",
+    "build-rehype-moonbit-markdown": "cd ./plugins/rehype-moonbit-markdown && pnpm i && pnpm build",
+    "postinstall": "pnpm data && pnpm build-rehype-moonbit-markdown && cp ./node_modules/@moonbit/moonpad-monaco/dist/moonc-worker.js ./static && cp ./node_modules/@moonbit/moonpad-monaco/dist/lsp-server.js ./static"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^3.8.1",
+    "@docusaurus/preset-classic": "^3.8.1",
+    "@docusaurus/theme-mermaid": "^3.8.1",
+    "@moonbit/moonpad-monaco": "^0.1.202506241",
+    "clsx": "^1.2.1",
+    "jwt-decode": "^4.0.0",
+    "monaco-editor-core": "^0.52.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.2.1"
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "^3.8.1",
+    "@docusaurus/plugin-content-blog": "^3.8.1",
+    "@docusaurus/plugin-content-docs": "^3.8.1",
+    "@docusaurus/theme-classic": "^3.8.1",
+    "@docusaurus/theme-common": "^3.8.1",
+    "@docusaurus/tsconfig": "^3.8.1",
+    "@docusaurus/types": "^3.8.1",
+    "@shikijs/rehype": "^3.6.0",
+    "@types/node": "^18.19.2",
+    "@types/react": "^18.2.42",
+    "dotenv": "^16.3.1",
+    "prettier": "^3.1.0",
+    "rehype-katex": "^7.0.0",
+    "remark-math": "^6.0.0",
+    "shiki": "^3.6.0",
+    "tsx": "^4.9.3",
+    "typescript": "^5.2.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0"
+  },
+  "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c"
+}

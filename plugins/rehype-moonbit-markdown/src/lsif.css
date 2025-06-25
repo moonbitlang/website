@@ -1,0 +1,79 @@
+/* ===== Basic ===== */
+:root {
+  --shiki-lsif-border-color: #c2c2c4;
+  --shiki-lsif-popup-bg: #fff;
+  --shiki-lsif-popup-color: inherit;
+  --shiki-lsif-popup-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px;
+  --shiki-lsif-docs-color: #000;
+  --shiki-lsif-docs-font: sans-serif;
+  --shiki-lsif-code-font: monospace;
+}
+
+.shiki .line:target {
+  background-color: rgb(254, 251, 223);
+}
+
+.shiki-lsif {
+  line-height: 1.5em;
+}
+
+/* Respect people's wishes to not have animations */
+@media (prefers-reduced-motion: reduce) {
+  .shiki-lsif * {
+    transition: none !important;
+  }
+}
+
+.shiki-lsif code {
+  font-family: var(--shiki-lsif-code-font);
+}
+
+.shiki-lsif .shiki-lsif-hover {
+  /* border-bottom: 1px solid var(--shiki-lsif-border-color); */
+  text-decoration: underline dashed var(--shiki-lsif-border-color);
+  text-underline-offset: 2px;
+  position: relative;
+}
+
+.shiki-lsif .shiki-lsif-hover:hover {
+  border-bottom: none;
+  background-color: rgb(244, 249, 254);
+}
+
+.shiki-lsif .markdown-body {
+  position: absolute;
+  display: none;
+  background: var(--shiki-lsif-popup-bg);
+  left: 0;
+  top: 1.2em;
+  color: var(--shiki-lsif-popup-color);
+  border: 1px solid var(--shiki-lsif-border-color);
+  border-radius: 4px;
+  pointer-events: auto;
+  z-index: 10;
+  user-select: text;
+  text-align: left;
+  box-shadow: var(--shiki-lsif-popup-shadow);
+  max-width: 500px;
+  width: max-content;
+  white-space: normal;
+  padding: 6px 8px;
+  font-family: var(--shiki-lsif-docs-font);
+  color: var(--shiki-lsif-docs-color);
+  line-height: 1.5;
+}
+
+.shiki-lsif .shiki-lsif-hover:hover .markdown-body {
+  display: block;
+}
+
+/* override default markdown styles for hover widget */
+
+.shiki-lsif .markdown-body pre {
+  text-wrap: wrap !important;
+  padding: 0 !important;
+}
+
+.shiki-lsif .markdown-body pre > code {
+  white-space: pre-wrap !important;
+}

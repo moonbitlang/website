@@ -1,0 +1,95 @@
+{
+  "name": "moonfiddle",
+  "displayName": "Moonbit Language",
+  "description": "Moonbit Language Support",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "publisher": "moonbit",
+  "license": "UNLICENSED",
+  "browser": "./lib/extension.js",
+  "icon": "extension-icon.png",
+  "repository": "https://github.com/moonbitlang/moonbit-docs",
+  "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": "moon.pkg.json",
+        "url": "vscode-mbt-json-schema://pkg.schema.json"
+      },
+      {
+        "fileMatch": "moon.mod.json",
+        "url": "vscode-mbt-json-schema://mod.schema.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "moonbit",
+        "path": "./snippets/snippets.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "moonbit",
+        "aliases": [
+          "Moonbit",
+          "moonbit"
+        ],
+        "extensions": [
+          ".mbt"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./moonbit.png",
+          "dark": "./moonbit.png"
+        }
+      },
+      {
+        "id": "moonbit-output"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "moonbit",
+        "scopeName": "source.mbt",
+        "path": "./syntaxes/moonbit.tmLanguage.json"
+      },
+      {
+        "language": "moonbit-output",
+        "scopeName": "text.moonbit.output",
+        "path": "./syntaxes/moonbit-output.tmLanguage.json"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "extension.my-ext.open-preview",
+          "group": "z_commands"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "extension.my-ext.open-preview",
+        "category": "Moonbit Fiddle",
+        "title": "Open Preview",
+        "icon": "$(open-preview)"
+      }
+    ],
+    "configurationDefaults": {
+      "[moonbit]": {
+        "editor.tabSize": 2,
+        "editor.minimap.enabled": false
+      }
+    }
+  },
+  "activationEvents": [
+    "onFileSystem:memfs",
+    "onDebug",
+    "onDebugResolve:moonbit",
+    "onFileSystem:vscode-mbt-json-schema"
+  ]
+}

@@ -1,0 +1,59 @@
+.logo {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.logo__image img {
+  display: block;
+}
+
+.logo__title {
+  line-height: 1;
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+@media (max-width: 500px) {
+  .logo__title {
+    font-size: 2.5rem;
+  }
+}
+
+.social-medias {
+  display: flex;
+  gap: 1rem;
+  font-size: 2rem;
+  flex-wrap: wrap;
+}
+
+.social-medias a {
+  color: inherit;
+}
+
+.social-medias svg {
+  display: block;
+}
+
+.weixin {
+  position: relative;
+  cursor: pointer;
+}
+
+.weixin__qr-code {
+  width: 100px;
+  bottom: 150%;
+  right: 0;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.weixin:hover .weixin__qr-code {
+  opacity: 1;
+}
+
+.weixin__qr-code img {
+  display: block;
+  width: 100%;
+}

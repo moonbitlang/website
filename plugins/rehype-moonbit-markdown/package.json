@@ -1,0 +1,33 @@
+{
+  "name": "rehype-moonbit-markdown",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "node ./esbuild.mjs",
+    "watch": "node ./esbuild.mjs --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/tmp": "^0.2.6",
+    "@vscode/lsif-protocol": "0.6.0-next.8",
+    "hast-util-to-string": "^3.0.1",
+    "rehype": "^13.0.2",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^3.6.0",
+    "tmp": "^0.2.3",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
+    "vscode-languageserver-protocol": "^3.17.5",
+    "vscode-languageserver-textdocument": "^1.0.12",
+    "vscode-uri": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.4",
+    "esbuild": "^0.25.5"
+  }
+}

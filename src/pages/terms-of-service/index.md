@@ -1,0 +1,74 @@
+# MOONBIT SOFTWARE LICENSE TERMS
+
+## MoonBit Integrated Development Environment
+
+These license terms are an agreement between you and International Digital Economy Academy ("IDEA"). The Digital Infrastructure Innovation Center ("DII"), a research center under IDEA, is not a contracting party but may provide certain services as referenced in this agreement. They apply to the software named above, which will be referred as "the Software" below. The terms also apply to any DII services or updates for the Software, except to the extent those have different terms.
+
+BY CLICKING "I ACCEPT", DOWNLOADING, INSTALLING, OR OTHERWISE ACCESSING OR USING THE SERVICE, YOU AGREE THAT YOU HAVE READ AND UNDERSTOOD, AND, AS A CONDITION TO YOUR USE OF THE SERVICE, YOU AGREE TO BE BOUND BY, THESE TERMS. IF YOU ARE NOT ELIGIBLE, OR DO NOT AGREE TO THE TERMS, THEN YOU DO NOT HAVE OUR PERMISSION TO USE THE SERVICE. YOUR USE OF THE SERVICE, AND IDEA'S PROVISION OF THE SERVICE TO YOU, CONSTITUTES AN AGREEMENT BY IDEA AND BY YOU TO BE BOUND BY THESE TERMS.
+
+IF YOU COMPLY WITH THESE LICENSE TERMS, YOU HAVE THE RIGHTS BELOW.
+
+### 1.INSTALLATION AND USE RIGHTS.
+
+1. General. You may use any number of copies of the Software to develop and test your applications but may not use the Software for commercial purposes. You shall not use the Software in any manner that violates any applicable laws and regulations, including those of your country of residence or those applicable to this agreement.
+
+1. Demo use. The uses permitted above include use of the Software in demonstrating your applications.
+
+1. Third Party Components. The Software may include third party components with separate legal notices or governed by other agreements, as may be described in the ThirdPartyNotices file accompanying the Software.
+
+1. Extensions. The Software gives you the option to download other DII and third party software packages from extension marketplace or package managers hosted by open-vsx. Those packages are under their own licenses, and not this agreement. IDEA does not distribute, license or provide any warranties for any of the third party packages. By accessing or using the extension marketplace, you agree to the extension marketplace terms located at https://open-vsx.org/terms-of-use.
+
+### 2.DATA COLLECTION.
+
+The Software may collect information about you and your use of the Software, and send that to DII and Microsoft. DII may use this information to provide services and improve our products and services. To understand how Microsoft may collect, process, or use this information, please see https://code.visualstudio.com/license.
+
+### 3.UPDATES.
+
+The Software may periodically check for updates and download and install them for you. You may obtain updates only from DII. DII may need to update your system to provide you with updates. You agree to receive these automatic updates without any additional notice. Updates may not include or support all existing software features, services, or peripheral devices.
+
+### 4.FEEDBACK.
+
+If you give feedback about the Software to DII, you give to IDEA, without charge, the right to use, share and commercialize your feedback in any way and for any purpose. You will not give feedback that is subject to a license that requires IDEA to license its software or documentation to third parties because we include your feedback in them. These rights survive this agreement.
+
+### 5.SCOPE OF LICENSE.
+
+This license applies to the Software. The source code of the Software is based on Visual Studio Code, which is available at https://github.com/Microsoft/vscode under the MIT license agreement. The Software is licensed, not sold. This agreement only gives you some rights to use the Software. IDEA reserves all other rights. You may use the Software only as expressly permitted in this agreement. In doing so, you must comply with any technical limitations in the Software that only allow you to use it in certain ways. You may not
+
+1. reverse engineer, decompile or disassemble the Software, or otherwise attempt to derive the source code for the Software except and solely to the extent required by third party licensing terms governing use of certain open source components that may be included in the Software;
+
+1. remove, minimize, block or modify any notices of IDEA in the Software;
+
+1. use the Software in any way that is against the law;
+
+1. share, publish, rent or lease the Software, or provide the Software as a stand-alone offering for others to use.
+
+### 6.SUPPORT SERVICES.
+
+Because this software is "as is," we may not provide support services for it.
+
+### 7.ENTIRE AGREEMENT.
+
+This agreement, and the terms for supplements, updates, Internet-based services and support services that you use, are the entire agreement for the Software and support services.
+
+### 8.EXPORT RESTRICTIONS.
+
+You must comply with all domestic and international export laws and regulations that apply to the Software, which include restrictions on destinations, end-users, and end use.
+
+### 9.APPLICABLE LAW.
+
+In the event of any dispute arising from or related to this agreement, the laws of the People's Republic of China shall govern and apply, without regard to conflict of law principles.
+
+### 10.MODIFICATION OF TERMS.
+
+We may, from time to time, change these terms. Please check these terms periodically for changes. If we make any material modifications, we will notify you by updating the date at the top of these terms and by maintaining a current version of these terms at https://moonbitlang.com/terms-of-service. All modifications will be effective when they are posted, and your continued accessing or use of services will serve as confirmation of your acceptance of those modifications. If you do not agree to the modified terms, then you should discontinue your use of services.
+
+### 11.DISCLAIMER OF WARRANTY.
+
+The Software is licensed "as-is." You bear the risk of using it. IDEA gives no express warranties, guarantees or conditions. To the extent permitted under your local laws, IDEA excludes the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+
+### 12.LIMITATION ON AND EXCLUSION OF DAMAGES.
+
+You cannot recover from IDEA any direct damages or any other damages, including consequential, lost profits, special, indirect or incidental damages.
+
+This limitation applies to (a) anything related to the Software, services, content (including code) on third party Internet sites, or third party applications; and (b) claims for breach of contract, breach of warranty, guarantee or condition, strict liability, negligence, or other tort to the extent permitted by applicable law.
+It also applies even if IDEA knew or should have known about the possibility of the damages.

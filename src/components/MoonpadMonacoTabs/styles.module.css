@@ -1,0 +1,71 @@
+.container {
+  background-color: #1e1e1e;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.mobile-tabs-select {
+  border: none;
+  width: 100%;
+  background-color: #1e1e1e;
+  color: white;
+  padding: 0.5rem;
+  display: none;
+  font-size: 1rem;
+}
+
+.desktop-tabs {
+  display: flex;
+  padding: 0 0.5rem;
+  font-weight: 600;
+}
+
+.desktop-tab-item {
+  cursor: pointer;
+  padding: 1rem 0.75rem;
+}
+
+.desktop-tab-item--active {
+  border-bottom: 2px solid white;
+}
+
+.desktop-tab-item:hover {
+  background-color: #333;
+}
+
+@media (max-width: 996px) {
+  .desktop-tabs {
+    display: none;
+  }
+  .mobile-tabs-select {
+    display: block;
+  }
+}
+
+.moonpad-monaco {
+  width: 100%;
+  height: 31rem;
+}
+
+.moonpad-monaco-container {
+  width: 100%;
+  min-height: 32rem;
+  padding-top: 1rem;
+  border-top: 1px solid #333;
+}
+
+@media (max-width: 996px) {
+  .moonpad-monaco-container {
+    padding-top: 0.75rem;
+  }
+}
+
+.output {
+  border-top: 1px solid #333;
+}
+
+.output pre {
+  font-size: 0.875rem;
+  background-color: #1e1e1e;
+  margin: 0;
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JSON schema for Moonbit moon.mod.json files",
+  "description": "A module of Moonbit lang",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "Name of the module",
+      "type": "string"
+    },
+    "version": {
+      "description": "Version of the module",
+      "type": "string"
+    },
+    "deps": {
+      "description": "Third-party dependecnies of the module",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "readme": {
+      "description": "Path to module's README file",
+      "type": "string"
+    },
+    "repository": {
+      "description": "url to module's repository",
+      "type": "string"
+    }
+  },
+  "required": ["name"]
+}

@@ -1,0 +1,183 @@
+{
+  "name": "moonbit-lang",
+  "displayName": "Moonbit Language",
+  "description": "Moonbit Language Support",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "publisher": "moonbit",
+  "license": "UNLICENSED",
+  "browser": "./browser/extension.js",
+  "main": "./node/extension.js",
+  "icon": "extension-icon.png",
+  "repository": "https://github.com/moonbitlang/moonbit-docs",
+  "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": "moon.pkg.json",
+        "url": "./schemas/pkg.schema.json"
+      },
+      {
+        "fileMatch": "moon.mod.json",
+        "url": "./schemas/mod.schema.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "moonbit",
+        "path": "./snippets/snippets.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "moonbit",
+        "aliases": [
+          "Moonbit",
+          "moonbit"
+        ],
+        "extensions": [
+          ".mbt"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./moonbit.png",
+          "dark": "./moonbit.png"
+        }
+      },
+      {
+        "id": "moonbit-output"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "moonbit",
+        "scopeName": "source.mbt",
+        "path": "./syntaxes/moonbit.tmLanguage.json"
+      },
+      {
+        "language": "moonbit-output",
+        "scopeName": "text.moonbit.output",
+        "path": "./syntaxes/moonbit-output.tmLanguage.json"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "moonbit.run",
+          "group": "navigation",
+          "when": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "moonbit.stop",
+          "group": "navigation",
+          "when": "isWeb && moonbit.codeRunning && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "moonbit.run",
+          "when": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)",
+          "group": "z_commands"
+        },
+        {
+          "command": "moonbit.compile-to-wat",
+          "when": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)",
+          "group": "z_commands"
+        },
+        {
+          "command": "moonbit.compile-to-wasm",
+          "when": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)",
+          "group": "z_commands"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "moonbit.run",
+          "when": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)",
+          "group": "z_commands"
+        },
+        {
+          "command": "moonbit.compile-to-wat",
+          "when": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)",
+          "group": "z_commands"
+        },
+        {
+          "command": "moonbit.compile-to-wasm",
+          "when": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)",
+          "group": "z_commands"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "moonbit.get-extension-version",
+        "title": "Get extension's compiler version",
+        "category": "Moonbit"
+      },
+      {
+        "command": "moonbit.compile-to-wat",
+        "title": "Compile to Wat",
+        "category": "Moonbit",
+        "enablement": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)",
+        "icon": "$(preview)"
+      },
+      {
+        "command": "moonbit.compile-to-wasm",
+        "title": "Compile to Wasm",
+        "category": "Moonbit",
+        "enablement": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)",
+        "icon": "$(preview)"
+      },
+      {
+        "command": "moonbit.run",
+        "title": "Run",
+        "category": "Moonbit",
+        "enablement": "isWeb && (resourceExtname == .mbt || resourceFilename == moon.pkg.json)",
+        "icon": "$(play)"
+      },
+      {
+        "command": "moonbit.stop",
+        "title": "Stop",
+        "icon": "$(debug-stop)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "moonbit.run",
+        "key": "f5",
+        "mac": "f5",
+        "when": "isWeb && editorTextFocus"
+      },
+      {
+        "command": "moonbit.compile-to-wat",
+        "key": "f7",
+        "mac": "f7",
+        "when": "isWeb && editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Moonbit",
+      "properties": {
+        "moonbit.autoMoonCheck.enable": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Specifies whether to automatically run `moon check --watch` for modules"
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[moonbit]": {
+        "editor.tabSize": 2
+      }
+    }
+  },
+  "activationEvents": [
+    "workspaceContains:{**/moon.pkg.json,**/moon.mod.json,**/*.mbt}"
+  ]
+}

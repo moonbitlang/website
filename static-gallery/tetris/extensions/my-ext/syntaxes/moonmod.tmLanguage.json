@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "moonmod",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#commentLine"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword",
+          "match": "\\b(module|require)\\b"
+        }
+      ]
+    },
+    "strings" : {
+      "patterns": [
+        {
+          "include" : "#strings-double"
+        }
+      ]
+    },
+    "strings-double": {
+      "name": "string.quoted.double",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "commentLine": {
+      "match": "//.*",
+      "name": "comment.line"
+    }
+  },
+  "scopeName": "source.moonmod"
+}

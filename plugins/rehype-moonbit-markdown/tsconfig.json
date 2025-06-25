@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+    "noEmit": true
+  }
+}

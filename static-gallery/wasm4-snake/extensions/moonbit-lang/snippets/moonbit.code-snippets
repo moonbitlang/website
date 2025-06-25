@@ -1,0 +1,64 @@
+{
+  "init": {
+    "prefix": "init",
+    "body": ["fn init {", "\t${1}", "}"]
+  },
+
+  "main": {
+    "prefix": "main",
+    "body": ["fn main {", "\t${1}", "}"]
+  },
+
+  "anonymous fn": {
+    "prefix": "fn",
+    "body": ["fn(${1:param_name}) {", "\t${2:body}", "}"]
+  },
+
+  "toplevel fn": {
+    "prefix": "fn",
+    "body": [
+      "fn ${1:function_name}(${2:param_name}) -> ${3:ReturnType} {",
+      "\t${4:body}",
+      "}"
+    ]
+  },
+
+  "struct": {
+    "prefix": "struct",
+    "body": ["struct ${1:TypeName} {", "\t${2:body}", "}"]
+  },
+
+  "enum": {
+    "prefix": "enum",
+    "body": ["enum ${1:TypeName} {", "\t${2:body}", "}"]
+  },
+
+  "derive directive": {
+    "prefix": "derive",
+    "body": ["derive(${1:interface_name})"]
+  },
+
+  "while": {
+    "prefix": "while",
+    "body": ["while ${1:condition} {", "\t${2:body}", "}"]
+  },
+
+  "test": {
+    "prefix": "test",
+    "body": ["test \"${1:name}\" {", "\t${2:body}", "}"]
+  },
+
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for ${1:index} = 0; ${1:index} < ${2:limit}; ${1:index} = ${1:index} + 1 {",
+      "\t$TM_SELECTED_TEXT$0",
+      "}"
+    ]
+  },
+
+  "try": {
+    "prefix": "try",
+    "body": ["try {", "\t${1:body}", "} catch {", "", "}"]
+  }
+}

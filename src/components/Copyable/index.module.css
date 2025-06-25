@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+}
+
+.wrapper figure {
+  margin: 0;
+  overflow: auto;
+}
+
+.wrapper pre {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  border: solid 1px var(--ifm-color-gray-300);
+  border-radius: 0.25rem 0 0 0.25rem;
+  background: inherit;
+}
+
+.wrapper button {
+  background-color: inherit;
+  border: solid 1px var(--ifm-color-gray-300);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.wrapper button:disabled {
+  color: black;
+  cursor: not-allowed;
+}
+
+.wrapper button:enabled {
+  cursor: pointer;
+}
+
+.wrapper button:hover {
+  background-color: var(--ifm-color-gray-100);
+}

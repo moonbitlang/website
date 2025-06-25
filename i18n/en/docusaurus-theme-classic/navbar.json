@@ -1,0 +1,118 @@
+{
+  "title": {
+    "message": "MoonBit",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "MoonBit Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Docs": {
+    "message": "Docs",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.Blog": {
+    "message": "Blog",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Download": {
+    "message": "Download",
+    "description": "Navbar item with label Download"
+  },
+  "item.label.Gallery": {
+    "message": "Gallery",
+    "description": "Navbar item with label Gallery"
+  },
+  "item.label.Weekly Updates": {
+    "message": "Weekly Updates",
+    "description": "Navbar item with label Weekly Updates"
+  },
+  "item.label.Course": {
+    "message": "Course",
+    "description": "Navbar item with label Course"
+  },
+  "item.label.Community": {
+    "message": "Community",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.试用": {
+    "message": "试用",
+    "description": "Navbar item with label 试用"
+  },
+  "item.label.Contributor": {
+    "message": "Contributor",
+    "description": "Navbar item with label Contributor"
+  },
+  "item.label.文档": {
+    "message": "文档",
+    "description": "Navbar item with label 文档"
+  },
+  "item.label.社区": {
+    "message": "社区",
+    "description": "Navbar item with label 社区"
+  },
+  "item.label.贡献者": {
+    "message": "贡献者",
+    "description": "Navbar item with label 贡献者"
+  },
+  "item.label.活动": {
+    "message": "活动",
+    "description": "Navbar item with label 活动"
+  },
+  "item.label.赛事": {
+    "message": "赛事",
+    "description": "Navbar item with label 赛事"
+  },
+  "item.label.Resource": {
+    "message": "Resource",
+    "description": "Navbar item with label Resource"
+  },
+  "item.label.Package Manager": {
+    "message": "Package Manager",
+    "description": "Navbar item with label Package Manager"
+  },
+  "item.label.包管理": {
+    "message": "包管理",
+    "description": "Navbar item with label 包管理"
+  },
+  "item.label.Web IDE": {
+    "message": "Web IDE",
+    "description": "Navbar item with label Web IDE"
+  },
+  "item.label.Developer Survey 2024": {
+    "message": "Developer Survey 2024",
+    "description": "Navbar item with label Developer Survey 2024"
+  },
+  "item.label.2024年调查问卷": {
+    "message": "2024年调查问卷",
+    "description": "Navbar item with label 2024年调查问卷"
+  },
+  "item.label.Tour": {
+    "message": "Tour",
+    "description": "Navbar item with label Tour"
+  },
+  "item.label.导览": {
+    "message": "导览",
+    "description": "Navbar item with label 导览"
+  },
+  "item.label.Updates": {
+    "message": "Updates",
+    "description": "Navbar item with label Updates"
+  },
+  "item.label.Online Judge": {
+    "message": "Online Judge",
+    "description": "Navbar item with label Online Judge"
+  },
+  "item.label.在线评测": {
+    "message": "在线评测",
+    "description": "Navbar item with label 在线评测"
+  },
+  "item.label.MGPIC 2024": {
+    "message": "MGPIC 2024",
+    "description": "Navbar item with label MGPIC 2024"
+  },
+  "item.label.线上挑战赛": {
+    "message": "线上挑战赛",
+    "description": "Navbar item with label 线上挑战赛"
+  }
+}

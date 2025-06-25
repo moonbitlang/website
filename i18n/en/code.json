@@ -1,0 +1,589 @@
+{
+  "theme.NavBar.navAriaLabel": {
+    "message": "Main",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Close navigation bar",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← Back to main menu",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "This page crashed.",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.NotFound.title": {
+    "message": "Page Not Found",
+    "description": "The title of the 404 page"
+  },
+  "theme.NotFound.p1": {
+    "message": "We could not find what you were looking for.",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "Please contact the owner of the site that linked you to the original URL and let them know their link is broken.",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.admonition.note": {
+    "message": "note",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "tip",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.danger": {
+    "message": "danger",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "info",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.caution": {
+    "message": "caution",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.blog.archive.title": {
+    "message": "Archive",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "Archive",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "Scroll back to top",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "Blog list page navigation",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "Newer Entries",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "Older Entries",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "Blog post page navigation",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "Newer Post",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "Older Post",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.blog.post.plurals": {
+    "message": "One post|{count} posts",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "{nPosts} tagged with \"{tagName}\"",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "View All Tags",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "Switch between dark and light mode (currently {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "dark mode",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "light mode",
+    "description": "The name for the light color mode"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "Breadcrumbs",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "Docs pages",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "Previous",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "Next",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "One doc tagged|{count} docs tagged",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged} with \"{tagName}\"",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Version: {versionLabel}"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "This is unreleased documentation for {siteTitle} {versionLabel} version.",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "This is documentation for {siteTitle} {versionLabel}, which is no longer actively maintained.",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "For up-to-date documentation, see the {latestVersionLink} ({versionLabel}).",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "latest version",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "Direct link to {heading}",
+    "description": "Title for link to heading"
+  },
+  "theme.common.editThisPage": {
+    "message": "Edit this page",
+    "description": "The link label to edit the current page"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": " on {date}",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": " by {user}",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "Last updated{atDate}{byUser}",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "Versions",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "Tags:",
+    "description": "The label alongside a tag list"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "Close",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "Blog recent posts navigation",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Copied",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Copy code to clipboard",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Copy",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "Toggle word wrap",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "On this page",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Languages",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.blog.post.readMore": {
+    "message": "Read More",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "Read more about {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "One min read|{readingTime} min read",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "Home page",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "Collapse sidebar",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "Collapse sidebar",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Docs sidebar",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Try again",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "Skip to main content",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "Tags",
+    "description": "The title of the tag list page"
+  },
+  "home.feature.1": {
+    "message": "The Full-Product Collaborative Design"
+  },
+  "home.feature.1.1": {
+    "message": "The collaborative design of programming language, compiler, build system, and IDE ensures the integrity of the system, reduces component friction, and improves overall efficiency"
+  },
+  "home.feature.1.2": {
+    "message": "Generate significantly smaller WASM output than any existing solutions"
+  },
+  "home.feature.2": {
+    "message": "Programming Language"
+  },
+  "home.feature.2.1": {
+    "message": "Moonbit language designed specifically for WebAssembly. Provide multiple backends including JavaScript and Native"
+  },
+  "home.feature.2.2": {
+    "message": "Support multiple programming paradigm including functional and object oriented"
+  },
+  "home.feature.2.3": {
+    "message": "Simple yet practical type system, data oriented language design. Developer with any background can start immediately"
+  },
+  "home.feature.3": {
+    "message": "Compiler and build system"
+  },
+  "home.feature.3.1": {
+    "message": "State of art compile time performace"
+  },
+  "home.feature.3.2": {
+    "message": "Fast runtime performance using whole program optimizations"
+  },
+  "home.feature.3.3": {
+    "message": "Support incremental and parallel compilation, handle large-scale programming scenarios smoothly"
+  },
+  "home.feature.4": {
+    "message": "Integrated Development Environment"
+  },
+  "home.feature.4.1": {
+    "message": "Ultra fast response speed, get local development experience at cloud"
+  },
+  "home.feature.4.2": {
+    "message": "Develop in your favorite web browser with LSP implemented in JavaScript"
+  },
+  "home.highlight.before": {
+    "message": "Intelligent developer platform for "
+  },
+  "home.highlight1": {
+    "message": "Cloud"
+  },
+  "home.highlight.between": {
+    "message": " and "
+  },
+  "home.highlight2": {
+    "message": "Edge"
+  },
+  "home.highlight.end": {
+    "message": " using WASM."
+  },
+  "home.carousel.feature1": {
+    "message": "Fast"
+  },
+  "home.carousel.feature2": {
+    "message": "Compact"
+  },
+  "home.carousel.feature3": {
+    "message": "User Friendly"
+  },
+  "home.carousel.feature1.content": {
+    "message": "Build fast and run fast"
+  },
+  "home.carousel.feature2.content": {
+    "message": "Tiny wasm output, start up quickly and less attack surface"
+  },
+  "home.carousel.feature3.content": {
+    "message": "Easy to learn, easy to use without any installation"
+  },
+  "home.button1": {
+    "message": "Get Started"
+  },
+  "home.button2": {
+    "message": "Learn More"
+  },
+  "home.roadmap": {
+    "message": "Evolutionary direction & Product launching plan"
+  },
+  "playground.codesandbox.tetris.description": {
+    "message": "A traditional tetris game development in MoonBit using web canvas API. You can change the MoonBit code and see the result on the fly."
+  },
+  "playground.codesandbox.mario.description": {
+    "message": "A mario game development in MoonBit using web canvas API. You can change the MoonBit code and see the result on the fly."
+  },
+  "playground.codesandbox.sudoku.description": {
+    "message": "A sudoku solver written in MoonBit"
+  },
+  "theme.admonition.warning": {
+    "message": "warning",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Expand sidebar category '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Collapse sidebar category '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Toggle navigation bar",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "playground.codesandbox.snake.description": {
+    "message": "A snake game written in MoonBit"
+  },
+  "theme.NavbarItem.GithubButton.starUs": {
+    "message": "Star us"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} items",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "analysisAPI": {
+    "message": "https://www.googletagmanager.com/gtag/js?id=G-GQF4DFR4J3"
+  },
+  "analysisScript": {
+    "message": "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-GQF4DFR4J3');"
+  },
+  "page.contributor.contributors": {
+    "message": "Contributors"
+  },
+  "page.contributor.PR": {
+    "message": "Pull Requests"
+  },
+  "page.contributor.commit": {
+    "message": "Commits"
+  },
+  "page.contributor.title": {
+    "message": "Thanks to all MoonBit contributors"
+  },
+  "page.contributor.viewAllContributors": {
+    "message": "See them all in Github"
+  },
+  "home.learn-more-url": {
+    "message": "https://docs.moonbitlang.com"
+  },
+  "playground.codesandbox.wasm4snake.description": {
+    "message": "A snake game written in MoonBit using wasm4 game engine"
+  },
+  "theme.blog.author.pageTitle": {
+    "message": "{authorName} - {nPosts}",
+    "description": "The title of the page for a blog author"
+  },
+  "theme.blog.authorsList.pageTitle": {
+    "message": "Authors",
+    "description": "The title of the authors page"
+  },
+  "theme.blog.authorsList.viewAll": {
+    "message": "View all authors",
+    "description": "The label of the link targeting the blog authors page"
+  },
+  "theme.contentVisibility.unlistedBanner.title": {
+    "message": "Unlisted page",
+    "description": "The unlisted content banner title"
+  },
+  "theme.contentVisibility.unlistedBanner.message": {
+    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "description": "The unlisted content banner message"
+  },
+  "theme.contentVisibility.draftBanner.title": {
+    "message": "Draft page",
+    "description": "The draft content banner title"
+  },
+  "theme.contentVisibility.draftBanner.message": {
+    "message": "This page is a draft. It will only be visible in dev and be excluded from the production build.",
+    "description": "The draft content banner message"
+  },
+  "index.hero-section.span1": {
+    "message": "Next Generation"
+  },
+  "index.hero-section.span2": {
+    "message": " Coding Platform"
+  },
+  "index.hero-section.advantages": {
+    "message": "Fast, simple, and scale."
+  },
+  "index.get-started": {
+    "message": "Get Started"
+  },
+  "index.learn-more": {
+    "message": "Learn More"
+  },
+  "index.why-section.why-moonbit": {
+    "message": "Why MoonBit"
+  },
+  "index.docs-url": {
+    "message": "https://docs.moonbitlang.com"
+  },
+  "index.programming-language.title": {
+    "message": "Language Design"
+  },
+  "index.programming-language.advantage1": {
+    "message": "Expressive multi-paradigm design, combining the best of dynamic and static, functional and practical"
+  },
+  "index.programming-language.advantage2": {
+    "message": "Data-oriented language with a robust type system"
+  },
+  "index.programming-language.advantage3": {
+    "message": "Multiple backend support including WebAssembly, JavaScript and more."
+  },
+  "index.programming-language.button": {
+    "message": "Check Docs"
+  },
+  "index.ai.title": {
+    "message": "AI Integrated Platform"
+  },
+  "index.ai.advantage1": {
+    "message": "AI-friendly language design, featuring safe-guard, easy testing, minimizing LLM hallucinations."
+  },
+  "index.ai.advantage2": {
+    "message": "Built-in AI assistant, automating testing and documentation tasks, streamline your workflow."
+  },
+  "index.ai.advantage3": {
+    "message": "Intelligent code generation, with high accuracy and rapid response time. "
+  },
+  "index.cloud-ide.title": {
+    "message": "Cloud IDE"
+  },
+  "index.cloud-ide.advantage1": {
+    "message": "Ultra fast response speed, get local development experience at cloud"
+  },
+  "index.cloud-ide.advantage2": {
+    "message": "Develop in your favorite web browser with LSP implemented in JavaScript"
+  },
+  "index.cloud-ide.button": {
+    "message": "Try IDE"
+  },
+  "index.toolchain.title": {
+    "message": "Out-of-the-box Toolchain"
+  },
+  "index.toolchain.advantage1": {
+    "message": "Collaborative design across the language, compiler, build system, and IDE ensures system integrity, reduces friction, and boosts efficiency."
+  },
+  "index.toolchain.advantage2": {
+    "message": "State-of-the-art compile-time performance with fast runtime via whole-program optimizations."
+  },
+  "index.toolchain.advantage3": {
+    "message": "Supports incremental and parallel compilation for smooth large-scale programming. "
+  },
+  "index.toolchain.button": {
+    "message": "Try Now"
+  },
+  "index.course.title": {
+    "message": "Start with learning MoonBit's multi-paradigm language design and case study."
+  },
+  "index.course.button": {
+    "message": "Learn"
+  },
+  "index.plan.title": {
+    "message": "Timeline"
+  },
+  "index.plan1.1": {
+    "message": "Package manager"
+  },
+  "index.plan1.2": {
+    "message": "Core library open source"
+  },
+  "index.plan1.time": {
+    "message": "2024, Q1"
+  },
+  "index.plan2.1": {
+    "message": "Beta Preview release"
+  },
+  "index.plan2.2": {
+    "message": "Build system open source"
+  },
+  "index.plan2.time": {
+    "message": "2024, Q3"
+  },
+  "index.plan3.1": {
+    "message": "Compiler open source"
+  },
+  "index.plan3.time": {
+    "message": "2024, Q4"
+  },
+  "index.plan4.1": {
+    "message": "1.0 release"
+  },
+  "index.plan4.2": {
+    "message": "Async support"
+  },
+  "index.plan4.3": {
+    "message": "Embedded programming"
+  },
+  "index.plan4.time": {
+    "message": "2025"
+  },
+  "index.try-section.title": {
+    "message": "Your next AI cloud-native developer platform."
+  },
+  "index.try-section.button": {
+    "message": "Try Now"
+  },
+  "index.course-url": {
+    "message": "https://moonbitlang.github.io/moonbit-textbook/"
+  },
+  "theme.blog.author.noPosts": {
+    "message": "This author has not written any posts yet.",
+    "description": "The text for authors with 0 blog post"
+  },
+  "index.tour-url": {
+    "message": "https://tour.moonbitlang.com"
+  },
+  "index.update.title": {
+    "message": "News"
+  },
+  "index.cloud-ide.link": {
+    "message": "https://try.moonbitlang.com"
+  },
+  "index.language-tour": {
+    "message": "Language Tour"
+  },
+  "index.plan0.1": {
+    "message": "Initial release"
+  },
+  "index.plan0.time": {
+    "message": "2023.8.18"
+  },
+  "index.hero-section.span0": {
+    "message": ""
+  }
+}

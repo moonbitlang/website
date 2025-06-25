@@ -1,0 +1,36 @@
+{
+  "init": {
+    "prefix": "init",
+    "body": ["func init {", "\t${1}", "}"]
+  },
+
+  "init var": {
+    "prefix": "vv",
+    "body": ["var ${1:var_name} = ${2:value}"]
+  },
+
+  "anonymous func": {
+    "prefix": "fn",
+    "body": ["fn(${1:param_name}) {", "\t${2:body}", "}"]
+  },
+
+  "toplevel func": {
+    "prefix": "func",
+    "body": ["func ${1:function_name}(${2:param_name}) -> ${3:ReturnType} {", "\t${4:body}", "}"]
+  },
+
+  "struct": {
+    "prefix": "struct",
+    "body": ["struct ${1:TypeName} {", "\t${2:body}", "}"]
+  },
+
+  "enum": {
+    "prefix": "enum",
+    "body": ["enum ${1:TypeName} {", "\t${2:body}", "}"]
+  },
+
+  "while": {
+    "prefix": "while",
+    "body": ["while ${1:condition} {", "\t${2:body}", "}"]
+  }
+}

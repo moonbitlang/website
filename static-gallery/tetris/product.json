@@ -1,0 +1,26 @@
+{
+	"productConfiguration": {
+		"nameShort": "Code Web",
+		"nameLong": "Code Web",
+		"applicationName": "code-web",
+		"dataFolderName": ".vscode-web",
+		"version": "1.81.0",
+		"extensionEnabledApiProposals": {
+			"moonbit.my-ext": [
+				"fileSearchProvider",
+				"textSearchProvider"
+			]
+		}
+	},
+	"folderUri": {
+		"scheme": "memfs",
+		"path": "/app"
+	},
+	"additionalBuiltinExtensions": [
+		{
+			"scheme": "http",
+      "authority": "localhost:8080",
+			"path": "/extensions/my-ext"
+		}
+	]
+}

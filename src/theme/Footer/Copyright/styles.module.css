@@ -1,0 +1,24 @@
+.copyright-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.copyright-wrapper a {
+  color: var(--ifm-footer-color);
+}
+
+.beian {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.beian img {
+  display: block;
+}
+
+.beian div {
+  flex: 0 0 1rem;
+}

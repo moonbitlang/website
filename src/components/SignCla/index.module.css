@@ -1,0 +1,18 @@
+.button-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.check-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 12px;
+}

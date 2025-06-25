@@ -1,0 +1,340 @@
+---
+description: Writing tests with joy, MoonBit expect testing
+slug: expect-testing
+image: ./cover.jpg
+tags: [MoonBit]
+---
+
+import CodeBlock from '@theme/CodeBlock'
+
+# Writing tests with joy: MoonBit expect testing
+
+![cover](./cover.jpg)
+
+In the realm of software development, testing is an essential step to ensure quality and reliability. Therefore, testing tools play a critical role in this. The simpler and more user-friendly testing tools are, the more developers are willing to write. While manual testing has its place, the deciding and typing task can be painful enough that it actually discourages developers from writing tests.
+
+What is an efficient testing tool then? In the blog “_[What if writing tests was a joyful experience?](https://blog.janestreet.com/the-joy-of-expect-tests/)_”, James Somers introduces expect tests which make printing itself easy and save you from the daunting task of writing tests by hand.
+
+To address this need, the MoonBit standard library introduced the `inspect` function, which we call expect tests, aiding in rapid writing tests. MoonBit's expect testing improves testing experience even better than that of OCaml and [Rust](https://github.com/rust-analyzer/expect-test), as it operates independently without the need for any external dependencies, enabling direct testing out of the box.
+
+<!--truncate-->
+
+MoonBit is a Rust-like language (with GC support) and toolchain optimized for WebAssembly experience. Since its [launch in October 2022](https://www.moonbitlang.com/blog/first-announce), the [MoonBit platform](https://github.com/moonbitlang/moonbit-docs) is iterating so fast that we have shipped a full blown [Cloud IDE](https://try.moonbitlang.com/), compiler, [build system](https://www.moonbitlang.com/download/), [package manager](https://mooncakes.io/), and documentation generator.
+
+Let's explore how it works.
+
+
+### New `inspect` Function in MoonBit Standard Library
+
+Recently, the `inspect` function has added to the MoonBit standard library. The function enables us to write tests quickly.
+
+Ignoring position-related parameters, the signature of the `inspect` function is:
+
+```moonbit
+pub fn inspect(obj : Show, ~content: String = "")
+```
+
+`obj` here is any object that implements the `Show` interface. `~content` is an optional parameter representing the content we expect from `obj` after it is converted to a string. Sound a bit confusing? Let's first take a look at the basic usage of `inspect`.
+
+### Basic Usage
+
+First, let's use `moon new hello` to create a new project.
+At this point, the directory structure of the project is as follows:
+
+```moonbit
+.
+├── README.md
+├── lib
+│   ├── hello.mbt
+│   ├── hello_test.mbt
+│   └── moon.pkg.json
+├── main
+│   ├── main.mbt
+│   └── moon.pkg.json
+├── moon.mod.json
+```
+
+Open `lib/hello_test.mbt` and replace it with:
+
+```moonbit
+fn matrix(c: Char, n: Int) -> String {
+  let mut m = ""
+  for i = 0; i < n; i = i + 1 {
+    for j = 0; j < n; j = j + 1 {
+      m = m + c.to_string()
+    }
+    m += "\n"
+  }
+  m
+}
+```
+
+Here, the `matrix` function takes a character `c` and an integer `n` as parameters and generates an `n * n` sized character matrix.
+
+Next, add the following content:
+
+```moonbit
+test {
+  inspect(matrix('🤣', 3))?
+}
+```
+
+Open the terminal and execute the `moon test` command. The output is similar to the following:
+
+```moonbit
+Diff:
+----
+🤣🤣🤣
+🤣🤣🤣
+🤣🤣🤣
+
+----
+```
+
+This output shows the differences between the actual output of the `matrix` function and the `~content` parameter. Executing `moon test -u` or `moon test --update` will automatically update the test blocks in the `lib/hello_test.mbt` file to:
+
+```moonbit
+test {
+  inspect(matrix('🤣', 3), ~content=
+    #|🤣🤣🤣
+    #|🤣🤣🤣
+    #|🤣🤣🤣
+    #|
+  )?
+}
+```
+
+Let's change `n` to `4`，execute `moon test -u`, and the test blocks will automatically update to：
+
+```moonbit
+test {
+  inspect(matrix('🤣', 4), ~content=
+    #|🤣🤣🤣🤣
+    #|🤣🤣🤣🤣
+    #|🤣🤣🤣🤣
+    #|🤣🤣🤣🤣
+    #|
+  )?
+}
+```
+
+![1.gif](Redefining%20the%20future%20of%20testing%20expect%20testing%20in%20ed31179f33a146ae9604a2315eb4f11e/1.gif)
+
+### Exploring a more complex example
+
+Typically, after writing a function, unit testing is the next essential step. The simplest form of testing is assertion testing. MoonBit's standard library includes `@assertion.assert_eq`, a function that verifies the equality of two values. This makes test writing particularly straightforward when outcomes are predictable.
+
+Let's look at a more complicated example: how to test a function that calculates the nth term of the Fibonacci sequence.
+
+First, create a new file named `fib.mbt` in the `lib` directory, and paste the following content:
+
+```moonbit
+fn fib(n : Int) -> Int {
+  match n {
+    0 => 0
+    1 => 1
+    _ => fib(n - 1) + fib(n - 2)
+  }
+}
+```
+
+To ensure our implementation is correct, it's important to add some tests. Using assertion testing, how would we approach this task? For instance, to verify the outcome of `fib(10)` with an input of `10`, our test code would look something like this:
+
+<CodeBlock>
+  <span>test {'{'}</span> <br />
+  <span>  @assertion.<span style={{color: "rgb(215, 58, 73)"}}>assert_eq</span>(<span style={{color: "rgb(215, 58, 73)"}}>fib</span>(<span style={{color: "rgb(54, 172, 170)"}}>10</span>), <span style={{backgroundColor: "yellow"}}>???</span>)?</span> <br />
+  <span>}</span>
+</CodeBlock>
+
+When we write down this test, we may encounter a problem: we don't know what the expected value on the right side of `assert_eq` should be. We could calculate it manually on paper, or refer to a Fibonacci sequence reference list, or run our implemented `fib` function. Regardless of the method, we need to determine that the expected value of `fib(10)` is 55 to complete the writing of a test case.
+
+At this point, the content of the `lib/fib.mbt` file should be:
+
+```moonbit
+fn fib(n : Int) -> Int {
+  match n {
+    0 => 0
+    1 => 1
+    _ => fib(n - 1) + fib(n - 2)
+  }
+}
+
+test {
+  @assertion.assert_eq(fib(10), 55)?
+}
+```
+
+After running `moon test`, you can see the following output:
+
+<CodeBlock>Total tests: 2, passed: <span style={{color: "green", fontWeight: "bold"}}>2</span>, failed: 0. </CodeBlock>
+
+As we can observe, the feedback loop in this process is significantly extended. Generally, testing in this way tends to be less satisfying.
+
+For the `fib` example, it's relatively easy to find a correct value for reference. However, in most cases, the functions we want to test don't have other "truth tables" to refer to. What we need to do is to provide inputs to the function and then observe if its output matches our expectations. This pattern is so common that we've provided first-class support for this type of testing within the MoonBit toolchain. By using the `inspect` function, we only need to provide inputs, without the need to specify expected values.
+
+Next, let's write test cases for the `fib` function with inputs of 8, 9, and 10, using the `inspect` function. At this point, the content of the `lib/fib.mbt` file is as follows:
+
+```moonbit
+fn fib(n : Int) -> Int {
+  match n {
+    0 => 0
+    1 => 1
+    _ => fib(n - 1) + fib(n - 2)
+  }
+}
+
+test {
+  @assertion.assert_eq(fib(10), 55)?
+}
+
+test {
+  inspect(fib(8))?
+}
+
+test {
+  inspect(fib(9))?
+}
+
+test {
+  inspect(fib(10))?
+}
+```
+
+By executing
+
+```moonbit
+moon test
+```
+
+you can observe the differences between the actual output and the `~content` in the `inspect` function:
+
+<CodeBlock>
+<span>$ moon test</span><br />
+<span>test username/hello/lib/fib.mbt::0 failed</span><br />
+<span>expect test failed at path/to/lib/fib.mbt:10:3-10:18</span><br />
+<span>Diff:</span><br />
+<span>----</span><br />
+<span style={{color: "green", textDecoration: 'underline'}}>21</span><br />
+<span>----</span><br />
+<span></span><br />
+<span>test username/hello/lib/fib.mbt::1 failed</span><br />
+<span>expect test failed at path/to/lib/fib.mbt:14:3-14:18</span><br />
+<span>Diff:</span><br />
+<span>----</span><br />
+<span style={{color: "green", textDecoration: 'underline'}}>34</span><br />
+<span>----</span><br />
+<span></span><br />
+<span>test username/hello/lib/fib.mbt::2 failed</span><br />
+<span>expect test failed at path/to/lib/fib.mbt:18:3-18:19</span><br />
+<span>Diff:</span><br />
+<span>----</span><br />
+<span style={{color: "green", textDecoration: 'underline'}}>55</span><br />
+<span>----</span><br />
+</CodeBlock>
+
+Next, we shift our focus to confirming the correctness of this output. If we are confident that these outputs are correct, executing `moon test -u` will automatically update the respective test blocks within the `lib/fib.mbt` file to:
+
+```moonbit
+test {
+  inspect(fib(8), ~content="21")?
+}
+
+test {
+  inspect(fib(9), ~content="34")?
+}
+
+test {
+  inspect(fib(10), ~content="55")?
+}
+```
+
+![2.gif](Redefining%20the%20future%20of%20testing%20expect%20testing%20in%20ed31179f33a146ae9604a2315eb4f11e/2.gif)
+
+This approach of writing tests and then immediately receiving feedback can significantly enhance the pleasure of writing tests.
+
+Next, let's explore an example where modifying the function's behavior leads to a change in output.
+
+For example, to start the `fib` with `1` instead of `0`, we would initially modify the `0 => 0` line in the fib function to `0 => 1`.
+
+```moonbit
+fn fib(n : Int) -> Int {
+  match n {
+    0 => 1
+    1 => 1
+    _ => fib(n - 1) + fib(n - 2)
+  }
+}
+```
+
+Then, by executing `moon test`, we can see the expect test automatically displays the differences for us:
+
+<CodeBlock>
+<span>$ moon test</span><br/>
+<span>test username/hello/lib/fib.mbt::0 failed: FAILED:/Users/li/hello/lib/fib.mbt:10:3-10:36 `89 == 55`</span><br/>
+<span>test username/hello/lib/fib.mbt::1 failed</span><br/>
+<span>expect test failed at path/to/lib/fib.mbt:14:3-14:33</span><br/>
+<span>Diff:</span><br/>
+<span>----</span><br/>
+<span style={{color: 'red', textDecoration: 'underline'}}>21</span><span style={{color: 'green', textDecoration: 'underline' }}>34</span><br/>
+<span>----</span><br/>
+<span></span><br/>
+<span>test username/hello/lib/fib.mbt::2 failed</span><br/>
+<span>expect test failed at path/to/lib/fib.mbt:18:3-18:33</span><br/>
+<span>Diff:</span><br/>
+<span>----</span><br/>
+<span style={{color: 'red', textDecoration: 'underline'}}>34</span><span style={{color: 'green', textDecoration: 'underline'}}>55</span><br/>
+<span>----</span><br/>
+<span></span><br/>
+<span>test username/hello/lib/fib.mbt::3 failed</span><br/>
+<span>expect test failed at path/to/lib/fib.mbt:22:3-22:34</span><br/>
+<span>Diff:</span><br/>
+<span>----</span><br/>
+<span style={{color: 'red', textDecoration: 'underline'}}>55</span><span style={{color: 'green', textDecoration: 'underline'}}>89</span><br/>
+<span>----</span><br/>
+<span></span><br/>
+<span>Total tests: 5, passed: 1, failed: 4.</span><br/>
+</CodeBlock>
+
+In this case, the output shifts as expected, strongly indicating the correctness of the results. Therefore, executing `moon test -u` allows us to automatically update the test results.
+
+![3.gif](Redefining%20the%20future%20of%20testing%20expect%20testing%20in%20ed31179f33a146ae9604a2315eb4f11e/3.gif)
+
+Hold on! Why is there a failed test case after an automatic update?
+
+```moonbit
+Total tests: 5, passed: 4, failed: 1.
+```
+
+This happened because we forgot to modify the assertion test. Unlike expect tests, assertion tests do not update automatically. We need to manually change the corresponding test block in the assertion test to:
+
+```moonbit
+test {
+  @assertion.assert_eq(fib(10), 89)?
+}
+```
+
+This example also demonstrates that expect tests can work together with assertion tests.
+
+Re-executing the `moon test`, now we can see that all tests pass.
+
+```moonbit
+Total tests: 5, passed: 5, failed: 0.
+```
+
+Imagine if we had hundreds of assertion tests before; modifying them would be very cumbersome. By using expect tests, we can free ourselves from the tedious task of updating.
+
+### Conclusion
+
+Throughout this blog, we have introduced the performance of expect testing in MoonBit, showcasing their ability to significantly enhance the joy of testing by writing and getting immediate feedback. The examples presented above offer insights into how expect tests in MoonBit can transform test writing into a joyful experience. However, as MoonBit aims to enrich coding practices in practical contexts, we encourage you to experiment with our potent expect tests in bigger and more complicated scenarios. And the ability to do this in ordinary code means you can use it for a much wider set of applications.
+
+Additional resources:
+
+- [Get started with MoonBit](https://www.moonbitlang.com/download/).
+- Check out the [MoonBit Docs](https://github.com/moonbitlang/moonbit-docs).
+- [Join](https://discord.gg/5d46MfXkfZ) our Discord community.
+- Explore MoonBit programming projects in the MoonBit [Gallery](https://www.moonbitlang.com/gallery/).
+- MoonBit core is now open source for more feedback from daily users. Check out the [Contribution Guide](https://github.com/moonbitlang/core/blob/main/CONTRIBUTING.md) for more information on how to contribute.
+
+### Reference
+
+[https://blog.janestreet.com/the-joy-of-expect-tests/](https://blog.janestreet.com/the-joy-of-expect-tests/)

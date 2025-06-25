@@ -1,0 +1,168 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "moonbit",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#commentLine"
+    },
+    {
+      "include": "#constant"
+    },
+    {
+      "include": "#storage"
+    },
+    {
+      "include": "#support"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.moonbit",
+          "match": "\\b(if|while|break|continue|return|match|else|as)\\b"
+        },
+        {
+          "name": "keyword.moonbit",
+          "match": "\\b(fn|type|let|enum|struct|import|interface)\\b"
+        },
+        {
+          "name": "variable.language.moonbit",
+          "match": "\\b(self)\\b"
+        },
+        {
+          "name": "storage.modifier.moonbit",
+          "match": "\\b(mut|var|pub|priv|readonly)\\b"
+        },
+        {
+          "name": "keyword.operator.moonbit",
+          "match": "(:=|->|=>|\\+|-|\\*|%|==|!=|<=|>=|<|=|>|&&|\\|\\||\\bnot\\b)"
+        }
+      ]
+    },
+    "support": {
+      "patterns": [
+        {
+          "name": "support.type.moonbit",
+          "match": "@[A-Za-z][A-Za-z0-9_]*"
+        },
+        {
+          "name": "support.type.moonbit",
+          "match": "\\b(Int|Int64|Bool|Char|Double|String|Option|List|Array|Ref)\\b"
+        },
+        {
+          "name": "support.constant.moonbit",
+          "match": "\\b(Nil|Cons|Some|None)\\b"
+        },
+        {
+          "name": "support.class.moonbit",
+          "match": "\\b(Eq|Compare|Hash|Show|Default)\\b"
+        }
+      ]
+    },
+    "constant": {
+      "patterns": [
+        {
+          "name": "constant.numeric.moonbit",
+          "match": "\\b\\d(\\d|_)*(?!\\.)\\b"
+        },
+        {
+          "name": "constant.numeric.moonbit",
+          "match": "(?<=\\.)\\d((?=\\.)|\\b)"
+        },
+        {
+          "name": "constant.numeric.moonbit",
+          "match": "\\b\\d+(\\.)\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.moonbit",
+          "match": "\\b0[XxOoBb][\\dAaBbCcDdEeFf]+\\b"
+        },
+        {
+          "name": "constant.language.moonbit",
+          "match": "\\b(true|false|\\(\\))\\b"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "include": "#strings-double"
+        },
+        {
+          "include": "#strings-single"
+        }
+      ]
+    },
+    "strings-double": {
+      "name": "string.quoted.double.moonbit",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "match": "\\\\[0\\\\tnrb\"']",
+          "name": "constant.character.escape.moonbit"
+        },
+        {
+          "match": "\\\\u\\{[0-9a-fA-F]{1,8}\\}",
+          "name": "constant.character.escape.unicode.moonbit"
+        },
+        {
+          "begin": "\\\\\\(",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.section.embedded.begin.moonbit"
+            }
+          },
+          "contentName": "source.moonbit",
+          "end": "(\\))",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.section.embedded.end.moonbit"
+            },
+            "1": {
+              "name": "source.moonbit"
+            }
+          },
+          "name": "meta.embedded.line.moonbit",
+          "patterns": [
+            {
+              "include": "$self"
+            },
+            {
+              "begin": "\\(",
+              "comment": "Nested parens",
+              "end": "\\)"
+            }
+          ]
+        }
+      ]
+    },
+    "strings-single": {
+      "name": "string.quoted.single.moonbit",
+      "begin": "'",
+      "end": "'",
+      "patterns": [
+        {
+          "name": "constant.character.escape.moonbit",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "commentLine": {
+      "patterns": [
+        {
+          "name": "comment.line",
+          "match": "//.*"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.mbt"
+}

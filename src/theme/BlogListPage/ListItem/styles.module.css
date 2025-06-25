@@ -1,0 +1,16 @@
+.link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.hero a {
+  block-size: 12em;
+}
+
+@media screen and (min-width: 900px) {
+  .hero a {
+    block-size: 36em;
+  }
+}

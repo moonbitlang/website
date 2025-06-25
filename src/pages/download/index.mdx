@@ -1,0 +1,133 @@
+import Copyable from '@site/src/components/Copyable'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+:::note
+
+If you encounter any problems, please report them on [Github](https://github.com/moonbitlang/moonbit-docs) or in our [forum](https://discuss.moonbitlang.com/). Your feedback is greatly appreciated and helps us to improve!
+
+:::
+
+:::tip
+MoonBit Toolchain needs [git](https://git-scm.com/) to work properly. Please [install git](https://git-scm.com/downloads) first before installing MoonBit Toolchain
+:::
+
+## MoonBit Language plugin in Visual Studio Code
+
+You can install it from the [VS Code marketplace](https://marketplace.visualstudio.com/items?itemName=moonbit.moonbit-lang). This plugin provides a rich development environment for MoonBit, including functionalities like syntax highlighting, code completion, and more.
+
+### Instructions
+
+**Step 1:** Install the latest VS Code version.
+
+**Step 2:** Click Extension on the left, search "MoonBit" and install VS Code MoonBit extension.
+
+![Untitled](%E8%8B%B1%E6%96%87download%20edffb4230e6a47a49503239abeac4647/Untitled.png)
+
+![Untitled](%E8%8B%B1%E6%96%87download%20edffb4230e6a47a49503239abeac4647/Untitled%201.png)
+
+**Step 3:** Press the `shift+cmd+p` shortcut (for Mac, use `ctrl+shift+p` on Windows or Linux), and type `MoonBit:install latest moonbit toolchain`. Then a prompt will appear, click "Yes" and wait for the program to download.
+
+![Untitled](%E8%8B%B1%E6%96%87download%20edffb4230e6a47a49503239abeac4647/Untitled%202.png)
+
+**Step 4:** After the download is complete, restart vscode to make new `PATH` variable take effect.
+
+**Step 5:** Open the terminal and enter `moon new hello ; code hello` to create and open a new project.
+
+**Step 6:** Once the project is launched, open the terminal again and enter the `moon run src/main` command to start executing the code.
+
+## MoonBit CLI Tools
+
+To download and install MoonBit, run the following in your terminal, then follow the on-screen instructions.
+
+<Tabs>
+
+<TabItem value='linux-and-mac' label='Linux & macOS'>
+  <Copyable content='curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash' />
+</TabItem>
+
+<TabItem value='windows' label='Windows'>
+  <Copyable content='Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://cli.moonbitlang.com/install/powershell.ps1 | iex' />
+</TabItem>
+
+</Tabs>
+
+This command line tool is needed for creating and managing MoonBit projects.
+
+Use `moon help` to view the usage instructions.
+
+```
+$ moon help
+Moonbit's build system
+
+Usage: moon <COMMAND>
+
+Commands:
+  build     Build the current package
+  check     Check the current package, but don't build object files
+  run       Run WebAssembly module
+  clean     Remove the target directory
+  new       Create a new moonbit package
+  bench     Generate build matrix for benchmarking
+  fmt       Format moonbit
+  version   Print version info and exit
+  test      Run the tests
+  login     Log in to your account
+  register  Register an account on mooncakes.io
+  publish   Publish the current package
+  add       Add a new dependency
+  remove    Remove a dependency
+  tree      Display the dependency tree
+  update    Update index
+  doc       Generate documentation
+  install   Install dependencies
+  help      Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help  Print help
+
+```
+
+## Verifying binaries
+
+We provide `.sha256` file with SHA checksums for downloaded binaries and archive files.
+
+To download `.sha256` file using `curl` (or using `Invoke-WebRequest` on windows):
+
+<Tabs>
+
+<TabItem value='mac-m1' label='Apple Silicon MacOS'>
+  ```bash
+  curl -O -L https://cli.moonbitlang.com/binaries/latest/moonbit-darwin-aarch64.sha256 # SHA checksums for binaries
+  curl -O -L https://cli.moonbitlang.com/binaries/latest/moonbit-darwin-aarch64.tar.gz.sha256 # SHA checksums for archive files
+  ```
+</TabItem>
+
+<TabItem value='mac-intel' label='Intel MacOS'>
+  ```bash
+  curl -O -L https://cli.moonbitlang.com/binaries/latest/moonbit-darwin-x86_64.sha256 # SHA checksums for binaries
+  curl -O -L https://cli.moonbitlang.com/binaries/latest/moonbit-darwin-x86_64.tar.gz.sha256 # SHA checksums for archive files
+  ```
+</TabItem>
+
+<TabItem value='ubuntu' label='x86-64 Ubuntu 20.04'>
+  ```bash
+  curl -O -L https://cli.moonbitlang.com/binaries/latest/moonbit-linux-x86_64.sha256 # SHA checksums for binaries
+  curl -O -L https://cli.moonbitlang.com/binaries/latest/moonbit-linux-x86_64.tar.gz.sha256 # SHA checksums for archive files
+  ```
+</TabItem>
+
+<TabItem value='windows' label='Windows'>
+  ```bash
+  Invoke-WebRequest -Uri https://cli.moonbitlang.com/binaries/latest/moonbit-windows-x86_64.sha256 -OutFile moonbit-windows-x86_64.sha256 # SHA checksums for binaries
+  Invoke-WebRequest -Uri https://cli.moonbitlang.com/binaries/latest/moonbit-windows-x86_64.zip.sha256 -OutFile moonbit-windows-x86_64.zip.sha256 # SHA checksums for archive files
+  ```
+</TabItem>
+
+</Tabs>
+
+To check that the downloaded binaries match the checksums, run it through `sha256sum` with a command such as:
+
+```bash
+curl https://cli.moonbitlang.com/binaries/latest/moonbit-darwin-aarch64.sha256 | sha256sum -c -
+```

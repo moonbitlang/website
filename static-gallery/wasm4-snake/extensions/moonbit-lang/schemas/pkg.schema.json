@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JSON schema for Moonbit moon.pkg.json files",
+  "description": "A package in Moonbit lang",
+  "type": "object",
+  "definitions": {
+    "importSchema": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": {
+            "description": "Path and alias of an imported package",
+            "type": ["string", "null"]
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "alias": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false,
+                "minProperties": 2
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "properties": {
+    "name": {
+      "description": "Name of the package (Deprecated)",
+      "type": "string"
+    },
+    "is-main": {
+      "description": "Specify whether this package is a main package or not",
+      "type": "boolean",
+      "default": false
+    },
+    "import": {
+      "description": "Imported packages of the package",
+      "$ref": "#/definitions/importSchema"
+    },
+    "wbtest-import": {
+      "description": "White box test imported packages of the package",
+      "$ref": "#/definitions/importSchema"
+    },
+    "test-import": {
+      "description": "Black box test imported packages of the package",
+      "$ref": "#/definitions/importSchema"
+    },
+    "link": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "wasm": {
+              "type": "object",
+              "properties": {
+                "exports": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "export-memory-name": {
+                  "type": "string"
+                },
+                "flags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["-no-block-params"]
+                  }
+                },
+                "heap-start-address": {
+                  "type": "integer",
+                  "description": "The starting address of the heap"
+                },
+                "import-memory": {
+                  "type": "object",
+                  "properties": {
+                    "module": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["module", "name"],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "wasm-gc": {
+              "type": "object",
+              "properties": {
+                "exports": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "export-memory-name": {
+                  "type": "string"
+                },
+                "flags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["-no-block-params"]
+                  }
+                },
+                "import-memory": {
+                  "type": "object",
+                  "properties": {
+                    "module": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["module", "name"],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "js": {
+              "type": "object",
+              "properties": {
+                "exports": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "format": {
+                  "enum": ["esm", "cjs", "iife"]
+                }
+              },
+              "required": []
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "required": []
+}

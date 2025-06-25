@@ -1,0 +1,130 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #9e1084;
+  --ifm-color-primary-dark: #8e0e77;
+  --ifm-color-primary-darker: #860e70;
+  --ifm-color-primary-darkest: #6f0b5c;
+  --ifm-color-primary-light: #ae1291;
+  --ifm-color-primary-lighter: #b61298;
+  --ifm-color-primary-lightest: #cd15ac;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #e80ec0;
+  --ifm-color-primary-dark: #d10dad;
+  --ifm-color-primary-darker: #c50ca3;
+  --ifm-color-primary-darkest: #a20a86;
+  --ifm-color-primary-light: #f11dca;
+  --ifm-color-primary-lighter: #f229cd;
+  --ifm-color-primary-lightest: #f44cd5;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.hero__title {
+  font-size: 2.75rem;
+}
+
+.theme-announcement-bar {
+  font-size: 20px;
+
+  /*
+  --site-announcement-bar-stripe-color1: hsl(
+    var(--site-primary-hue-saturation) 85%
+  );
+  --site-announcement-bar-stripe-color2: hsl(
+    var(--site-primary-hue-saturation) 95%
+  );
+   */
+  --site-announcement-bar-stripe-color1: #e8d7ff;
+  --site-announcement-bar-stripe-color2: #ffe9d1;
+
+  background: repeating-linear-gradient(
+    35deg,
+    var(--site-announcement-bar-stripe-color1),
+    var(--site-announcement-bar-stripe-color1) 20px,
+    var(--site-announcement-bar-stripe-color2) 10px,
+    var(--site-announcement-bar-stripe-color2) 40px
+  );
+  font-weight: bold;
+}
+
+[data-theme='dark'] pre {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+[data-theme='dark'] pre span {
+  color: var(--shiki-dark) !important;
+}
+
+/* ===== Basic ===== */
+:root {
+  --shiki-lsif-border-color: var(--ifm-color-emphasis-200);
+  --shiki-lsif-popup-bg: var(--ifm-card-background-color);
+  --shiki-lsif-popup-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px;
+  --shiki-lsif-docs-color: var(--ifm-font-color-base);
+}
+
+:root {
+  --shiki-lsif-hover-bg: rgb(244, 249, 254);
+}
+
+[data-theme='dark'] {
+  --shiki-lsif-hover-bg: rgb(35, 43, 53);
+}
+
+.shiki-lsif {
+  line-height: 1.5em;
+}
+
+/* Respect people's wishes to not have animations */
+@media (prefers-reduced-motion: reduce) {
+  .shiki-lsif * {
+    transition: none !important;
+  }
+}
+
+.shiki-lsif .shiki-lsif-hover {
+  text-decoration: underline dashed var(--shiki-lsif-border-color);
+  text-underline-offset: 2px;
+}
+
+.shiki-lsif .shiki-lsif-hover:hover {
+  background-color: var(--shiki-lsif-hover-bg);
+}
+
+.shiki-lsif-hover-content.markdown {
+  background-color: var(--shiki-lsif-popup-bg);
+  border: 1px solid var(--shiki-lsif-border-color);
+  border-radius: 4px;
+  pointer-events: auto;
+  user-select: text;
+  text-align: left;
+  box-shadow: var(--shiki-lsif-popup-shadow);
+  max-width: 500px;
+  width: max-content;
+  white-space: normal;
+  padding: 6px 8px;
+  color: var(--shiki-lsif-docs-color);
+  line-height: 1.5;
+  display: none;
+}
+
+/* override default markdown styles for hover widget */
+
+.shiki-lsif-hover-content.markdown pre {
+  text-wrap: wrap !important;
+  padding: 6px 8px !important;
+}
+
+.shiki-lsif-hover-content.markdown pre > code {
+  white-space: pre-wrap !important;
+}

@@ -1,0 +1,131 @@
+import Copyable from '@site/src/components/Copyable'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+:::note
+
+如果遇到任何问题，请在Github或论坛上进行反馈。你的反馈非常重要，有助于我们改进！
+
+:::
+
+:::tip
+MoonBit工具链需要[git](https://git-scm.com/)以正确工作, 请在安装MoonBit工具链之前, 确保已经[安装git](https://git-scm.com/downloads)
+:::
+
+## VS Code MoonBit 插件
+
+为了提供更佳的开发体验，你可以在 [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=moonbit.moonbit-lang) 中安装 MoonBit 插件。此插件为 MoonBit 提供了丰富的开发环境，包括语法高亮、代码完成等功能。
+
+### 步骤
+
+**第 1 步:** 安装最新版本的 VS Code。
+
+**第 2 步:** 点击左侧的“扩展”，搜索“MoonBit”并安装 VS Code MoonBit 扩展。
+
+![Untitled](%E4%B8%AD%E6%96%87download%E9%A1%B5%E9%9D%A2%204101765ee0f44184b01526df04e07f6b/Untitled.png)
+
+![Untitled](%E4%B8%AD%E6%96%87download%E9%A1%B5%E9%9D%A2%204101765ee0f44184b01526df04e07f6b/Untitled%201.png)
+
+**第 3 步:** 按下`shift+cmd+p`快捷键（mac快捷键，windows和linux快捷键是`ctrl+shift+p`），输入 `MoonBit:install latest moonbit toolchain`，随后会出现提示框，点击“yes”，等待程序下载完成。
+
+![Untitled](%E4%B8%AD%E6%96%87download%E9%A1%B5%E9%9D%A2%204101765ee0f44184b01526df04e07f6b/Untitled%202.png)
+
+**第 4 步:** 下载完成后，重启vscode让`PATH`环境变量生效。
+
+**第 5 步:** 点击terminal，输入`moon new hello ; code hello`以创建并打开新项目。
+
+**第 6 步:** 项目启动后，再次打开terminal，输入`moon run src/main`命令，即可开始执行代码。
+
+## MoonBit CLI 工具
+
+如果你想下载 MoonBit，请在终端中执行以下指令，并按照屏幕提示进行操作。
+
+<Tabs>
+
+<TabItem value='linux-and-mac' label='Linux & macOS'>
+  <Copyable content='curl -fsSL https://cli.moonbitlang.cn/install/unix.sh | bash' />
+</TabItem>
+
+<TabItem value='windows' label='Windows'>
+  <Copyable content='Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://cli.moonbitlang.cn/install/powershell.ps1 | iex' />
+</TabItem>
+
+</Tabs>
+
+命令行工具是创建和管理 MoonBit 项目所必需的。要查看使用说明，请使用 `moon help` 命令。
+
+```
+$ moon help
+Moonbit's build system
+
+Usage: moon <COMMAND>
+
+Commands:
+  build     Build the current package
+  check     Check the current package, but don't build object files
+  run       Run WebAssembly module
+  clean     Remove the target directory
+  new       Create a new moonbit package
+  bench     Generate build matrix for benchmarking
+  fmt       Format moonbit
+  version   Print version info and exit
+  test      Run the tests
+  login     Log in to your account
+  register  Register an account on mooncakes.io
+  publish   Publish the current package
+  add       Add a new dependency
+  remove    Remove a dependency
+  tree      Display the dependency tree
+  update    Update index
+  doc       Generate documentation
+  install   Install dependencies
+  help      Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help  Print help
+
+```
+
+## 验证二进制文件
+
+我们提供含有下载二进制文件以及压缩包的SHA校验和的 `.sha256` 文件。
+
+使用`curl`（或者`Invoke-WebRequest`）下载`.sha256`文件：
+
+<Tabs>
+
+<TabItem value='mac-m1' label='Apple Silicon MacOS'>
+  ```bash
+  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-aarch64.sha256 # SHA checksums for binaries
+  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-aarch64.tar.gz.sha256 # SHA checksums for archive files
+  ```
+</TabItem>
+
+<TabItem value='mac-intel' label='Intel MacOS'>
+  ```bash
+  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-x86_64.sha256 # SHA checksums for binaries
+  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-x86_64.tar.gz.sha256 # SHA checksums for archive files
+  ```
+</TabItem>
+
+<TabItem value='ubuntu' label='x86-64 Ubuntu 20.04'>
+  ```bash
+  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-linux-x86_64.sha256 # SHA checksums for binaries
+  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-linux-x86_64.tar.gz.sha256 # SHA checksums for archive files
+  ```
+</TabItem>
+
+<TabItem value='windows' label='Windows'>
+  ```bash
+  Invoke-WebRequest -Uri https://cli.moonbitlang.cn/binaries/latest/moonbit-windows-x86_64.sha256 -OutFile moonbit-windows-x86_64.sha256 # SHA checksums for binaries
+  Invoke-WebRequest -Uri https://cli.moonbitlang.cn/binaries/latest/moonbit-windows-x86_64.zip.sha256 -OutFile moonbit-windows-x86_64.zip.sha256 # SHA checksums for archive files
+  ```
+</TabItem>
+
+</Tabs>
+
+为了验证下载的二进制文件和校验和匹配，你可以使用类似`sha256sum`这样的软件。例如：
+
+```bash
+curl https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-aarch64.sha256 | sha256sum -c -
+```

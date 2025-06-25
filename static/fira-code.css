@@ -1,0 +1,8 @@
+/* fira-code-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Fira Code';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/fira-code.ttf') format('truetype')
+}

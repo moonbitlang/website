@@ -1,0 +1,114 @@
+{
+  "link.title.Resources": {
+    "message": "资源",
+    "description": "The title of the footer links column with title=Resources in the footer"
+  },
+  "link.title.Toolchain": {
+    "message": "工具链",
+    "description": "The title of the footer links column with title=Toolchain in the footer"
+  },
+  "link.title.Support": {
+    "message": "支持",
+    "description": "The title of the footer links column with title=Support in the footer"
+  },
+  "link.item.label.Docs": {
+    "message": "Docs",
+    "description": "The label of footer link with label=Docs linking to https://docs.moonbitlang.com"
+  },
+  "link.item.label.Blog": {
+    "message": "Blog",
+    "description": "The label of footer link with label=Blog linking to /blog/"
+  },
+  "link.item.label.Weekly Updates": {
+    "message": "Weekly Updates",
+    "description": "The label of footer link with label=Weekly Updates linking to /weekly-updates/"
+  },
+  "link.item.label.Courses": {
+    "message": "Courses",
+    "description": "The label of footer link with label=Courses linking to https://moonbitlang.github.io/moonbit-textbook/"
+  },
+  "link.item.label.Gallery": {
+    "message": "Gallery",
+    "description": "The label of footer link with label=Gallery linking to /gallery/"
+  },
+  "link.item.label.文档": {
+    "message": "文档",
+    "description": "The label of footer link with label=文档 linking to https://docs.moonbitlang.cn"
+  },
+  "link.item.label.博客": {
+    "message": "博客",
+    "description": "The label of footer link with label=博客 linking to /blog/"
+  },
+  "link.item.label.每周动态": {
+    "message": "每周动态",
+    "description": "The label of footer link with label=每周动态 linking to /weekly-updates/"
+  },
+  "link.item.label.课程": {
+    "message": "课程",
+    "description": "The label of footer link with label=课程 linking to /course/"
+  },
+  "link.item.label.样例": {
+    "message": "样例",
+    "description": "The label of footer link with label=样例 linking to /gallery/"
+  },
+  "link.item.label.Cloud IDE": {
+    "message": "Cloud IDE",
+    "description": "The label of footer link with label=Cloud IDE linking to https://try.moonbitlang.com"
+  },
+  "link.item.label.Build System": {
+    "message": "Build System",
+    "description": "The label of footer link with label=Build System linking to https://moonbitlang.github.io/moon/"
+  },
+  "link.item.label.Package Manager": {
+    "message": "Package Manager",
+    "description": "The label of footer link with label=Package Manager linking to https://mooncakes.io/"
+  },
+  "link.item.label.云IDE": {
+    "message": "云IDE",
+    "description": "The label of footer link with label=云IDE linking to https://try.moonbitlang.cn"
+  },
+  "link.item.label.构建系统": {
+    "message": "构建系统",
+    "description": "The label of footer link with label=构建系统 linking to https://moonbitlang.github.io/moon/zh"
+  },
+  "link.item.label.包管理": {
+    "message": "包管理",
+    "description": "The label of footer link with label=包管理 linking to https://mooncakes.io/"
+  },
+  "link.item.label.Contact Us": {
+    "message": "Contact Us",
+    "description": "The label of footer link with label=Contact Us linking to mailto:support@moonbitlang.com"
+  },
+  "link.item.label.联系我们": {
+    "message": "联系我们",
+    "description": "The label of footer link with label=联系我们 linking to mailto:support@moonbitlang.com"
+  },
+  "copyright": {
+    "message": "Copyright © 2024 MoonBit",
+    "description": "The footer copyright"
+  },
+  "link.item.label.Tour": {
+    "message": "Tour",
+    "description": "The label of footer link with label=Tour linking to https://tour.moonbitlang.com"
+  },
+  "link.item.label.导览": {
+    "message": "导览",
+    "description": "The label of footer link with label=导览 linking to https://tour.moonbitlang.com"
+  },
+  "link.item.label.Updates": {
+    "message": "Updates",
+    "description": "The label of footer link with label=Updates linking to /weekly-updates/"
+  },
+  "link.item.label.动态": {
+    "message": "动态",
+    "description": "The label of footer link with label=动态 linking to /weekly-updates/"
+  },
+  "link.item.label.Online Judge": {
+    "message": "Online Judge",
+    "description": "The label of footer link with label=Online Judge linking to https://oj.moonbitlang.com"
+  },
+  "link.item.label.在线评测": {
+    "message": "在线评测",
+    "description": "The label of footer link with label=在线评测 linking to https://oj.moonbitlang.com"
+  }
+}

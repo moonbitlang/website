@@ -1,0 +1,40 @@
+@media screen and (min-wdith: 900px) {
+  .main {
+    margin-top: 5rem;
+  }
+
+  .section {
+    margin-bottom: 2rem;
+  }
+}
+
+.main {
+  max-width: var(--ifm-container-width);
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+.section {
+  margin-bottom: 4rem;
+}
+
+.cards {
+  display: grid;
+  gap: 2em;
+  grid-template-columns: 1fr;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 425px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+html[data-theme='dark'] .card__link {
+  color: white;
+}

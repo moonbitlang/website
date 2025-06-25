@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "moonbit-output",
+  "scopeName": "text.moonbit.output",
+  "patterns": [
+    {
+      "match": "(\\[INFO\\])(.*)",
+      "name": "moonbit-output.info",
+      "captures": {
+        "1": { "name": "token.info-token" },
+        "2": { "name": "string" }
+      }
+    },
+    {
+      "match": "(\\[ERROR\\])(.*)",
+      "name": "moonbit-output.error",
+      "captures": {
+        "1": { "name": "token.error-token" },
+        "2": { "name": "string" }
+      }
+    },
+    {
+      "match": "(\\[WARN\\])(.*)",
+      "name": "moonbit-output.error",
+      "captures": {
+        "1": { "name": "token.warn-token" },
+        "2": { "name": "string" }
+      }
+    }
+  ]
+}
