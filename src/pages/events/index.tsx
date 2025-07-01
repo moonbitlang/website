@@ -33,6 +33,7 @@ const meetuphaiwai12 = '/img/events/meetup-haiwai1-2.png'
 const ojcontest1 = '/img/events/oj-contest1.png'
 const ojcontest2 = '/img/events/oj-contest2.png'
 const ojcontest3 = '/img/events/oj-contest3.png'
+const creditStore = '/img/events/credit-store.png'
 
 type MeetUp = {
   title: string
@@ -112,6 +113,14 @@ const ojs: MeetUp[] = [
   }
 ]
 
+const events: MeetUp[] = [
+  {
+    title: 'MoonBit积分商城',
+    href: '/credit-store',
+    img: creditStore
+  }
+]
+
 export default function Page() {
   return (
     <Layout>
@@ -127,6 +136,22 @@ export default function Page() {
                 <a href={meetup.href} className={styles['card__link']}>
                   {meetup.title}
                 </a>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles['section']}>
+          <h1>MoonBit 活动</h1>
+          <div className={styles['cards']}>
+            {events.map((event) => (
+              <div key={event.href} className={styles['card']}>
+                <Link href={event.href} className={styles['card__image']}>
+                  <img src={event.img} alt={event.title} />
+                </Link>
+                <Link href={event.href} className={styles['card__link']}>
+                  {event.title}
+                </Link>
               </div>
             ))}
           </div>
