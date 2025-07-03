@@ -17,8 +17,9 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc --project .",
     "format": "prettier . --write",
-    "build-rehype-moonbit-markdown": "cd ./plugins/rehype-moonbit-markdown && pnpm i && pnpm build",
-    "postinstall": "pnpm data && pnpm build-rehype-moonbit-markdown && cp ./node_modules/@moonbit/moonpad-monaco/dist/moonc-worker.js ./static && cp ./node_modules/@moonbit/moonpad-monaco/dist/lsp-server.js ./static"
+    "build-shiki-lsif": "cd ./plugins/rehype-moonbit-markdown/packages/shiki-lsif && pnpm i && pnpm compile",
+    "build-rehype-moonbit-markdown": "cd ./plugins/rehype-moonbit-markdown/packages/rehype-moonbit-markdown && pnpm i && pnpm compile",
+    "postinstall": "pnpm data && pnpm build-shiki-lsif && pnpm build-rehype-moonbit-markdown && cp ./node_modules/@moonbit/moonpad-monaco/dist/moonc-worker.js ./static && cp ./node_modules/@moonbit/moonpad-monaco/dist/lsp-server.js ./static"
   },
   "dependencies": {
     "@docusaurus/core": "^3.8.1",

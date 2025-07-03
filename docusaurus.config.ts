@@ -23,8 +23,8 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import rehypeShiki, { RehypeShikiOptions } from '@shikijs/rehype'
 import { bundledLanguages, type BundledLanguage } from 'shiki'
-import moonbit from './moonbit.tmLanguage.json'
-import rehypeMoonbitMarkdown from './plugins/rehype-moonbit-markdown'
+import moonbit from './plugins/rehype-moonbit-markdown/packages/moonbit-tmlanguage/moonbit.tmLanguage.json'
+import rehypeMoonbitMarkdown from './plugins/rehype-moonbit-markdown/packages/rehype-moonbit-markdown'
 import type * as Preset from '@docusaurus/preset-classic'
 
 async function readExamples() {

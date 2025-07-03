@@ -1,0 +1,48 @@
+{
+  "name": "@moonbit/shiki-lsif",
+  "version": "0.0.1",
+  "description": "Semantic highlighter with Shiki and LSIF",
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit -p tsconfig.json",
+    "compile": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch",
+    "prepublish": "rm -rf dist && pnpm compile && cp ./snapshots/lsif.css ./ && cp ./snapshots/markdown.css ./",
+    "test": "pnpm compile && vitest",
+    "preview-snapshots": "serve -d test/snapshots"
+  },
+  "files": [
+    "dist",
+    "*.css"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./lsif.css": "./lsif.css",
+    "./markdown.css": "./markdown.css"
+  },
+  "bin": "./dist/cli.js",
+  "dependencies": {
+    "@moonbit/moonbit-tmlanguage": "workspace:^",
+    "@vscode/lsif-protocol": "0.6.0-next.8",
+    "commander": "^14.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^3.6.0",
+    "unified": "^11.0.5",
+    "vscode-languageserver-protocol": "^3.17.5",
+    "vscode-languageserver-textdocument": "^1.0.12",
+    "vscode-uri": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.4",
+    "serve": "^14.2.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0"
+}

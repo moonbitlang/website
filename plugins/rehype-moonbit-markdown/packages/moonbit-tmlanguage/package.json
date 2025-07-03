@@ -1,0 +1,27 @@
+{
+  "name": "@moonbit/moonbit-tmlanguage",
+  "version": "0.0.1",
+  "description": "MoonBit TextMate Language Grammar",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./moonbit.tmLanguage.json": "./moonbit.tmLanguage.json"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "moonbit.tmLanguage.json"
+  ],
+  "keywords": [
+    "moonbit",
+    "textmate",
+    "grammar",
+    "syntax"
+  ],
+  "author": "",
+  "license": "Apache-2.0"
+}

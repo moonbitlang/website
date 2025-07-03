@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es6",
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "moduleResolution": "nodenext",
-    "module": "NodeNext",
-    "noEmit": true
+    "moduleResolution": "node16",
+    "module": "node16",
+    "declaration": true
   }
 }

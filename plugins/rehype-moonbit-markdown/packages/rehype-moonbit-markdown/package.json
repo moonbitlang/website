@@ -1,0 +1,41 @@
+{
+  "name": "@moonbit/rehype-moonbit-markdown",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "check": "tsc --noEmit -p tsconfig.json",
+    "compile": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch",
+    "prepublish": "rm -rf dist && pnpm compile"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@moonbit/moonbit-tmlanguage": "workspace:^",
+    "@moonbit/shiki-lsif": "workspace:^",
+    "hast-util-to-string": "^3.0.1",
+    "shiki": "^3.6.0",
+    "tmp": "^0.2.3",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.4",
+    "@types/tmp": "^0.2.6",
+    "typescript": "^5.8.3"
+  }
+}

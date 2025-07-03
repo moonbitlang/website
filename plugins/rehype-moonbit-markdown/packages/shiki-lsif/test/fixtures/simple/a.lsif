@@ -1,0 +1,20 @@
+{"id":1,"type":"vertex","label":"metaData","version":"0.6.0","positionEncoding":"utf-16"}
+{"id":2,"type":"vertex","label":"source","workspaceRoot":"file:///Users/baozhiyuan/Workspace/landing-page/plugins/rehype-moonbit-markdown/packages/shiki-lsif/test/fixtures/simple"}
+{"id":3,"type":"vertex","label":"project","kind":"moonbit","contents":"ewogICJuYW1lIjogInVzZXJuYW1lL2hlbGxvIiwKICAidmVyc2lvbiI6ICIwLjEuMCIsCiAgInJlYWRtZSI6ICJSRUFETUUubWQiLAogICJyZXBvc2l0b3J5IjogIiIsCiAgImxpY2Vuc2UiOiAiQXBhY2hlLTIuMCIsCiAgImtleXdvcmRzIjogW10sCiAgImRlc2NyaXB0aW9uIjogIiIsCiAgInNvdXJjZSI6ICJzcmMiCn0="}
+{"id":4,"type":"vertex","label":"capabilities","hoverProvider":true,"declarationProvider":false,"definitionProvider":false,"typeDefinitionProvider":false,"referencesProvider":false,"documentSymbolProvider":false,"foldingRangeProvider":false,"diagnosticsProvider":false}
+{"contents":"Zm4gbWFpbiB7CiAgcHJpbnRsbihAbGliLmhlbGxvKCkpCn0K","id":5,"type":"vertex","label":"document","uri":"file:///Users/baozhiyuan/Workspace/landing-page/plugins/rehype-moonbit-markdown/packages/shiki-lsif/test/fixtures/simple/src/main/main.mbt","languageId":"moonbit"}
+{"id":6,"type":"vertex","label":"range","start":{"line":1,"character":10},"end":{"line":1,"character":20}}
+{"id":7,"type":"vertex","label":"hoverResult","result":{"range":{"start":{"line":1,"character":10},"end":{"line":1,"character":20}},"contents":["```moonbit\n() -> String\n```"]}}
+{"id":8,"type":"edge","label":"textDocument/hover","outV":6,"inVs":[7]}
+{"id":9,"type":"vertex","label":"range","start":{"line":1,"character":2},"end":{"line":1,"character":9}}
+{"id":10,"type":"vertex","label":"hoverResult","result":{"range":{"start":{"line":1,"character":2},"end":{"line":1,"character":9}},"contents":["```moonbit\n(input : String) -> Unit\n```","\n Prints any value that implements the `Show` trait to the standard output,\n followed by a newline.\n\n Parameters:\n\n * `value` : The value to be printed. Must implement the `Show` trait.\n\n Example:\n\n ```moonbit skip\n   println(42)\n   println(\"Hello, World!\")\n   println([1, 2, 3])\n ```"]}}
+{"id":11,"type":"edge","label":"textDocument/hover","outV":9,"inVs":[10]}
+{"id":12,"type":"edge","label":"contains","outV":5,"inVs":[6,9]}
+{"contents":"cHViIGZuIGhlbGxvKCkgLT4gU3RyaW5nIHsKICAiSGVsbG8sIHdvcmxkISIKfQo=","id":13,"type":"vertex","label":"document","uri":"file:///Users/baozhiyuan/Workspace/landing-page/plugins/rehype-moonbit-markdown/packages/shiki-lsif/test/fixtures/simple/src/lib/hello.mbt","languageId":"moonbit"}
+{"id":14,"type":"vertex","label":"range","start":{"line":0,"character":7},"end":{"line":0,"character":12}}
+{"id":15,"type":"vertex","label":"hoverResult","result":{"range":{"start":{"line":0,"character":7},"end":{"line":0,"character":12}},"contents":["```moonbit\n() -> String\n```"]}}
+{"id":16,"type":"edge","label":"textDocument/hover","outV":14,"inVs":[15]}
+{"id":17,"type":"vertex","label":"range","start":{"line":0,"character":18},"end":{"line":0,"character":24}}
+{"id":18,"type":"vertex","label":"hoverResult","result":{"range":{"start":{"line":0,"character":18},"end":{"line":0,"character":24}},"contents":["```moonbit\nString\n```"]}}
+{"id":19,"type":"edge","label":"textDocument/hover","outV":17,"inVs":[18]}
+{"id":20,"type":"edge","label":"contains","outV":13,"inVs":[14,17]}

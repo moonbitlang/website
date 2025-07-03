@@ -15,68 +15,19 @@
  */
 
 import * as shiki from 'shiki'
-import * as fs from 'node:fs'
-import * as fsp from 'node:fs/promises'
-import * as readline from 'node:readline'
 import * as lsif from '@vscode/lsif-protocol'
 import * as textdocument from 'vscode-languageserver-textdocument'
 import * as hast from 'hast'
 import * as unified from 'unified'
 import * as vscodeuri from 'vscode-uri'
-import * as path from 'node:path/posix'
+import * as path from 'path'
 import * as lsp from 'vscode-languageserver-protocol'
-import defaultLsifStyle from './lsif.css'
-import defaultMarkdownStyle from './markdown.css'
-import moonbit from '../../../moonbit.tmLanguage.json'
+import * as lsifDb from './lsif-db.js'
+import moonbit from '@moonbit/moonbit-tmlanguage'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core'
-
-function comparePosition(p1: lsp.Position, p2: lsp.Position): number {
-  return p1.line - p2.line === 0
-    ? p1.character - p2.character
-    : p1.line - p2.line
-}
-
-function compareRange(r1: lsp.Range, r2: lsp.Range, uri?: lsif.Uri): number {
-  const start = comparePosition(r1.start, r2.start)
-  if (start !== 0) return start
-  const end = comparePosition(r1.end, r2.end)
-  if (end === 0 && uri) {
-    // console.error("Warning: equal range", uri, r1, r2);
-  }
-  return end
-}
-
-function html(title: string, style: string, code: string): string {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title}</title>
-  <style>${style}</style>
-</head>
-<body>
-  ${code}
-</body>
-</html>`
-}
-
-interface Vertices {
-  all: Map<lsif.Id, lsif.Vertex>
-  documents: Map<lsif.Id, lsif.Document>
-  ranges: Map<lsif.Id, lsif.Range>
-}
-
-interface Out {
-  contains: Map<lsif.Id, lsif.Document[] | lsif.Range[]>
-  hover: Map<lsif.Id, lsif.HoverResult>
-}
-
-interface In {
-  contains: Map<lsif.Id, lsif.Document>
-}
+import * as util from './util.js'
 
 interface HoverResult {
   contents: string[]
@@ -107,30 +58,23 @@ interface Document {
 
 type LsifHighlighterOption = {
   lineNumber: boolean
-  lsifStyle: string
-  markdownStyle: string
+  themes: {
+    light: string
+    dark: string
+  }
+}
+
+type highlightAllResult = {
+  relativePath: string
+  code: string
+  style: string
 }
 
 export class LsifHighlighter {
-  private _source: lsif.Source | undefined
-  private _project: lsif.Project | undefined
-  private documents: Map<lsif.Uri, Document> = new Map()
-  private vertices: Vertices = {
-    all: new Map(),
-    documents: new Map(),
-    ranges: new Map()
-  }
-  private in: In = {
-    contains: new Map()
-  }
-  private out: Out = {
-    contains: new Map(),
-    hover: new Map()
-  }
+  private db: lsifDb.LsifDb = new lsifDb.LsifDb()
   static shikiHighlighter: shiki.Highlighter | undefined
   private _unified: unified.Processor | undefined
   private option: LsifHighlighterOption
-  private customCss: string = ''
   private hoverNodesCache: Map<lsif.Uri, HoverNode[]> = new Map()
 
   private get highlighter(): shiki.Highlighter {
@@ -147,191 +91,57 @@ export class LsifHighlighter {
     return this._unified
   }
 
-  private get source(): lsif.Source {
-    if (this._source === undefined) {
-      throw new Error('Source not initialized')
-    }
-    return this._source
-  }
-
-  constructor(option?: Partial<LsifHighlighterOption>) {
+  private constructor(option?: Partial<LsifHighlighterOption>) {
     this.option = {
       lineNumber: true,
-      lsifStyle: defaultLsifStyle,
-      markdownStyle: defaultMarkdownStyle,
+      themes: {
+        light: 'light-plus',
+        dark: 'dark-plus'
+      },
       ...option
     }
   }
 
-  private processVertex(vertex: lsif.Vertex): void {
-    this.vertices.all.set(vertex.id, vertex)
-    switch (vertex.label) {
-      case lsif.VertexLabels.document:
-        const contents =
-          vertex.contents !== undefined
-            ? Buffer.from(vertex.contents, 'base64').toString('utf-8')
-            : 'No content provided'
-        const textDocument = textdocument.TextDocument.create(
-          vertex.uri,
-          '',
-          0,
-          contents
-        )
-        this.documents.set(vertex.uri, { id: vertex.id, textDocument })
-        this.vertices.documents.set(vertex.id, { ...vertex, contents })
-        break
-      case lsif.VertexLabels.range:
-        this.vertices.ranges.set(vertex.id, vertex)
-        break
-      case lsif.VertexLabels.source:
-        this._source = vertex
-        break
-      case lsif.VertexLabels.project:
-        this._project = vertex
-        break
-    }
-  }
-
-  private processEdge(edge: lsif.Edge): void {
-    if (lsif.Edge.is11(edge)) {
-      this.doProcessEdge(edge.label, edge.outV, edge.inV)
-    } else if (lsif.Edge.is1N(edge)) {
-      for (const inV of edge.inVs) {
-        this.doProcessEdge(edge.label, edge.outV, inV)
-      }
-    }
-  }
-
-  private doProcessEdge(
-    label: lsif.EdgeLabels,
-    outV: lsif.Id,
-    inV: lsif.Id
-  ): void {
-    const from = this.vertices.all.get(outV)
-    const to = this.vertices.all.get(inV)
-    if (from === undefined || to === undefined) {
-      throw new Error('Edge references unknown vertices')
-    }
-
-    switch (label) {
-      case lsif.EdgeLabels.contains: {
-        let values = this.out.contains.get(from.id)
-        if (values === undefined) {
-          values = [to as any]
-          this.out.contains.set(from.id, values)
-        } else {
-          values.push(to as any)
-        }
-        this.in.contains.set(to.id, from as any)
-        break
-      }
-      case lsif.EdgeLabels.textDocument_hover: {
-        this.out.hover.set(from.id, to as lsif.HoverResult)
-        break
-      }
-    }
-  }
-
-  public async load(filePath: string, customCssPath?: string): Promise<void> {
+  public static async init(
+    lsifPath: string,
+    option: Partial<LsifHighlighterOption> = {}
+  ): Promise<LsifHighlighter> {
+    const highlighter = new LsifHighlighter(option)
     if (!LsifHighlighter.shikiHighlighter) {
       LsifHighlighter.shikiHighlighter = await shiki.createHighlighter({
-        langs: [moonbit],
-        themes: ['one-light', 'one-dark-pro'],
+        langs: [moonbit as any],
+        themes: [
+          highlighter.option.themes.light,
+          highlighter.option.themes.dark
+        ],
         langAlias: {
           mbt: 'moonbit'
         }
       })
     }
-    if (customCssPath)
-      this.customCss = await fsp.readFile(customCssPath, 'utf-8')
-    this._unified = unified
+    highlighter._unified = unified
       .unified()
       .use(remarkParse)
       .use(remarkRehype)
       .use(rehypeShikiFromHighlighter, LsifHighlighter.shikiHighlighter, {
-        themes: {
-          light: 'one-light',
-          dark: 'one-dark-pro'
-        },
+        themes: highlighter.option.themes,
         defaultLanguage: 'moonbit'
       }) as unknown as unified.Processor
 
-    return new Promise((resolve, reject) => {
-      const input = fs.createReadStream(filePath, { encoding: 'utf8' })
-      input.on('error', reject)
-      const lines = readline.createInterface(input)
-      lines.on('line', (line) => {
-        if (!line || line.length === 0) {
-          return
-        }
-        try {
-          const element: lsif.Edge | lsif.Vertex = JSON.parse(line)
-          switch (element.type) {
-            case lsif.ElementTypes.vertex:
-              this.processVertex(element)
-              break
-            case lsif.ElementTypes.edge:
-              this.processEdge(element)
-          }
-        } catch (e) {
-          input.destroy()
-          reject(e)
-        }
-      })
-      lines.on('close', () => {
-        resolve()
-      })
-    })
+    await highlighter.db.load(lsifPath)
+    return highlighter
   }
 
   private getHoverNodes(uri: lsif.Uri): HoverNode[] {
+    const document = this.db.getDocument(uri)
+    if (document === undefined) {
+      throw new Error(`Document ${uri} not found`)
+    }
     const cached = this.hoverNodesCache.get(uri)
     if (cached) {
       return cached
     }
-    const document = this.documents.get(uri)
-    if (document === undefined) {
-      throw new Error(`Document ${uri} not found`)
-    }
-    const ranges = this.out.contains.get(document.id) as
-      | lsif.Range[]
-      | undefined
-
-    if (ranges === undefined) {
-      return []
-    }
-
-    const hoverResults: HoverResult[] = []
-
-    for (const r of ranges) {
-      const hoverResult = this.out.hover.get(r.id)
-      if (hoverResult === undefined) continue
-      const result = hoverResult.result
-      const range = result.range === undefined ? r : result.range
-      let contents: string[] = []
-      if (lsp.MarkupContent.is(result.contents)) {
-        contents.push(result.contents.value)
-      } else if (lsp.MarkedString.is(result.contents)) {
-        contents.push(
-          typeof result.contents === 'string'
-            ? result.contents
-            : result.contents.value
-        )
-      } else if (Array.isArray(result.contents)) {
-        for (const content of result.contents) {
-          contents.push(typeof content === 'string' ? content : content.value)
-        }
-      }
-      if (range.end.line > range.start.line) {
-        console.error(
-          'Warning: hover range spans multiple lines, skip rendering'
-        )
-        continue
-      }
-      hoverResults.push({ contents, range })
-    }
-
-    hoverResults.sort((a, b) => compareRange(a.range, b.range, uri))
+    const hoverResults = this.db.getHoverResult(uri)
 
     const hoverNodes: HoverNode[] = []
 
@@ -370,20 +180,16 @@ export class LsifHighlighter {
 
     // 2. sort positions
 
-    if (uri.endsWith('main.mbt')) {
-      debugger
-    }
-
     positions.sort((a, b) => {
-      const cmp = comparePosition(a, b)
+      const cmp = util.comparePosition(a, b)
       if (cmp !== 0) return cmp
       if (a.kind === 'start' && b.kind === 'start') {
-        return -comparePosition(a.result.range.end, b.result.range.end)
+        return -util.comparePosition(a.result.range.end, b.result.range.end)
       }
       if (a.kind === 'start' && b.kind === 'end') return 1
       if (a.kind === 'end' && b.kind === 'start') return -1
       if (a.kind === 'end' && b.kind === 'end') {
-        return -comparePosition(a.result.range.start, b.result.range.start)
+        return -util.comparePosition(a.result.range.start, b.result.range.start)
       }
       return 0
     })
@@ -410,9 +216,6 @@ export class LsifHighlighter {
       }
     }
 
-    function positionEquals(a: lsp.Position, b: lsp.Position): boolean {
-      return comparePosition(a, b) === 0
-    }
     for (const position of positions) {
       if (startPositionStack.length === 0) {
         if (position.kind === 'start') {
@@ -423,13 +226,13 @@ export class LsifHighlighter {
       } else {
         if (position.kind === 'start') {
           const start = startPositionStack.at(-1)!
-          if (!positionEquals(start, position)) {
+          if (util.comparePosition(start, position) !== 0) {
             hoverNodes.push(makeHoverNode(document, start, position))
           }
           startPositionStack.push(position)
         } else {
           const start = startPositionStack.pop()!
-          if (!positionEquals(start, position)) {
+          if (util.comparePosition(start, position) !== 0) {
             hoverNodes.push(makeHoverNode(document, start, position))
           }
           if (startPositionStack.length > 0) {
@@ -450,7 +253,7 @@ export class LsifHighlighter {
   }
 
   public highlightDocumentToHast(uri: string): hast.Root {
-    const document = this.documents.get(uri)
+    const document = this.db.getDocument(uri)
     if (document === undefined) {
       throw new Error(`Document ${uri} not found`)
     }
@@ -463,16 +266,13 @@ export class LsifHighlighter {
     )
     return this.highlighter.codeToHast(content, {
       lang: 'moonbit',
-      themes: {
-        light: 'one-light',
-        dark: 'one-dark-pro'
-      },
+      themes: this.option.themes,
       transformers: [transformer]
     })
   }
 
-  private highlightDocument(uri: string): string {
-    const document = this.documents.get(uri)
+  public highlightDocumentToHtml(uri: string): { style: string; code: string } {
+    const document = this.db.getDocument(uri)
     if (document === undefined) {
       throw new Error(`Document ${uri} not found`)
     }
@@ -484,19 +284,14 @@ export class LsifHighlighter {
       this.option,
       this.unified
     )
-    const uriPath = vscodeuri.URI.parse(uri).path
-    const title = path.basename(uriPath)
     const code = this.highlighter.codeToHtml(content, {
       lang: 'moonbit',
-      themes: {
-        light: 'one-light',
-        dark: 'one-dark-pro'
-      },
+      themes: this.option.themes,
       transformers: [transformer]
     })
-    let styles = [this.option.lsifStyle, this.option.markdownStyle]
+    let style = ''
     if (this.option.lineNumber) {
-      styles.push(`
+      style = `
 .line-number {
   width: ${lineCount.toString().length * 0.75}em;
   margin-right: 1.5em;
@@ -504,35 +299,30 @@ export class LsifHighlighter {
   text-align: right;
   color: #6e7681;
 }
-`)
+`
     }
-    if (this.customCss) {
-      styles.push(this.customCss)
-    }
-    return html(title, styles.join('\n'), code)
+    return { style, code }
   }
 
-  public async highlight(output: string) {
-    let rootPath = vscodeuri.URI.parse(this.source.workspaceRoot).path
-    if (this._project) {
-      if (this._project.kind === 'moonbit' && this._project.contents) {
+  public highlightAll(): highlightAllResult[] {
+    let rootPath = vscodeuri.URI.parse(this.db.source.workspaceRoot).path
+    if (this.db.project) {
+      if (this.db.project.kind === 'moonbit' && this.db.project.contents) {
         const moonModJson = JSON.parse(
-          Buffer.from(this._project.contents, 'base64').toString('utf-8')
+          Buffer.from(this.db.project.contents, 'base64').toString('utf-8')
         )
         if (moonModJson.source) {
           rootPath = path.join(rootPath, moonModJson.source)
         }
       }
     }
-    const promises: Promise<void>[] = []
-    for (const uri of this.documents.keys()) {
+    const results: highlightAllResult[] = []
+    for (const uri of this.db.getAllDocumentUris()) {
       const docPath = vscodeuri.URI.parse(uri).path
       const relativePath = path.relative(rootPath, docPath)
-      const outputPath = path.join(output, relativePath + '.html')
-      const html = this.highlightDocument(uri)
-      promises.push(writeTo(outputPath, html))
+      results.push({ relativePath, ...this.highlightDocumentToHtml(uri) })
     }
-    await Promise.all(promises)
+    return results
   }
 }
 
@@ -701,12 +491,4 @@ function createShikiTransformer(
       lineEl.children = newChildren
     }
   }
-}
-
-async function writeTo(filePath: string, content: string) {
-  const dir = path.dirname(filePath)
-  if (!fs.existsSync(filePath)) {
-    await fsp.mkdir(dir, { recursive: true })
-  }
-  await fsp.writeFile(filePath, content)
 }

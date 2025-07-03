@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import * as shikiLsif from './lsif'
+import * as shikiLsif from '@moonbit/shiki-lsif'
 import * as fsp from 'fs/promises'
 import * as tmp from 'tmp'
 import * as cp from 'child_process'
@@ -24,7 +24,7 @@ import * as path from 'path'
 import * as unistUtilVisit from 'unist-util-visit'
 import * as hastUtilToString from 'hast-util-to-string'
 import * as shiki from 'shiki'
-import moonbit from '../../../moonbit.tmLanguage.json'
+import moonbit from '@moonbit/moonbit-tmlanguage'
 import type * as hast from 'hast'
 import type * as unified from 'unified'
 
@@ -58,8 +58,10 @@ async function moonbitCodeToLineHast(content: string): Promise<hast.Element[]> {
   cp.execSync(
     `moondoc '${tempMbtFile}' -std-path '${stdpath}' -lsif -o '${tempLsifFile}'`
   )
-  const lsifHighlighter = new shikiLsif.LsifHighlighter({ lineNumber: false })
-  await lsifHighlighter.load(tempLsifFile, undefined)
+  const lsifHighlighter = await shikiLsif.LsifHighlighter.init(tempLsifFile, {
+    lineNumber: false,
+    themes: { light: 'one-light', dark: 'one-dark-pro' }
+  })
   const hast: hast.Root = lsifHighlighter.highlightDocumentToHast(tempMbtUri)
   const codeLines: hast.Element[] = []
   unistUtilVisit.visit(hast, 'element', (node) => {
@@ -127,7 +129,7 @@ function isMoonbitCheckCode(element: hast.Element): boolean {
   if (!Array.isArray(className)) return false
   const isMoonbit =
     className.includes('language-moonbit') || className.includes('language-mbt')
-  return !element.data?.meta && isMoonbit
+  return !(element.data as any)?.meta && isMoonbit
 }
 
 function collectMoonbitCode(tree: hast.Root): string {
@@ -168,7 +170,7 @@ async function shikiHighlighter(): Promise<shiki.Highlighter> {
   if (highlighter) return highlighter
   highlighter = await shiki.createHighlighter({
     themes: ['one-light', 'one-dark-pro'],
-    langs: Object.keys(shiki.bundledLanguages).concat(moonbit),
+    langs: Object.keys(shiki.bundledLanguages).concat(moonbit as any),
     langAlias: {
       mbt: 'moonbit'
     }

@@ -40,7 +40,7 @@
   background-color: rgb(244, 249, 254);
 }
 
-.shiki-lsif .markdown-body {
+.shiki-lsif .markdown {
   position: absolute;
   display: none;
   background: var(--shiki-lsif-popup-bg);
@@ -63,17 +63,17 @@
   line-height: 1.5;
 }
 
-.shiki-lsif .shiki-lsif-hover:hover .markdown-body {
+.shiki-lsif .shiki-lsif-hover:hover .markdown {
   display: block;
 }
 
 /* override default markdown styles for hover widget */
 
-.shiki-lsif .markdown-body pre {
+.shiki-lsif .markdown pre {
   text-wrap: wrap !important;
   padding: 0 !important;
 }
 
-.shiki-lsif .markdown-body pre > code {
+.shiki-lsif .markdown pre > code {
   white-space: pre-wrap !important;
 }
