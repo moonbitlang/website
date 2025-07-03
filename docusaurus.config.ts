@@ -133,7 +133,8 @@ export default async (): Promise<Config> => {
           blogSidebarCount: 'ALL',
           blogSidebarTitle: 'All posts',
           onUntruncatedBlogPosts: 'ignore',
-          rehypePlugins: [rehypeMoonbitMarkdown]
+          remarkPlugins: [math],
+          rehypePlugins: [katex, rehypeMoonbitMarkdown]
         } satisfies BlogOptions
       ]
     ],
@@ -444,15 +445,15 @@ export default async (): Promise<Config> => {
     },
 
     stylesheets: [
-      // {
-      //   href: isZh
-      //     ? 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.13.24/katex.min.css'
-      //     : 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
-      //   type: 'text/css',
-      //   integrity:
-      //     'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
-      //   crossorigin: 'anonymous'
-      // },
+      {
+        href: isZh
+          ? 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.13.24/katex.min.css'
+          : 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+        type: 'text/css',
+        integrity:
+          'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+        crossorigin: 'anonymous'
+      },
       '/fira-code.css'
     ],
     customFields: {
