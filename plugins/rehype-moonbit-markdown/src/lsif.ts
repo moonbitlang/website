@@ -236,7 +236,10 @@ export class LsifHighlighter {
     if (!LsifHighlighter.shikiHighlighter) {
       LsifHighlighter.shikiHighlighter = await shiki.createHighlighter({
         langs: [moonbit],
-        themes: ['one-light', 'one-dark-pro']
+        themes: ['one-light', 'one-dark-pro'],
+        langAlias: {
+          mbt: 'moonbit'
+        }
       })
     }
     if (customCssPath)

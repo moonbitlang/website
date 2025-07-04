@@ -168,7 +168,10 @@ async function shikiHighlighter(): Promise<shiki.Highlighter> {
   if (highlighter) return highlighter
   highlighter = await shiki.createHighlighter({
     themes: ['one-light', 'one-dark-pro'],
-    langs: Object.keys(shiki.bundledLanguages).concat(moonbit)
+    langs: Object.keys(shiki.bundledLanguages).concat(moonbit),
+    langAlias: {
+      mbt: 'moonbit'
+    }
   })
   return highlighter
 }

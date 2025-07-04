@@ -48,7 +48,10 @@ const rehypeShikiPlugin = [
       light: 'one-light',
       dark: 'one-dark-pro'
     },
-    langs: [moonbit, ...Object.keys(bundledLanguages)] as BundledLanguage[]
+    langs: [moonbit, ...Object.keys(bundledLanguages)] as BundledLanguage[],
+    langAlias: {
+      mbt: 'moonbit'
+    }
   } satisfies RehypeShikiOptions
 ] as const
 

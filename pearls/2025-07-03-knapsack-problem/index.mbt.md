@@ -105,7 +105,7 @@ Note that we use `unsafe_maximum` instead of `maximum` because we're taking the 
 Now let's implement the enumeration step.Suppose `all_combinations` takes a list of items and returns a list of combinations, each representing a possible subset of those items.
 If this seems unclear at first, we can begin by looking at the definition of the list structure, which looks roughly like this:
 
-```moombit
+```mbt skip
 enum List[A] {
   Empty
   More(A, tail~ : List[A])
