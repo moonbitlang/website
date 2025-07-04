@@ -48,6 +48,7 @@ cd moon
 git reset --hard "$MOON_VERSION"
 cargo build --release
 cp target/release/moon "$BIN_DIR"
+cp target/release/moonrun "$BIN_DIR"
 ```
 
 *   Copy the corresponding files to the `$HOME/.moon/bin` directory
