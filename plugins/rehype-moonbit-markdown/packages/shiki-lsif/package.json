@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/hast": "^3.0.4",
+    "@types/node": "^24.0.10",
     "serve": "^14.2.4",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
