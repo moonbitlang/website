@@ -1,0 +1,19 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  package-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - run: |
+          cd plugins/rehype-moonbit-markdown
+          pnpm i
+          pnpm publish --access public --no-git-checks -r
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
