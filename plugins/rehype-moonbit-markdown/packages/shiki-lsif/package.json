@@ -1,13 +1,13 @@
 {
   "name": "@moonbit/shiki-lsif",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Semantic highlighter with Shiki and LSIF",
   "type": "module",
   "scripts": {
     "check": "tsc --noEmit -p tsconfig.json",
     "compile": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json --watch",
-    "prepublish": "rm -rf dist && pnpm compile && cp ./snapshots/lsif.css ./ && cp ./snapshots/markdown.css ./",
+    "prepublish": "rm -rf dist && pnpm compile && cp ./test/snapshots/lsif.css ./ && cp ./test/snapshots/markdown.css ./",
     "test": "pnpm compile && vitest",
     "preview-snapshots": "serve -d test/snapshots"
   },
@@ -26,6 +26,7 @@
   "bin": "./dist/cli.js",
   "dependencies": {
     "@moonbit/moonbit-tmlanguage": "workspace:^",
+    "@shikijs/rehype": "^3.7.0",
     "@vscode/lsif-protocol": "0.6.0-next.8",
     "commander": "^14.0.0",
     "remark-parse": "^11.0.0",
@@ -42,7 +43,13 @@
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "shiki",
+    "lsif",
+    "markdown",
+    "syntax highlighting",
+    "semantic highlighting"
+  ],
+  "author": "moonbit",
   "license": "Apache-2.0"
 }

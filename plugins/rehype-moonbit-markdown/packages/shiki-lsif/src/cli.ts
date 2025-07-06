@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as commander from 'commander'
 import * as lsifHighlighter from './index.js'
 import * as path from 'path'

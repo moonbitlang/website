@@ -21,8 +21,14 @@
   "files": [
     "dist"
   ],
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "shiki",
+    "rehype",
+    "markdown",
+    "syntax highlighting",
+    "semantic highlighting"
+  ],
+  "author": "moonbit",
   "license": "Apache-2.0",
   "dependencies": {
     "@moonbit/moonbit-tmlanguage": "workspace:^",

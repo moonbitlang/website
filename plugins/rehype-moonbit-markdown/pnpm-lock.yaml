@@ -47,6 +47,9 @@ importers:
       '@moonbit/moonbit-tmlanguage':
         specifier: workspace:^
         version: link:../moonbit-tmlanguage
+      '@shikijs/rehype':
+        specifier: ^3.7.0
+        version: 3.7.0
       '@vscode/lsif-protocol':
         specifier: 0.6.0-next.8
         version: 0.6.0-next.8
@@ -354,6 +357,9 @@ packages:
 
   '@shikijs/langs@3.7.0':
     resolution: {integrity: sha512-1zYtdfXLr9xDKLTGy5kb7O0zDQsxXiIsw1iIBcNOO8Yi5/Y1qDbJ+0VsFoqTlzdmneO8Ij35g7QKF8kcLyznCQ==}
+
+  '@shikijs/rehype@3.7.0':
+    resolution: {integrity: sha512-YjAZxhQnBXE8ehppKGzuVGPoE4pjVsxqzkWhBZlkP495AjlR++MgfiRFcQfDt3qX5lK3gEDTcghB/8E3yNrWqQ==}
 
   '@shikijs/themes@3.7.0':
     resolution: {integrity: sha512-VJx8497iZPy5zLiiCTSIaOChIcKQwR0FebwE9S3rcN0+J/GTWwQ1v/bqhTbpbY3zybPKeO8wdammqkpXc4NVjQ==}
@@ -1348,6 +1354,15 @@ snapshots:
   '@shikijs/langs@3.7.0':
     dependencies:
       '@shikijs/types': 3.7.0
+
+  '@shikijs/rehype@3.7.0':
+    dependencies:
+      '@shikijs/types': 3.7.0
+      '@types/hast': 3.0.4
+      hast-util-to-string: 3.0.1
+      shiki: 3.7.0
+      unified: 11.0.5
+      unist-util-visit: 5.0.0
 
   '@shikijs/themes@3.7.0':
     dependencies:
