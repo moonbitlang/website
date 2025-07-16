@@ -436,8 +436,18 @@ export default async (): Promise<Config> => {
                 locale: ['en']
               },
               {
+                label: 'About Us',
+                to: '/about-us',
+                locale: ['en']
+              },
+              {
                 label: '联系我们',
                 to: 'mailto:support@moonbitlang.com',
+                locale: ['zh']
+              },
+              {
+                label: '关于我们',
+                to: '/about-us',
                 locale: ['zh']
               }
             ]

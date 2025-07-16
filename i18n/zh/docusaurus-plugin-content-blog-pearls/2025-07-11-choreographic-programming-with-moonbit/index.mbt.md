@@ -1,5 +1,5 @@
 ---
-description: '用MoonBit探索协同式编程'
+description: 'MoonBit Pearls Vol.04: 用MoonBit探索协同式编程'
 slug: choreographic-programming-with-moonbit
 image: cover.png
 moonbit:
@@ -9,7 +9,7 @@ moonbit:
   backend: wasm-gc
 ---
 
-# 用MoonBit探索协同式编程
+# MoonBit Pearls Vol.04: 用MoonBit探索协同式编程
 
 ![](./cover.png)
 

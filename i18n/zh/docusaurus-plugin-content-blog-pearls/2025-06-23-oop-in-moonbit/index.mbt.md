@@ -1,12 +1,12 @@
 ---
-description: 'MoonBit中的面向对象编程'
+description: 'MoonBit Pearls Vol.02：MoonBit中的面向对象编程'
 slug: oop-in-moonbit
 image: cover.png
 tags: [MoonBit, Pearls]
 authors: 刘子悦
 ---
 
-# MoonBit中的面向对象编程
+# MoonBit Pearls Vol.02：MoonBit中的面向对象编程
 
 ![alt text](./cover.png)
 

@@ -1,11 +1,11 @@
 ---
-description: 01 Knapsack Problem
+description: MoonBit Pearls Vol.03：01 knapsack problem
 slug: knapsack-problem
 image: cover.png
 tags: [MoonBit, Pearls]
 ---
 
-# 01 Knapsack Problem
+# MoonBit Pearls Vol.03：01 knapsack problem
 
 ![](./cover.png)
 

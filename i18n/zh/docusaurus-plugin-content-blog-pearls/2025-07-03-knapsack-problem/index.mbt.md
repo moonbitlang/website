@@ -1,11 +1,11 @@
 ---
-description: '01背包问题'
+description: 'MoonBit Pearls Vol.03：01背包问题'
 slug: knapsack-problem
 image: cover.png
 tags: [MoonBit, Pearls]
 ---
 
-# 01背包问题
+# MoonBit Pearls Vol.03：01背包问题
 
 ![](./cover.png)
 
