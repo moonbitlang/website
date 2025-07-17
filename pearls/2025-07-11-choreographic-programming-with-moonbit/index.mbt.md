@@ -24,7 +24,7 @@ MoonBit's ​**​functional programming features**​​ and ​​**powerful t
 
 This article demonstrates the core concepts and basic usage of choreographic programming using MoonBit's moonchor library through several examples.
 
-# Guided Tour: Bookstore Application
+## Guided Tour: Bookstore Application
 
 Let's examine a bookstore application involving two roles: Buyer and Seller. The core logic is as follows:
 
@@ -34,7 +34,7 @@ Let's examine a bookstore application involving two roles: Buyer and Seller. The
 4. If the buyer decides to purchase, the seller deducts the book from inventory and sends the estimated delivery date to the buyer.
 5. Otherwise, the interaction terminates.
 
-## Traditional Implementation
+### Traditional Implementation
 
 Here, we focus on core logic rather than implementation details, using `send` and `recv` functions to represent message passing. In the traditional approach, we need to develop two separate applications for buyer and seller. We assume the following helper functions and types exist:
 
@@ -111,7 +111,7 @@ These two implementations suffer from at least the following issues:
 
 The root cause of these problems lies in splitting what should be a unified coordination logic into two separate implementations based on implementation requirements. Next, we'll examine how choreographic programming addresses these issues.
 
-## moonchor Implementation
+### moonchor Implementation
 
 With choreographic programming, we can write the buyer's and seller's logic in **the same function**, which then exhibits **different behaviors** with different parameters when called. We use moonchor's API to define the buyer and seller roles. In moonchor, roles are defined as `trait Location`. To provide better static properties, roles are not only values but also unique types that need to implement the `Location` trait.
 
@@ -174,7 +174,7 @@ Next, the buyer needs to send the book title to the seller, which we implement u
 
 Moving forward, the seller queries the database to get the book price. At this step we use the `unwrapper` parameter passed to the `ctx.locally` closure. This parameter is an object for unpacking Located types, whose type signature also includes a role type parameter. We can understand how it works by examining the signature of `Unwrapper::unwrap`: `fn[T, L] Unwrapper::unwrap(_ : Unwrapper[L], v : Located[T, L]) -> T`. This means in `ctx.locally(buyer, unwrapper => ...)`, `unwrapper` has type `Unwrapper[Buyer]`, while `title_at_seller` has type `Located[String, Seller]`, so `unwrapper.unwrap(title_at_seller)` yields a result of type `String`. This explains why we can use `title_at_seller` in the closure but not `title_at_buyer`.
 
-## Knowledge of Choice
+### Knowledge of Choice
 
 Explicit synchronization in the subsequent process is critical. We need a dedicated section to explain that. In choreographic programming, this synchronization is referred to as Knowledge of Choice. In the example above, the buyer needs to know whether to purchase the book, and the seller needs to know the buyer's decision. We use `ctx.broadcast` to implement this functionality.
 
@@ -182,7 +182,7 @@ The first parameter of `ctx.broadcast` is the sender's role, and the second para
 
 As the name suggests, `ctx.broadcast` serves to broadcast a value throughout the entire choreography. It can broadcast not just `Bool` types but any other type as well. Its results can be applied not only to `if` conditions but also to `while` loops or any other scenarios requiring common knowledge.
 
-## Launch Code
+### Launch Code
 
 How does such a choreography run? moonchor provides the `run_choreo` function to launch a choreography. Currently, due to MoonBit's multi-backend feature, providing stable, portable TCP servers and cross-process communication interfaces presents challenges. Therefore, we'll use coroutines and channels to explore the actual execution process of choreographies. The complete launch code is as follows:
 
@@ -196,11 +196,11 @@ test "Blog: bookshop" {
 
 The above code launches two coroutines that execute the same choreography at the buyer and seller respectively. This can also be understood as the `bookshop` function being projected (also called _EPP_, endpoint projection) into two completely different versions: the "buyer version" and "seller version". In this example, the first parameter of `run_choreo` is a `Backend` type object that provides the underlying communication mechanism required for choreographic programming. We use the `make_local_backend` function to create a local backend (not to be confused with MoonBit's multi-backend mentioned earlier), which can run in local processes using the channel API provided by `peter-jerry-ye/async/channel` as the communication foundation. In the future, moonchor will provide more backend implementations, such as HTTP.
 
-# API and Partial Principles
+## API and Partial Principles
 
 We have gained a preliminary understanding of choreographic programming and moonchor. Next, we will formally introduce the APIs we've used along with some unused ones, while explaining some of their underlying principles.
 
-## Roles
+### Roles
 
 In moonchor, we define roles by implementing the `Location` trait. The trait is declared as follows:
 
@@ -230,7 +230,7 @@ impl @moonchor.Location for DynamicBuyer with name(self) {
 }
 ```
 
-## Located Values
+### Located Values
 
 Since values located at different roles may coexist in a choreography, we need a way to distinguish which role each value is located at. In moonchor, this is represented by the `Located[T, L]` type, indicating a value of type `T` located at role `L`.
 
@@ -244,7 +244,7 @@ type Unwrapper[L]
 
 To use a `Located Value`, we employ the `unwrap` method of the `Unwrapper` object. These concepts have already been demonstrated in the bookstore application example and won't be elaborated further here.
 
-## Local Computation
+### Local Computation
 
 The most common API we've seen in examples is `ChoreoContext::locally`, which is used to perform a local computation at a specific role. Its signature is as follows:
 
@@ -262,7 +262,7 @@ fn[T, L : Location] locally(
 
 This API executes the `computation` closure at the specified `location` role and wraps the result as a `Located Value`. The `computation` closure takes a single parameter - an unwrapper object of type `Unwrapper[L]`, which is used within the closure to unpack `Located[T, L]` values into `T` types. This API binds computation results to specific roles, ensuring values can only be used at their designated roles. Attempting to use a value at another role or process values from different roles with this unwrapper will trigger compiler errors.
 
-## Communication
+### Communication
 
 The `ChoreoContext::comm` API handles value transmission between roles. Its declaration is as follows:
 
@@ -283,7 +283,7 @@ Sending and receiving typically require serialization and deserialization. In mo
 
 `ChoreoContext::comm` has three type parameters: the message type to send, plus the sender and receiver role types `From` and `To`. These two role types correspond exactly to the method's `from` parameter, `to` parameter, as well as the `value` parameter and return value type. This ensures type safety during message (de)serialization between sender and receiver, and guarantees send/receive operations are properly paired, preventing accidental deadlocks.
 
-## Broadcast
+### Broadcast
 
 When needing to share a value among multiple roles, we use the `ChoreoContext::broadcast` API to have a role broadcast a value to all other roles. Its signature is as follows:
 
@@ -304,7 +304,7 @@ The broadcast API is similar to the communication API, with two key differences:
 
 These characteristics reveal broadcast's purpose: enabling all roles to access the same value, allowing operations on this value at the choreography's top level rather than being confined within `ChoreoContext::locally`. For example, in the bookstore case, both buyer and seller need consensus on the purchase decision to ensure subsequent processes remain synchronized.
 
-## Backend and Execution
+### Backend and Execution
 
 The API for running a choreography is as follows:
 
@@ -334,11 +334,11 @@ fn make_local_backend(locations: Array[&Location]) -> Backend {
 
 This function establishes communication channels between all roles specified in the parameters, providing concrete communication implementations - namely the `send` and `recv` methods. The local backend can only be used for monolithic concurrent programs rather than true distributed applications. Well, the backend is pluggable: With other backends implemented based on stable network communication APIs, moonchor can easily be used to build distributed programs.
 
-# (Optional Reading) Case Study: Multi-Replica KVStore
+## (Optional Reading) Case Study: Multi-Replica KVStore
 
 In this section, we'll explore a more complicated case study - implementing a multi-replica KVStore using moonchor. We'll still only use moonchor's core APIs while fully leveraging MoonBit's generics and first-class functions. Our goal is to explore how MoonBit's powerful expressiveness can enhance choreographic programming functionalities.
 
-## Basic Implementation
+### Basic Implementation
 
 First, let's prepare by defining two roles: Client and Server:
 
@@ -475,7 +475,7 @@ test "kvstore v1" {
 
 This program stores two numbers 42 and 41 under "key1" and "key2" respectively, then retrieves these values from the server and verifies their sum equals 83. If any request returns None or the calculation result isn't 83, the program will panic.
 
-## Double Replication
+### Double Replication
 
 Now, let's enhance the KVStore with fault tolerance. The simplest approach is to create a backup replica that maintains identical data to the primary replica, while performing consistency checks during `Get` requests.
 
@@ -587,7 +587,7 @@ test "kvstore 2.0" {
 }
 ```
 
-## Abstracting Replication Strategy with Higher-Order Functions
+### Abstracting Replication Strategy with Higher-Order Functions
 
 During the double replication implementation, we encountered **coupled code** where server request processing, backup requests, and consistency checking were intertwined.
 
@@ -697,7 +697,7 @@ test "kvstore 3.0" {
 }
 ```
 
-## Implementing Role-Polymorphism Through Parametric Polymorphism
+### Implementing Role-Polymorphism Through Parametric Polymorphism
 
 To implement new replication strategies like triple replication, we need to define two new `Backup` types for differentiation:
 
@@ -808,6 +808,6 @@ test "kvstore 4.0" {
 
 With this, we've completed the multi-replica KVStore implementation. Throughout this example, we never manually used any `send` or `recv` to express distributed node interactions. Instead, we leveraged moonchor's choreographic programming capabilities to handle all communication and synchronization processes, avoiding potential type errors, deadlocks, and explicit synchronization issues.
 
-# Conclusion
+## Conclusion
 
-In this article, we've explored the elegance of choreographic programming through moonchor while witnessing MoonBit's powerful expressiveness. For deeper insights into choreographic programming, you may refer to Haskell's library [HasChor](https://github.com/gshen42/HasChor), the [Choral language](https://www.choral-lang.org), or [moonchor 的源码](https://github.com/Milky2018/moonchor). To try moonchor yourself, simply install it via the command `moon add Milky2018/moonchor@0.15.0`.
+In this article, we've explored the elegance of choreographic programming through moonchor while witnessing MoonBit's powerful expressiveness. For deeper insights into choreographic programming, you may refer to Haskell's library [HasChor](https://github.com/gshen42/HasChor), the [Choral language](https://www.choral-lang.org), or [moonchor source code](https://github.com/Milky2018/moonchor). To try moonchor yourself, simply install it via the command `moon add Milky2018/moonchor@0.15.0`.
