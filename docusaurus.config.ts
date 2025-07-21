@@ -294,6 +294,10 @@ export default async (): Promise<Config> => {
               {
                 href: '/2024-mgpic',
                 label: '2024 MoonBit 编程挑战赛'
+              },
+              {
+                href: '/2025-mgpic',
+                label: '2025 MoonBit 编程挑战赛'
               }
             ]
           },

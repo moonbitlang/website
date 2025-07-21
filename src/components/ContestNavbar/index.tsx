@@ -24,7 +24,7 @@ type ContestNavbarItem = {
   isActive?: boolean
 }
 
-const items: ContestNavbarItem[] = [
+export const items2024: ContestNavbarItem[] = [
   { name: '总章程', href: '/2024-mgpic' },
   { name: '编程语言赛道', href: '/2024-mgpic-compiler' },
   { name: '游戏赛道', href: '/2024-mgpic-game' },
@@ -38,23 +38,35 @@ const items: ContestNavbarItem[] = [
   }
 ]
 
+export const items2025: ContestNavbarItem[] = [
+  { name: '总章程', href: '/2025-mgpic' },
+  { name: '编程语言赛道', href: '/2025-mgpic-compiler' },
+  { name: '游戏赛道', href: '/2025-mgpic-game' }
+]
+
 export default function ContestNavbar({
-  activeIndex
+  activeIndex,
+  items,
+  qqGroup = true
 }: {
   activeIndex: number
+  items: ContestNavbarItem[]
+  qqGroup?: boolean
 }) {
   return (
     <nav className={styles['navbar']}>
-      <div className={styles['qq-group']}>
-        <div className={styles['qq-group__card']}>
-          <img src='/img/contest/qq-group.jpg' alt='' />
-          <div className={styles['qq-group__text']}>
-            大赛官方QQ群
-            <br />
-            914387051
+      {qqGroup && (
+        <div className={styles['qq-group']}>
+          <div className={styles['qq-group__card']}>
+            <img src='/img/contest/qq-group.jpg' alt='' />
+            <div className={styles['qq-group__text']}>
+              大赛官方QQ群
+              <br />
+              914387051
+            </div>
           </div>
         </div>
-      </div>
+      )}
       {items.map((item, i) => (
         <div
           key={item.name}

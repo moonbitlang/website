@@ -16,7 +16,7 @@
 
 import Layout from '@theme/Layout'
 import styles from './styles.module.css'
-import ContestNavbar from '@site/src/components/ContestNavbar'
+import ContestNavbar, { items2024 } from '@site/src/components/ContestNavbar'
 
 export default function Page() {
   return (
@@ -37,7 +37,7 @@ export default function Page() {
           </section>
         </div>
         <div className={styles['section-wrapper']}>
-          <ContestNavbar activeIndex={0} />
+          <ContestNavbar activeIndex={0} items={items2024} />
         </div>
 
         <div className={styles['section-wrapper']}>
