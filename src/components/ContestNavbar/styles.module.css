@@ -72,3 +72,17 @@ main:has(.qq-group) {
     display: none;
   }
 }
+
+.signup-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 996px) {
+  .signup-section {
+    flex-wrap: wrap;
+  }
+}

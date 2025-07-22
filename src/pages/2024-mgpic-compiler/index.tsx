@@ -39,7 +39,7 @@ export default function Page() {
         </div>
 
         <div className={styles['section-wrapper']}>
-          <ContestNavbar activeIndex={1} items={items2024} />
+          <ContestNavbar activeIndex={1} items={items2024} qqGroup={true} />
         </div>
         <div className={styles['section-wrapper']}>
           <section className={styles['signup-section']}>

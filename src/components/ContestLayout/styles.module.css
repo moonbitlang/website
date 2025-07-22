@@ -1,0 +1,49 @@
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.hero img {
+  max-width: 1200px;
+}
+
+.hero-img {
+  display: block;
+}
+
+main:has(.qq-group) {
+  position: relative;
+}
+
+.qq-group {
+  position: absolute;
+  height: 90%;
+  right: 12px;
+}
+
+.qq-group__card {
+  position: sticky;
+  top: 80px;
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+  border-radius: 4px;
+  padding: 24px;
+  padding-bottom: 8px;
+  width: 200px;
+  background-color: rgb(217, 224, 250);
+}
+
+.qq-group__text {
+  font-weight: normal;
+  font-size: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 996px) {
+  .qq-group {
+    display: none;
+  }
+}

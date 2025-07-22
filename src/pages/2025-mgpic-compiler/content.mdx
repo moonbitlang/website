@@ -4,20 +4,32 @@ hide_table_of_contents: true
 
 import ContestNavbar, { items2025 } from '@site/src/components/ContestNavbar'
 
-<ContestNavbar activeIndex={1} items={items2025} qqGroup={false}/>
+<ContestNavbar
+  activeIndex={1}
+  items={items2025}
+  buttons={[
+    {
+      text: '立即报名',
+      href: 'https://tianchi.aliyun.com/competition/entrance/532402'
+    },
+    {
+      text: '查看排行榜',
+      href: 'https://tianchi.aliyun.com/competition/entrance/532402/rankingList'
+    }
+  ]}
+/>
 
-# 2025年 MoonBit 全球编程创新挑战赛
-
-## 程序语言设计与实现技术方案
-
-### 一、赛题基本说明
+# 一、赛题基本说明
 
 第 1 条 ：大赛要求各参赛队综合运用各种知识(包括但不局限于编译技术、操作系统、计算机体系结构等)，构思并实现一个综合性的编译系统，以展示面向特定目标平台的编译器构造与编译优化的能力。
+
 第 2 条 ：大赛鼓励各参赛队充分了解目标语言及目标硬件平台(CPU指令集、Cache、各类并行加速能力等)特点，使编译出的目标码能够尽可能利用目标硬件平台能力以提高目标码的运行效率。
+
 第 3 条 ：为展示参赛队的设计水平，增加竞赛的对抗性，进入决赛的参赛队还需针 对目标语言或目标平台的变化，现场调整编译系统。
+
 第 4 条 ：除本技术方案特别要求、规定和禁止事项外，各参赛队可自行决定编译器体系结构、前端与后端设计、代码优化等细节。 除本技术方案特别要求、规定和禁止事项外.
 
-### 二、初赛评分标准
+# 二、初赛评分标准
 
 **比赛内容：**
 
