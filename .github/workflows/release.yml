@@ -12,7 +12,9 @@ jobs:
       - run: |
           curl https://cli.moonbitlang.com/install/unix.sh | bash
           echo "$HOME/.moon/bin" >> $GITHUB_PATH
-      - run: |
+      - env:
+          GITHUB_TOKEN: '${{secrets.GITHUB_TOKEN}}'
+        run: |
           pnpm i
           pnpm build -l en
       - name: upload
@@ -32,7 +34,9 @@ jobs:
       - run: |
           curl https://cli.moonbitlang.com/install/unix.sh | bash
           echo "$HOME/.moon/bin" >> $GITHUB_PATH
-      - run: |
+      - env:
+          GITHUB_TOKEN: '${{secrets.GITHUB_TOKEN}}'
+        run: |
           pnpm i
           pnpm build -l zh
       - uses: aliyun/setup-aliyun-cli-action@v1
