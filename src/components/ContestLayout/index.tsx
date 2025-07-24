@@ -3,20 +3,22 @@ import styles from './styles.module.css'
 
 type HeroProps = {
   img: string
+  mobileHeroImg: string
 }
 
 type LayoutProps = {
   heroImg: string
+  mobileHeroImg: string
   qqGroupImg: string
   qqGroupId: string
   children: React.ReactNode
 }
 
 export default function ContestLayout(props: LayoutProps) {
-  const { heroImg, children, qqGroupId, qqGroupImg } = props
+  const { heroImg, mobileHeroImg, children, qqGroupId, qqGroupImg } = props
   return (
     <Layout>
-      <Hero img={heroImg} />
+      <Hero img={heroImg} mobileHeroImg={mobileHeroImg} />
       <main>
         <div className={styles['qq-group']}>
           <div className={styles['qq-group__card']}>
@@ -36,10 +38,11 @@ export default function ContestLayout(props: LayoutProps) {
   )
 }
 
-function Hero({ img }: HeroProps) {
+function Hero({ img, mobileHeroImg }: HeroProps) {
   return (
     <div className={styles['hero']}>
-      <img src={img} alt='' className={styles['hero-image']} />
+      <img className={styles['hero-img']} src={img} alt='' />
+      <img className={styles['mobile-hero-img']} src={mobileHeroImg} alt='' />
     </div>
   )
 }

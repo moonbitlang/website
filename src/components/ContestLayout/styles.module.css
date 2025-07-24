@@ -6,11 +6,26 @@
 }
 
 .hero img {
+  width: 100%;
   max-width: 1200px;
 }
 
 .hero-img {
   display: block;
+}
+
+.mobile-hero-img {
+  display: none;
+}
+
+@media (max-width: 996px) {
+  .mobile-hero-img {
+    display: block;
+  }
+
+  .hero-img {
+    display: none;
+  }
 }
 
 main:has(.qq-group) {

@@ -5,6 +5,7 @@ export default function Page() {
   return (
     <ContestLayout
       heroImg='/img/2025-contest/kv.jpg'
+      mobileHeroImg='/img/2025-contest/mobile-kv.png'
       qqGroupId='914387051'
       qqGroupImg='/img/contest/qq-group.jpg'
     >
