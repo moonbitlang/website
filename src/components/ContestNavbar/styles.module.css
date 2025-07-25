@@ -86,3 +86,8 @@ main:has(.qq-group) {
     flex-wrap: wrap;
   }
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+}

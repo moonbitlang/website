@@ -145,7 +145,7 @@ export default async (): Promise<Config> => {
     themeConfig: {
       announcementBar: {
         content: isZh
-          ? `🎉️ <b><a href="/blog/beta-release">MoonBit 正式进入 Beta 版本，迈入语言稳定阶段</a></b> 🥳️`
+          ? `🎉️ <b><a href="/2025-mgpic">2025全球编程挑战赛火热来袭，立即参赛赢取丰厚奖金</a></b> 🥳️`
           : `🎉️ <b><a href="/blog/beta-release">MoonBit hits Beta — fast, stable, and async-ready.</a></b> 🥳️`,
         isCloseable: false
       },
