@@ -184,10 +184,13 @@ function ClientSignCla({ repo }: { repo: string }) {
   const clientId = customFields?.GITHUB_OAUTH_CLIENT_ID as string
   const accessToken = window.localStorage.getItem('access_token_with_time')
   const accessTokenWithTime = accessToken
-    ? (JSON.parse(accessToken) as { access_token: string; time: number })
+    ? (JSON.parse(accessToken) as { access_token?: string; time: number })
     : null
+  const signFailed =
+    accessTokenWithTime !== null && !accessTokenWithTime.access_token
   const isSign =
     accessTokenWithTime === null ||
+    signFailed ||
     Date.now() - accessTokenWithTime.time > 90 * 24 * 60 * 60 * 1000
   // Date.now() - accessTokenWithTime.time > 1000
   const redirectUrl = new URL(customFields?.HOST as string)
@@ -197,6 +200,7 @@ function ClientSignCla({ repo }: { repo: string }) {
   if (isSign) {
     return (
       <div>
+        {signFailed && <p>Sign in failed. Please try again.</p>}
         <p>You must sign in to MoonBit to accept the CLA.</p>
 
         <div className={styles['button-wrapper']}>
@@ -213,7 +217,7 @@ function ClientSignCla({ repo }: { repo: string }) {
     )
   } else {
     const { username } = jwtDecode<{ username: string }>(
-      accessTokenWithTime.access_token
+      accessTokenWithTime.access_token!
     )
     useEffect(() => {
       const checkIsSigned = async () => {
