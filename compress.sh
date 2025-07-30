@@ -1,0 +1,1 @@
+ffmpeg -i "$1".mp4 -c:v libx264 -crf 28 -c:a aac -b:a 128k "$1"-output.mp4
