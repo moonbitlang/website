@@ -220,8 +220,8 @@ export default async (): Promise<Config> => {
             locale: ['en']
           },
           {
-            to: 'https://try.moonbitlang.cn/',
-            label: '试用',
+            to: 'https://docs.moonbitlang.com/zh-cn/latest/pilot/moonbit-pilot/getting-started.html',
+            label: 'AI原生',
             position: 'left',
             locale: ['zh']
           },
@@ -231,7 +231,7 @@ export default async (): Promise<Config> => {
             position: 'left',
             items: [
               {
-                href: '/weekly-updates/',
+                to: '/weekly-updates/',
                 label: 'Weekly Updates'
               },
               {
@@ -239,12 +239,16 @@ export default async (): Promise<Config> => {
                 label: '黑板报'
               },
               {
-                href: '/course/',
+                to: '/course/',
                 label: 'Course'
               },
               {
                 to: '/gallery/',
                 label: 'Gallery'
+              },
+              {
+                href: 'https://try.moonbitlang.cn/',
+                label: '试用'
               },
               {
                 href: 'https://tour.moonbitlang.com',
