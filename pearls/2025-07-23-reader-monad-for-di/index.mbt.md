@@ -9,6 +9,8 @@ moonbit:
 
 # Dependency Injection in FP: The Reader Monad
 
+![](./cover.png)
+
 Developers familiar with hexagonal architecture know that to keep core business logic pure and independent, we place "side effects" like database calls and external API interactions into "ports" and "adapters." These are then injected into the application layer using Dependency Injection (DI). It's safe to say that classic object-oriented and layered architectures rely heavily on DI.
 
 But when I started building things in MoonBit, I had no idea.
