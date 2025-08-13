@@ -29,7 +29,7 @@ As a demo of MoonBit Pilot’s software synthesis capabilities, we generated a c
 
 *TOML is a configuration file format designed to be easy to read and write, while clearly expressing nested data structures. It’s widely used for project configuration, especially in the Rust ecosystem.*
 
-![alt text](image.png)
+![alt text](output.gif)
 
 The model didn’t produce the correct output on its first attempt due to the lack of MoonBit-specific training data. By automatically invoking MoonBit’s self-developed toolchain and receiving precise feedback, it repaired and optimized the code without any human intervention — producing the correct result with effective tests in about **six minutes**
 
