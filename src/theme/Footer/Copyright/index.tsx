@@ -19,13 +19,15 @@ import clsx from 'clsx'
 import styles from './styles.module.css'
 import { useLocation } from '@docusaurus/router'
 import type { Props } from '@theme/Footer/Copyright'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 
 export default function FooterCopyright({ copyright }: Props): JSX.Element {
+  const { i18n } = useDocusaurusContext()
   const location = useLocation()
   return (
     <div className={clsx('footer__copyright', styles['copyright-wrapper'])}>
       {copyright}
-      {location.pathname === '/' && (
+      {location.pathname === '/' && i18n.currentLocale === 'zh' && (
         <>
           <a
             href='https://beian.miit.gov.cn/'
