@@ -3,6 +3,7 @@ hide_table_of_contents: true
 ---
 
 import ContestNavbar, { items2025 } from '@site/src/components/ContestNavbar'
+import extraPointApply from './游戏赛道附加分申请表.jpg'
 
 <ContestNavbar
   activeIndex={2}
@@ -142,7 +143,16 @@ MoonBit 游戏赛道初赛评审将基于三个标准综合评分：
 附加分申请方式：
 凡希望申请附加加分的参赛队伍，须在作品提交截止日前填写官方发布的《MoonBit 附加加分申请表》，并在初赛截至之前按照表单要求提交相应材料：
 
-![](./游戏赛道附加分申请表.jpg)
+<img
+  src={extraPointApply}
+  alt='游戏赛道附加分申请表'
+  style={{
+    width: '340px',
+    maxWidth: '100%',
+    display: 'block',
+    margin: '12px 0'
+  }}
+/>
 
 ## 标准三：专家评审（最高60分）
 
