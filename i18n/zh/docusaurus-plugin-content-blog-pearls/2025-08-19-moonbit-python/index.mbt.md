@@ -8,7 +8,9 @@ slug: moonbit-python
 image: cover.png
 ---
 
-# 引言
+# MoonBit与Python集成指南
+
+## 引言
 
 Python，以其简洁的语法和庞大的生态系统，已成为当今最受欢迎的编程语言之一。然而，围绕其性能瓶颈和动态类型系统在大型项目中的维护性问题的讨论也从未停止。为了解决这些挑战，开发者社区探索了多种优化路径。
 
@@ -16,7 +18,7 @@ MoonBit 官方推出的 `python.mbt` 工具为此提供了一个新的视角。�
 
 本文旨在深入探讨 `python.mbt` 的工作原理，并提供一份实践指南。本文将解答一些常见问题，例如：`python.mbt` 如何工作？它是否会因为增加了一个中间层而比原生 Python 更慢？相较于 C++ 的 `pybind11` 或 Rust 的 `PyO3` 等现有工具，`python.mbt` 的优势何在？要回答这些问题，我们首先需要理解 Python 解释器的基本工作流程。
 
-# Python 解释器的工作原理
+## Python 解释器的工作原理
 
 Python 解释器执行代码主要经历三个阶段：
 
@@ -92,7 +94,7 @@ Python 解释器执行代码主要经历三个阶段：
 
 了解这个流程，有助于我们理解 Python 性能优化的基本思路，以及 `python.mbt` 的设计哲学。
 
-# 优化 Python 性能的路径
+## 优化 Python 性能的路径
 
 目前，提升 Python 程序性能主要有两种主流方法：
 
@@ -106,7 +108,7 @@ Python 解释器执行代码主要经历三个阶段：
 3. **更平缓的学习曲线**：相较于 C++ 和 Rust，MoonBit 的语法设计更加现代化和简洁，并拥有完善的函数式编程支持、文档系统、单元测试和静态分析工具，对习惯于 Python 的开发者更加友好。
 4. **改善的工程化与 AI 协作**：MoonBit 的强类型系统和清晰的接口定义，使得代码意图更加明确，更易于被静态分析工具和 AI 辅助编程工具理解。这有助于在大型项目中维护代码质量，并提升与 AI 协作编码的效率和准确性。
 
-# 在 MoonBit 中使用已封装的 Python 库
+## 在 MoonBit 中使用已封装的 Python 库
 
 为了方便开发者使用，MoonBit 官方会在构建系统和IDE成熟后对主流 Python 库进行封装。封装完成后，用户可以像导入普通 MoonBit 包一样，在项目中使用这些 Python 库。下面以 `matplotlib` 绘图库为例。
 
@@ -158,11 +160,11 @@ fn main {
 
 ![](https://libraryimgs-1309485105.cos.ap-guangzhou.myqcloud.com/matplotlib.mbt.example.png)
 
-# 在 MoonBit 中使用未封装的 Python 模块
+## 在 MoonBit 中使用未封装的 Python 模块
 
 Python 生态浩如烟海，即使现在有了AI技术，完全依赖官方封装也并不现实。幸运的是，我们可以利用 `python.mbt` 的核心功能直接与任何 Python 模块交互。下面，我们以 Python 标准库中，一个简单的的 `time` 模块为例，演示这一过程。
 
-## 引入 python.mbt
+### 引入 python.mbt
 
 首先，确保你的 MoonBit 工具链是最新版本，然后添加 `python.mbt` 依赖：
 
@@ -181,7 +183,7 @@ moon add Kaida-Amethyst/python
 
 `python.mbt` 会自动处理 Python 解释器的初始化（`Py_Initialize`）和关闭，开发者无需手动管理。
 
-## 导入 Python 模块
+### 导入 Python 模块
 
 使用 `@python.pyimport` 函数来导入模块。为了避免重复导入造成的性能损耗，建议使用闭包技巧来缓存导入的模块对象：
 
@@ -209,7 +211,7 @@ let time_mod: () -> TimeModule = import_time_mod()
 
 在后续代码中，我们应始终通过调用 `time_mod()` 来获取模块，而不是 `import_time_mod`。
 
-## MoonBit 与 Python 对象的相互转换
+### MoonBit 与 Python 对象的相互转换
 
 要调用 Python 函数，我们需要在 MoonBit 对象和 Python 对象（`PyObject`）之间进行转换。
 
@@ -300,7 +302,7 @@ test "py_list_get" {
 }
 ```
 
-## 调用模块中的函数
+### 调用模块中的函数
 
 调用函数分为两步：首先用 `get_attr` 获取函数对象，然后用 `invoke` 执行调用。`invoke` 的返回值是一个需要进行模式匹配和类型转换的 `PyObject`。
 
@@ -355,7 +357,7 @@ test "sleep" {
 }
 ```
 
-# 实践建议
+## 实践建议
 
 1. **明确边界**：将 `python.mbt` 视为连接 MoonBit 和 Python 生态的"胶水层"。将核心计算和业务逻辑保留在 MoonBit 中以利用其性能和类型系统优势，仅在必要情况下，需要调用 Python 独有库时才使用 `python.mbt`。
 2. **用 ADT 替代字符串魔法**：许多 Python 函数接受特定的字符串作为参数来控制行为。在 MoonBit 封装中，应将这些"魔法字符串"转换为**代数数据类型（ADT）** ，即枚举。这利用了 MoonBit 的类型系统，将运行时的值检查提前到编译时，极大地增强了代码的健壮性。
@@ -397,6 +399,6 @@ test "sleep" {
 
 5. **警惕动态性**：始终牢记 Python 是动态类型的。从 Python 获取的任何数据都应被视为"不可信"的，必须进行严格的类型检查和校验，尽量避免使用 `unwrap`，而是通过模式匹配来安全地处理所有可能的情况。
 
-# 结语
+## 结语
 
 本文梳理了 `python.mbt` 的工作原理，并展示了如何利用它在 MoonBit 中调用 Python 代码，无论是通过预封装的库还是直接与 Python 模块交互。`python.mbt` 不仅仅是一个工具，它代表了一种融合思想：将 MoonBit 的静态分析、高性能和工程化优势与 Python 庞大而成熟的生态系统相结合。我们希望这篇文章能为 MoonBit 和 Python 社区的开发者们在构建未来软件时，提供一个新的、更强大的选择。

@@ -8,7 +8,9 @@ slug: moonbit-python
 image: cover.png
 ---
 
-# Introduction
+# A Guide to MoonBit Python Integration
+
+## Introduction
 
 Python, with its concise syntax and vast ecosystem, has become one of the most popular programming languages today. However, discussions around its performance bottlenecks and the maintainability of its dynamic typing system in large-scale projects have never ceased. To address these challenges, the developer community has explored various optimization paths.
 
@@ -16,7 +18,7 @@ The `python.mbt` tool, officially launched by MoonBit, offers a new perspective.
 
 This article aims to delve into the working principles of `python.mbt` and provide a practical guide. It will answer common questions such as: How does `python.mbt` work? Is it slower than native Python due to an added intermediate layer? What are its advantages over existing tools like C++'s `pybind11` or Rust's `PyO3`? To answer these questions, we first need to understand the basic workflow of the Python interpreter.
 
-# How the Python Interpreter Works
+## How the Python Interpreter Works
 
 The Python interpreter executes code in three main stages:
 
@@ -92,7 +94,7 @@ The Python interpreter executes code in three main stages:
 
 Understanding this process helps us grasp the basic approaches to Python performance optimization and the design philosophy of `python.mbt`.
 
-# Paths to Optimizing Python Performance
+## Paths to Optimizing Python Performance
 
 Currently, there are two mainstream methods for improving Python program performance:
 
@@ -106,7 +108,7 @@ Currently, there are two mainstream methods for improving Python program perform
 3.  **Gentler Learning Curve**: Compared to C++ and Rust, MoonBit's syntax is more modern and concise. It also has comprehensive support for functional programming, a documentation system, unit testing, and static analysis tools, making it more friendly to developers accustomed to Python.
 4.  **Improved Engineering and AI Collaboration**: MoonBit's strong type system and clear interface definitions make code intent more explicit and easier for static analysis tools and AI-assisted programming tools to understand. This helps maintain code quality in large projects and improves the efficiency and accuracy of collaborative coding with AI.
 
-# Using Pre-wrapped Python Libraries in MoonBit
+## Using Pre-wrapped Python Libraries in MoonBit
 
 To facilitate developer use, MoonBit will officially wrap mainstream Python libraries once the build system and IDE are mature. After wrapping, users can use these Python libraries in their projects just like importing regular MoonBit packages. Let's take the `matplotlib` plotting library as an example.
 
@@ -158,11 +160,11 @@ Currently, on macOS and Linux, MoonBit's build system can automatically handle d
 
 ![](https://libraryimgs-1309485105.cos.ap-guangzhou.myqcloud.com/matplotlib.mbt.example.png)
 
-# Using Unwrapped Python Modules in MoonBit
+## Using Unwrapped Python Modules in MoonBit
 
 The Python ecosystem is vast, and even with AI technology, relying solely on official wrappers is not realistic. Fortunately, we can use the core features of `python.mbt` to interact directly with any Python module. Below, we demonstrate this process using the simple `time` module from the Python standard library.
 
-## Introducing python.mbt
+### Introducing python.mbt
 
 First, ensure your MoonBit toolchain is up to date, then add the `python.mbt` dependency:
 
@@ -181,7 +183,7 @@ Next, import it in your package's `moon.pkg.json`:
 
 `python.mbt` automatically handles the initialization (`Py_Initialize`) and shutdown of the Python interpreter, so developers don't need to manage it manually.
 
-## Importing Python Modules
+### Importing Python Modules
 
 Use the `@python.pyimport` function to import modules. To avoid performance loss from repeated imports, it is recommended to use a closure technique to cache the imported module object:
 
@@ -209,7 +211,7 @@ let time_mod: () -> TimeModule = import_time_mod()
 
 In subsequent code, we should always call `time_mod()` to get the module, not `import_time_mod`.
 
-## Converting Between MoonBit and Python Objects
+### Converting Between MoonBit and Python Objects
 
 To call Python functions, we need to convert between MoonBit objects and Python objects (`PyObject`).
 
@@ -300,7 +302,7 @@ test "py_list_get" {
 }
 ```
 
-## Calling Functions in a Module
+### Calling Functions in a Module
 
 Calling a function is a two-step process: first, get the function object with `get_attr`, then execute the call with `invoke`. The return value of `invoke` is a `PyObject` that requires pattern matching and type conversion.
 
@@ -355,7 +357,7 @@ test "sleep" {
 }
 ```
 
-# Practical Advice
+## Practical Advice
 
 1.  **Define Clear Boundaries**: Treat `python.mbt` as the "glue layer" connecting MoonBit and the Python ecosystem. Keep core computation and business logic in MoonBit to leverage its performance and type system advantages, and only use `python.mbt` when necessary to call Python-exclusive libraries.
 2.  **Use ADTs Instead of String Magic**: Many Python functions accept specific strings as arguments to control behavior. In MoonBit wrappers, these "magic strings" should be converted to **Algebraic Data Types (ADTs)**, i.e., enums. This leverages MoonBit's type system to move runtime value checks to compile time, greatly enhancing code robustness.
@@ -397,6 +399,6 @@ test "sleep" {
 
 5.  **Beware of Dynamism**: Always remember that Python is dynamically typed. Any data obtained from Python should be treated as "untrusted" and must undergo strict type checking and validation. Avoid using `unwrap` as much as possible; instead, use pattern matching to safely handle all possible cases.
 
-# Conclusion
+## Conclusion
 
 This article has outlined the working principles of `python.mbt` and demonstrated how to use it to call Python code in MoonBit, whether through pre-wrapped libraries or by interacting directly with Python modules. `python.mbt` is not just a tool; it represents a fusion philosophy: combining MoonBit's static analysis, high performance, and engineering advantages with Python's vast and mature ecosystem. We hope this article provides developers in the MoonBit and Python communities with a new, more powerful option for building future software.
