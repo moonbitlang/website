@@ -144,17 +144,17 @@ The real challenge lies in handling the data type differences between the two la
 
 For basic numeric types, there is a direct and clear correspondence between MoonBit and C.
 
-| MoonBit Type | C Type                | Notes                                                                      |
-| ------------ | --------------------- | -------------------------------------------------------------------------- |
-| `Int`        | `int`                 |                                                                            |
-| `Int64`      | `int64_t`             |                                                                            |
-| `UInt`       | `unsigned int`        |                                                                            |
-| `UInt64`     | `uint64_t`            |                                                                            |
-| `Float`      | `float`               |                                                                            |
-| `Double`     | `double`              |                                                                            |
-| `Bool`       | `int`                 | The C standard does not have a native `bool`, `int` (0/1) is usually used. |
-| `Unit`       | `void` (return value) | Used to represent that a C function has no return value.                   |
-| `Byte`       | `uint8_t`             |                                                                            |
+| MoonBit Type | C Type                | Notes                                                                          |
+| ------------ | --------------------- | ------------------------------------------------------------------------------ |
+| `Int`        | `int32_t`             |                                                                                |
+| `Int64`      | `int64_t`             |                                                                                |
+| `UInt`       | `uint32_t`            |                                                                                |
+| `UInt64`     | `uint64_t`            |                                                                                |
+| `Float`      | `float`               |                                                                                |
+| `Double`     | `double`              |                                                                                |
+| `Bool`       | `int32_t`             | The C standard does not have a native `bool`, `int32_t` (0/1) is usually used. |
+| `Unit`       | `void` (return value) | Used to represent that a C function has no return value.                       |
+| `Byte`       | `uint8_t`             |                                                                                |
 
 Based on this table, we can easily write FFI declarations for most of the simple functions in `mymath.h`:
 

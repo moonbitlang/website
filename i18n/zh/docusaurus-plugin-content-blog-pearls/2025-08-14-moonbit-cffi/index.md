@@ -144,17 +144,17 @@ extern "C" fn version_major() -> Int = "version_major"
 
 对于基础的数值类型，MoonBit 和 C 之间有直接且清晰的对应关系。
 
-| MoonBit Type | C Type            | Notes                                               |
-| ------------ | ----------------- | --------------------------------------------------- |
-| ​`Int`​      | ​`int`​           |                                                     |
-| ​`Int64`​    | ​`int64_t`​       |                                                     |
-| ​`UInt`​     | ​`unsigned int`​  |                                                     |
-| ​`UInt64`​   | ​`uint64_t`​      |                                                     |
-| ​`Float`​    | ​`float`​         |                                                     |
-| ​`Double`​   | ​`double`​        |                                                     |
-| ​`Bool`​     | ​`int`​           | C语言标准没有原生 `bool`​，通常用 `int`​ (0/1) 表示 |
-| ​`Unit`​     | ​`void`​ (返回值) | 用于表示 C 函数没有返回值的情况                     |
-| ​`Byte`​     | ​`uint8_t`​       |                                                     |
+| MoonBit Type | C Type            | Notes                                                   |
+| ------------ | ----------------- | ------------------------------------------------------- |
+| ​`Int`​      | ​`int32_t`​       |                                                         |
+| ​`Int64`​    | ​`int64_t`​       |                                                         |
+| ​`UInt`​     | ​`uint32_t`​      |                                                         |
+| ​`UInt64`​   | ​`uint64_t`​      |                                                         |
+| ​`Float`​    | ​`float`​         |                                                         |
+| ​`Double`​   | ​`double`​        |                                                         |
+| ​`Bool`​     | ​`int32_t`​       | C语言标准没有原生 `bool`​，通常用 `int32_t`​ (0/1) 表示 |
+| ​`Unit`​     | ​`void`​ (返回值) | 用于表示 C 函数没有返回值的情况                         |
+| ​`Byte`​     | ​`uint8_t`​       |                                                         |
 
 根据这个表格，我们可以轻松地为 `mymath.h`​ 中的大部分简单函数编写 FFI 声明：
 
