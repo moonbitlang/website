@@ -57,6 +57,18 @@ export const items2025: ContestNavbarItem[] = [
   }
 ]
 
+export const items2025en: ContestNavbarItem[] = [
+  { name: 'Regulations', href: '/2025-mgpic' },
+  {
+    name: 'Compiler Design and Implementation Track',
+    href: '/2025-mgpic-compiler'
+  },
+  {
+    name: 'Ranking List',
+    href: 'https://tianchi.aliyun.com/competition/entrance/532402/rankingList'
+  }
+]
+
 export default function ContestNavbar({
   activeIndex,
   items,

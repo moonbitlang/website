@@ -2,183 +2,132 @@
 hide_table_of_contents: true
 ---
 
-import ContestNavbar, { items2025 } from '@site/src/components/ContestNavbar'
+import ContestNavbar, { items2025en } from '@site/src/components/ContestNavbar'
 import styles from './styles.module.css'
 import clsx from 'clsx'
 
-<ContestNavbar activeIndex={0} items={items2025} qqGroup={false} />
+<ContestNavbar activeIndex={0} items={items2025en} qqGroup={false} />
 
-# 2025年 MoonBit 全球编程创新挑战赛章程
+# 2025 MoonBit Global Programming Innovation Challenge Regulations
 
-## 一、竞赛总则
+## 1、About the Competition
 
-MoonBit 编程创新挑战赛是由深圳市河套深港科技创新合作区深圳发展署指导，粤港澳大湾区数字经济研究院基础软件中心主办，面向全球开发者的专业性挑战赛事，旨在推动计算机软件开发相关专业建设，服务国家基础软件和人工智能云原生领域的人才战略。
+**The 2025 MoonBit Global Programming Innovation Challenge is officially open!**
+A professional challenge for developers worldwide, the event aims to advance disciplines related to computer software development and **serve the national talent strategy** in **foundational software** and **AI cloud-native** fields.
+The inaugural edition attracted over **1,888** teams from leading universities, including Tsinghua University, University of Cambridge, Sun Yat-sen University, and HKUST (Guangzhou), and received broad recognition from both academia and industry.
 
-本赛事鼓励参赛者设计并实现创新性计算机系统项目，学习新一代人工智能云原生开发平台，培养系统级的设计、分析、优化与工程实践能力，提升团队协作与综合创新素质。赛事以赛促学、以赛促教，致力于构建高水平计算机人才交流、展示与合作的开放平台。
+## 2、Track Introduction
 
-本赛事自 2024 年首届举办以来，反响热烈。首届大赛共吸引 超1888 支队伍参赛，覆盖清华大学、剑桥大学、中山大学、香港科技大学（广州）等多所国内外知名高校，比赛设置“编程语言设计与实现”与“游戏开发挑战”两个赛道，由沈向洋、林惠民、赵琛、倪明选等担任荣誉评委，获得学术界与产业界的广泛关注与高度认可。
+Programming Language Design & Implementation Track
+Focuses on applying a broad range of knowledge (including but not limited to compiler techniques, operating systems, and computer architecture). Participants are challenged to design and implement a comprehensive compiler system, demonstrating their ability to construct and optimize compilers for specific target platforms.
 
-## 二、赛道设置
+## 3、Timeline
 
-参赛选手报名视为同意并自愿遵守赛事章程的全部内容
-本次大赛分为[游戏开发挑战赛](https://tianchi.aliyun.com/competition/entrance/532403/information)、[程序语言设计和实现赛](https://tianchi.aliyun.com/competition/entrance/532402/information)
+- July 21 – Competition Launch
+- Aug 15 – Project Submission Opens
+- Nov 13 – Preliminary Deadline
+- Nov 19 – Finalists Announced
+- Nov 23 – On-site Grand Finals in Shenzhen
 
-1. [游戏开发挑战赛](https://tianchi.aliyun.com/competition/entrance/532403/information)：面向14岁以上的开发者，使用 MoonBit 编程语言进行开发，优先推荐使用官方游戏框架：如 [pixel adventure.mbt](https://github.com/moonbitlang/pixel-adventure.mbt) 、[Wasm-4](https://github.com/moonbitlang/wasm4)、[Selene](https://github.com/moonbit-community/selene) 等。
-2. [程序语言设计和实现赛](https://tianchi.aliyun.com/competition/entrance/532402/information)：面向14岁以上的开发者，使用 MoonBit 编程语言在 RISC-V 后端硬件平台开发。
+## 4、Competition Phases
 
-## 三、赛事流程
+1. The competition consists of two phases: Preliminary and Final. The preliminary round will be conducted entirely online. From the top-performing teams in the Compiler Track, a total of 5 teams will be selected (with the team leader as the designated representative, subject to adjustment depending on actual circumstances) to qualify for the Final Roadshow. Based on the roadshow presentations, combined with competition rules and evaluation standards, scores will be given and the final results will be announced on the day of the finals.
 
-### 赛事安排
+To encourage award-winning teams, the organizers may arrange a one-day field trip to leading enterprises. Outstanding participants may be offered interview or internship opportunities provided by these enterprises.
 
-![](./赛事安排.jpg)
+### Registration Quotas and Requirements
 
-## 四、赛事规则
+1. Participation is based on team registration. Each team may consist of 1–5 members; single-person teams are also allowed and will be regarded as independent teams.
 
-1. 大赛分初赛和决赛两个阶段，初赛全程线上进行，初赛胜出团队中，按照成绩从高到低等因素综合评判，在两个赛道共评选出10个参赛队伍（原则上每个赛道 5 队，队长 1 人作为代表，将根据实际情况进行调整）拥有资格参加决赛路演，根据各参赛队伍路演情况，结合比赛规则、各项标准进行打分，最终评选结果将在决赛当日公布。
-2. 为鼓励获奖队伍，主办方将视情况安排为期一日的线下名企大厂研学活动，表现优异者有机会获得由名企大厂提供的面试、实习机会。
+2. Each team may only register for the Compiler Track. Teams must select this track at registration, and their performance will serve as the sole basis for qualification into the finals.
 
-### 报名名额及要求
+3. Each participant may only join one team. Duplicate registrations or creating multiple teams under different identities are not permitted. The organizers will verify participant information; if duplicate registrations, false information, or impersonation are found, the team’s qualification will be revoked.
 
-1. 参赛以队为基本单位报名，每支参赛队伍人数为 1～5 人，单人也可组队参赛，视为独立参赛队。
-2. 每支参赛队可选择报名多个赛道（如编译赛道 + 游戏赛道），但最终仅以得分更高的一个赛道作为晋级决赛的依据，另一个赛道成绩及奖项荣誉将予以保留但不重复进入决赛环节。
-3. 每位参赛选手只能报名参加 1 支参赛队，不可重复报名或以不同身份创建多个队伍。主办方将对所有参赛队伍成员信息进行核验，若发现重复报名、虚假注册或冒名顶替等情况，将取消相关队伍参赛资格。
-4. 每个参赛队最多有两位指导教师，每位指导教师可同时指导本校多支参赛队。指导教师负责指导参赛队选题、组织学生参加赛前的技术培训，并鼓励学生应用大赛指定的实验平台进行作品的创意设计与实现，同时负责在大赛过程中与学校及组委会之间的信息沟通。如果参赛队伍以高校队伍的形式参赛，则适用本条规定。
-5. 每位参赛选手需满14岁以上，每队需包含至少一名成年人，且需选出一人作为队长；每个参赛队伍之队长须于活动期间代表该团队负责比赛联系及得奖奖品领取等相关事宜。团队成员须自行分配团队内部的各项权责归属，若有任何争执之处（如奖品领取方式与分配），主办/执行单位不涉入处理。
-6. 本次比赛同时面向全球开发者。
-7. 参赛者保证提供的参赛者资料和信息真实、准确、合法、有效，同意并授权赛事主办方在法律允许的范围内，在下列情况下收集、存储和使用参赛者资料（包括姓名、性别、手机号码、电子邮箱、身份证号、照片、银行卡号等信息）：
-   1、用于赛事报名、决赛评奖差旅事项、奖金发放；
-   2、用于赛事相关的公关材料、广告或宣传活动；
+4. Each team may have up to two advisors. Advisors may guide multiple teams from the same institution. Advisors are responsible for guiding topic selection, organizing students for pre-competition training, encouraging the use of designated platforms for project design and implementation, and acting as liaisons between the school and the organizing committee during the competition. This requirement applies to teams registered under a university.
 
-### 报名方式
+5. Each participant must be 14 years or older. Each team must include at least one adult and must appoint a team leader, who will represent the team in all communications and prize collection. Team members are responsible for distributing responsibilities internally. In case of disputes (e.g., regarding prize distribution), the organizers and executing units will not intervene.
 
-1. 赛事采取阿里云天池竞赛平台报名：
-   可前往 MoonBit 官方赛事活动页了解详情：https://www.moonbitlang.cn/2025-mgpic/
+6. The competition is open to global developers.
 
-2. 参赛队报名时需提交队伍信息至在线报名页面，信息包括队名，各队员姓名、相关技能、相关项目经验等信息。参赛队应确保所提交信息真实有效，并保持联系方式畅通。如信息不实或无法联系到参赛队，将会影响报名甚至取消成绩。
+7. Participants must ensure that the information they provide is true, accurate, lawful, and valid. By registering, participants agree and authorize the organizers, within the limits of the law, to collect, store, and use participant data (including but not limited to name, gender, phone number, email address, ID number, photo, bank account number, etc.) for the following purposes:
 
-### 参赛费用
+   - For competition registration, travel arrangements related to the finals, and prize distribution.
 
-1. 大赛不收取报名费、参赛费、评审费及技术平台购买费等任何费用。
-2. 参赛选手代表在全国总决赛及颁奖典礼期间产生的交通、住宿费用由主办方提供（具体的行程时间由主办方确定）。
-3. 大赛指定的游戏引擎等资源由大赛组委会免费向参赛队提供。
+   - For use in competition-related public relations materials, advertising, or promotional activities.
 
-## 五、竞赛管理
+### Registration
 
-### 初赛
+1. Participants may register through the official MoonBit competition webpage and access teaching materials:
+   https://www.moonbitlang.cn/2025-mgpic/
 
-1. **游戏开发挑战赛道**
-   参赛队按照比赛指南要求在大赛网站提交作品设计方案。评审专家根据评测标准，对初赛作品进行打分，并按照分数对各参赛队进行排序, 按初赛分数高低决定入围决赛的参赛队，最终进入决赛的队伍名额由评委根据作品质量等因素综合评判。
-2. **程序语言设计与实现赛道**
-   参赛队按照比赛指南要求在大赛网站提交作品和相关源代码。评审专家通过评测系统给出的依照作品性能评估给出的客观分数，对各参赛队进行排序，按排序先后决定入围决赛的参赛队。
+2. At the time of registration, each team must submit its information via the online registration page, including team name, names of team members, relevant skills, and project experience. Teams must ensure that the information provided is true and valid, and that contact details remain accurate and accessible. False information or failure to maintain contact may affect registration status or lead to disqualification.。
 
-### 全国总决赛
+### Participation Fees
 
-1. 原则上每个赛道分别有五个队伍到达决赛现场进行最终比拼，且由队长作为代表
-2. 由大赛组委会组织决赛，决赛根据两个赛道评判标准等不同，设作品演示、性能测试、系统展示、答辩环节等环节。最终按决赛各环节的综合分数高低决定奖项归属。
-3. 参赛团队必须按组委会要求参加决赛，未参赛的队伍视为自动放弃决赛资格。
-4. 获奖参赛者应按照主办方发布/通知的奖金发放流程和规则领取奖金，包括但不限于及时提供身份证复印件、银行卡复印件等资料和信息，签署相关领奖文件等；未按前述流程和规则操作的，主办方有权不予发放奖金。
-5. 入围决赛的参赛团队应在比赛结束后，将作品源代码以 OSI 认可的开源协议之一公开发布，建议使用 GitHub 等主流平台进行托管。推荐采用 https://opensource.org/licenses 中列出的许可证。
+1. The competition does not charge any registration fees, participation fees, review fees, or platform usage fees.
+2. For representatives participating in the National Finals and the Award Ceremony, transportation and accommodation costs will be covered by the organizers (specific travel schedules will be determined by the organizers).。
 
-## 六、奖项设置
+## 5、Competition Management
 
-![](./奖项设置.jpg)
+### Preliminary Round
 
-## 七、知识产权及学术诚信
+1. **Compiler Track**
+   Teams must submit their works and related source code on the official competition website as required by the guidelines. Review experts will evaluate the submissions using the testing system, which will assign objective scores based on performance. Teams will then be ranked, and finalists will be determined according to these rankings.
 
-- 除另行说明，参赛作品的知识产权归参赛队所有。
-- 参赛队应自觉遵守知识产权的有关法规，不得侵犯他人的知识产权或其他权益，不得未经相关单位许可，对外共享或公开发布涉及该单位知识产权的作品及软件。如造成不良后果，相关法律责任由参赛队自行承担，大赛的主办、承办和协办方均不负任何法律责任。
-- 参赛队应保证学术诚信，一经确认代码抄袭或技术抄袭等学术不端行为，或代码重复率在50%以上，将取消参赛资格，并列入赛事黑名单。
-- 大赛报名者默认同意大赛的主办方公开赛道参赛作品源代码。大赛主办方拥有免费使用参赛作品进行演示和出版的权利（不涉及技术细节）。如果以盈利为目的使用参赛作品，需与参赛队协商，经参赛队同意后，签署有关对参赛作品使用的协议。但如届时开源协议允许商业化使用，主办方将按开源协议约定执行，不再另行与参赛团队协议或取得参赛团队同意。
+### National Finals
 
-## 八、交流与宣传
+1. In principle, five teams from the Compiler Track will qualify for the finals and participate on-site, with the team leader serving as the official representative.
+2. The Finals will be organized by the competition committee. Evaluation criteria differ across tracks, but will generally include project demonstration, performance testing, system presentation, and Q&A defense. Final awards will be determined based on the overall scores of these components.
+3. Teams must participate in the finals as required by the committee. Teams that fail to attend will be deemed to have forfeited their qualification.
+4. Award-winning teams must follow the prize distribution process and rules announced by the organizers. This may include, but is not limited to, providing copies of ID cards, bank account details, and other required information, as well as signing relevant award documents. Failure to comply may result in the prize not being issued.
+5. Teams qualifying for the finals must publish their source code under an OSI-approved open-source license after the competition concludes. Teams are encouraged to use mainstream hosting platforms such as GitHub. Recommended licenses can be found at: https://opensource.org/licenses
 
-- 大赛致力于推动计算机软件开发专业建设，助力编程语言领域创新人才梯队培育，培养编程语言这一基础软件领域的后备人才，为学术与创新交流合作提供平台。大赛期间鼓励参赛队伍间举办各种形式的交流活动，并对参赛期间优秀作品和参赛团队进行宣传。
-- 大赛主办方欢迎行业内各大机构或组织共同参与大赛的组织、命题、宣传、赞助等活动，提升本赛事质量及影响力。
-- 报名本次比赛默认同意主办方使用选手参加比赛期间的肖像权，主办方仅使用肖像用于赛事相关内容的宣传
-- 如有合作宣传等需求请联系邮箱：jichuruanjian@idea.edu.cn
+## 6、Prizes
 
-<h2>九、竞赛组织</h2>
-<h3>指导单位</h3>
-<div className={styles['with-border']}>
-  河套深港科技创新合作区深圳园区发展署
-</div>
-<h3>主办单位</h3>
-<div className={styles['logos']}>
-  <div className={styles['logo']}>
-    <img src='/img/2025-contest/idea.png' alt='' />
-  </div>
-</div>
-<h3>协办单位</h3>
-<div className={styles['logos']}>
-  <div className={styles['logo']}>
-    <img src='/img/contest/tencent-cloud.jpg' alt='' />
-  </div>
-  <div className={styles['logo']}>
-    <img src='/img/contest/stic.jpg' alt='' />
-  </div>
+| Track                                    | Total Prize Pool (Cash) | Other Awards                                                                                     | Notes                                                                                                                          |
+| ---------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Compiler Design and Implementation Track | ¥60,000                 | Certificates of Participation, Enterprise Field Trips, Internship Fast-Track Opportunities, etc. | See the 2025 MoonBit Global Programming Innovation Challenge – Compiler Design and Implementation Track Guidelines for details |
 
-</div>
+## 7、Intellectual Property and Academic Integrity
 
-<h3>合作单位</h3>
-<div>
-  <div className={styles['logos']}>
-    <div className={clsx(styles['logo'], styles['logo--iscas-2025'])}>
-      <img
-        className={styles['logo--iscas-img']}
-        src='/img/2025-contest/iscas.png'
-        alt=''
-      />
-    </div>
-    <div className={styles['logo']}>
-      <img src='/img/contest/syu.png' alt='' />
-    </div>
-    <div className={styles['logo']}>
-      <img src='/img/contest/hkust.png' alt='' />
-    </div>
-  </div>
-</div>
-<h3>大赛竞赛平台</h3>
-<div>
-  <div className={styles['logos']}>
-    <div className={styles['logo']}>
-      <img src='/img/contest/aliyun.png' alt='' />
-    </div>
-  </div>
-</div>
-<h3>名誉评委（按姓氏笔划排序）</h3>
+- Unless otherwise specified, the intellectual property rights of the submitted works belong to the participating teams.
+- Participating teams must comply with relevant intellectual property laws and regulations. They must not infringe upon the intellectual property rights or other rights of third parties, nor may they share or publicly release works or software involving the intellectual property of other organizations without permission. Any resulting legal liability shall be borne solely by the team. The organizers, co-organizers, and supporting units assume no legal responsibility.
+- Participating teams must ensure academic integrity. Once code plagiarism, technical plagiarism, or other forms of academic misconduct are confirmed, or if code similarity exceeds 50%, the team’s qualification will be revoked and the team will be placed on the competition’s blacklist.
+- By registering for the competition, participants agree that the organizers may publicly release the source code of entries in each track. The organizers retain the right to use the works for demonstration and publication free of charge (excluding technical details). Any use of the works for commercial profit must be negotiated with the team, with a formal agreement signed upon the team’s consent.
 
-<div className={styles['judges']}>
-  <div className={styles['judge__video']}>
-    <video controls src='/videos/shenxiangyang.mp4'></video>
-  </div>
-  <div className={styles['judge__bib']}>
-    <div className={styles['judge__name']}>沈向洋</div>
-    <div className={styles['judge__title']}>
-      粤港澳大湾区数字经济研究院创院理事长
-    </div>
-  </div>
-  <div className={styles['judge__video']}>
-    <video controls src='/videos/zhaozhen.mp4'></video>
-  </div>
-  <div className={styles['judge__bib']}>
-    <div className={styles['judge__name']}>赵琛</div>
-    <div className={styles['judge__title']}>中国科学院软件研究所，所长</div>
-  </div>
-  <div className={styles['judge__video']}>
-    <video controls src='/videos/nimingxuan.mp4'></video>
-  </div>
-  <div className={styles['judge__bib']}>
-    <div className={styles['judge__name']}>倪明选</div>
-    <div className={styles['judge__title']}>
-      <span>IEEE终身会士、香港工程科学院院士、</span>
-      <br />
-      <span>香港科技大学（广州）创校校长</span>
-    </div>
-  </div>
-</div>
+## 8、 Communication and Publicity
 
-## 特别说明
+- The competition is committed to advancing computer software development, nurturing innovative talent in programming languages, and cultivating a pipeline of future professionals in this fundamental software field. It also provides a platform for academic and innovative exchange and collaboration. Teams are encouraged to engage in various forms of interaction and exchange during the competition. Outstanding works and teams will be promoted during the event.
+- The organizers welcome the participation of institutions and organizations from the industry in organizing, problem-setting, promotion, sponsorship, and other activities to enhance the quality and influence of the competition.
+- By registering for the competition, participants agree to grant the organizers the right to use their portrait (image rights) for the purpose of competition-related publicity only.
+- For publicity cooperation or related inquiries, please contact: jichuruanjian@idea.edu.cn
 
-报名比赛，我们即默认参赛选手您同意并自愿遵守参赛确认书的全部内容
-大赛组委会保留对本方案的最终解释权，并有权根据实际情况调整竞赛流程和相关要求。
-参赛选手请扫描官方大赛答疑咨询总群（914387051），或搜索微信号：moonbit_helper
+## 9、Competition Organization
+
+- Guiding Unit: Hetao Shenzhen-Hong Kong Science and Technology Innovation Cooperation Zone Shenzhen Park Development Bureau
+- Organizer: International Digital Economy Academy (IDEA), Greater Bay Area Digital Economy Research Institute
+- Co-organizers: Tencent Cloud Computing (Beijing) Co., Ltd.; Shenzhen-Hong Kong Science and Technology Innovation Cooperation Zone Development Co., Ltd.
+- Partners: Institute of Software, Chinese Academy of Sciences; Hong Kong University of Science and Technology (Guangzhou); School of Software Engineering, Sun Yat-sen University
+- Competition Platform: Alibaba Cloud Tianchi
+
+To ensure the smooth progress of the competition, the MoonBit Programming Innovation Challenge has established an Honorary Advisory Committee, a Competition Organizing Committee, and a Review Committee to provide guidance, execution, and supervision of the competition’s organization, operations, and award evaluations.
+
+**Honorary Advisory Committee Members (listed in order of surname strokes):**
+
+- Dr. Harry Shum (沈向洋) – Foreign Member of the U.S. National Academy of Engineering; Chairman of the Council, Hong Kong University of Science and Technology
+
+- Dr. Chen Zhao (赵琛) – Director, Institute of Software, Chinese Academy of Sciences
+
+- Prof. Mingxuan Ni (倪明选) – IEEE Life Fellow; Academician of the Hong Kong Academy of Engineering Sciences; Founding President, Hong Kong University of Science and Technology (Guangzhou)
+
+## Special Notes
+
+By registering for the competition, participants are deemed to have agreed to and voluntarily comply with all contents of the Participation Confirmation Letter.
+
+The Organizing Committee reserves the right of final interpretation of this plan and has the authority to adjust the competition process and related requirements based on actual circumstances.
+
+For inquiries, participants are invited to join the official competition Q&A group (QQ: 914387051) or search WeChat ID: moonbit_helper.
+
+**Participants are invited to join the official Competition Q&A Group on QQ for inquiries and discussion:**
+
+This group serves as the official channel for answering questions and providing updates during the competition.

@@ -273,6 +273,10 @@ export default async (): Promise<Config> => {
               {
                 href: 'https://mooncakes.io',
                 label: 'Package Manager'
+              },
+              {
+                href: '/2025-mgpic',
+                label: '2025 MGPIC'
               }
             ],
             locale: ['en']
