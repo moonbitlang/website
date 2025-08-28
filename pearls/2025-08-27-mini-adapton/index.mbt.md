@@ -159,7 +159,8 @@ fn propagate(self: Node) -> Unit {
       dependency.propagate()
       // If a dependency's value changed, the node needs to be recomputed
       if dependency.is_changed() {
-        // remove all outgoing_edges, since they will be reconstructed during evaluate
+        // remove all incoming_edges and outgoing_edges, since they will be reconstructed during evaluate
+        self.incoming_edges().clear()
         self.outgoing_edges().clear()
         self.evaluate()
         return
@@ -288,13 +289,25 @@ impl[A : Eq] Node for Thunk[A] with set_dirty(self, new_dirty) {
 }
 
 impl[A : Eq] Node for Thunk[A] with evaluate(self) {
+  // push self into node_stack top
+  // now self is active target
   node_stack.push(self)
+  // `self.thunk` might contains `source.get()`,
+  // such as `s1.get()`, `s2.get()` and `s3.get()`
+  //
+  // when call `Thunk::get` or `Cell::get`,
+  // they will treat `node_stack.last()` as themself's target.
+  // if source is `Cell`, then it only record `incoming_edges`.
+  // if source is `Thunk`, then it record `incoming_edges` and `outgoing_edges`, connect each other.
+  //
   let value = (self.thunk)()
   self.is_changed = match self.value {
     None => true
     Some(v) => v != value
   }
   self.value = Some(value)
+  // pop self from node_stack
+  // now self is no longer active target
   node_stack.unsafe_pop() |> ignore
 }
 ```
@@ -327,6 +340,7 @@ fn &Node::propagate(self : &Node) -> Unit {
     for dependency in self.outgoing_edges() {
       dependency.propagate()
       if dependency.is_changed() {
+        self.incoming_edges().clear()
         self.outgoing_edges().clear()
         self.evaluate()
         return
