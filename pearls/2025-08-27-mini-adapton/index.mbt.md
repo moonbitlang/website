@@ -382,4 +382,4 @@ fn[A : Eq] Thunk::get(self : Thunk[A]) -> A {
 ## Reference
 
 - [Adapton: Composable, demand-driven incremental computation, PLDI 2014](http://matthewhammer.org/adapton/) original paper of adapton
-- [illusory0x0/adapton.mbt](https://github.com/illusory0x0/adapton.mbt) adapton library in MoonBit
+- [illusory0x0/adapton.mbt](https://github.com/moonbit-community/adapton.mbt) adapton library in MoonBit
