@@ -3,7 +3,6 @@ description: 'Two Approaches to Regex Engines: Derivative and Thompson VM'
 slug: moonbit-regex
 image: cover.png
 ---
-
 # Two Approaches to Regex Engines: Derivative and Thompson VM
 
 Regular expression engines can be implemented using fundamentally different approaches, each with distinct trade-offs in performance, memory usage, and implementation complexity. This article explores two mathematically equivalent but practically different methods for regex matching: Brzozowski derivatives and Thompson's virtual machine approach.
@@ -20,7 +19,7 @@ enum Ast {
   Seq(Ast, Ast)
   Rep(Ast, Int?)
   Opt(Ast)
-} derive(Show, ToJson, Hash, Eq)
+} derive(Show, Hash, Eq)
 ```
 
 Additionally, we provide smart constructors to simplify regex construction:
@@ -71,7 +70,7 @@ enum Exp {
   Alt(Exp, Exp)
   Seq(Exp, Exp)
   Rep(Exp)
-} derive(Show, Hash, Eq, Compare, ToJson)
+} derive(Show, Hash, Eq, Compare)
 ```
 
 The constructors in `Exp` represent:
@@ -232,7 +231,7 @@ enum Ops {
   Char(Char)
   Jump(Int)
   Fork(Int)
-} derive(Show, ToJson)
+} derive(Show)
 ```
 
 Each instruction serves a specific purpose in NFA simulation. `Done` marks successful completion of pattern matching, equivalent to Thompson's original `match`. `Char(c)` consumes input character `c` and advances to the next instruction. `Jump(addr)` provides unconditional jump to instruction at address `addr` (Thompson's `jmp`). `Fork(addr)` creates two execution paths—one continues to the next instruction, another jumps to `addr` (Thompson's `split`).
@@ -242,18 +241,18 @@ The `Fork` instruction is crucial for handling non-determinism in patterns like 
 We define a `Prg` that wraps an array of instructions with convenience methods for building and manipulating bytecode programs.
 
 ```moonbit
-type Prg Array[Ops] derive(Show, ToJson)
+struct Prg(Array[Ops]) derive(Show)
 
 fn Prg::push(self : Prg, inst : Ops) -> Unit {
-  self.inner().push(inst)
+  self.0.push(inst)
 }
 
 fn Prg::length(self : Prg) -> Int {
-  self.inner().length()
+  self.0.length()
 }
 
 fn Prg::op_set(self : Prg, index : Int, inst : Ops) -> Unit {
-  self.inner()[index] = inst
+  self.0[index] = inst
 }
 ```
 
@@ -385,7 +384,7 @@ In the original blog post, Rob Pike uses a recursive function to handle `Fork` a
 
 ```moonbit
 struct Ctx {
-  deque : @deque.T[Int]
+  deque : @deque.Deque[Int]
   visit : FixedArray[Bool]
 }
 
