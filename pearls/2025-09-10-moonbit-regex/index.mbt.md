@@ -5,6 +5,8 @@ image: cover.png
 ---
 # Two Approaches to Regex Engines: Derivative and Thompson VM
 
+![](./cover.png)
+
 Regular expression engines can be implemented using fundamentally different approaches, each with distinct trade-offs in performance, memory usage, and implementation complexity. This article explores two mathematically equivalent but practically different methods for regex matching: Brzozowski derivatives and Thompson's virtual machine approach.
 
 Both methods operate on the same abstract syntax tree representation, providing a unified foundation for direct performance comparison. The key insight is how these seemingly different approaches solve identical problems through different computational strategies—one through algebraic transformation, the other through program execution.

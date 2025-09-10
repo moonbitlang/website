@@ -6,6 +6,8 @@ image: cover.png
 
 # prettyprinter：使用函数组合解决结构化数据打印问题
 
+![](./cover.png)
+
 结构化数据的打印是编程中常见的问题，尤其是在调试和日志记录时。如何展示复杂的数据结构，并能够根据屏幕宽度调整排版？例如，对于一个数组字面量 `[a,b,c]` , 我们希望在屏幕宽度足够时打印为一行，而在屏幕宽度不足时自动换行并缩进。
 传统的解决方案往往依赖于手动处理字符串拼接和维护缩进状态，这样的方式不仅繁琐，而且容易出错。
 
@@ -16,7 +18,7 @@ image: cover.png
 
 我们先定义一个SimpleDoc表示4个最简单的原语，来处理最基本的字符串拼接和换行。
 
-```moonbit 
+```moonbit
 enum SimpleDoc {
   Empty
   Line
@@ -26,8 +28,8 @@ enum SimpleDoc {
 
 ```
 
-- `Empty`: 表示空字符串 
-- `Line`：表示换行 
+- `Empty`: 表示空字符串
+- `Line`：表示换行
 - `Text(String)`: 表示一个不包含换行的文本片段
 - `Cat(SimpleDoc, SimpleDoc)`: 按顺序组合两个 SimpleDoc
 
@@ -87,14 +89,14 @@ enum ExtendDoc {
 }
 ```
 
-* Nest
-`Nest(Int, ExtendDoc)` 用于处理缩进。第一个参数表示缩进的空格数，第二个参数表示内部的 `ExtendDoc` 。当内部的 `ExtendDoc` 包含 `Line` 时，render函数将在打印换行的同时追加相应数量的空格。 `Nest` 嵌套使用时缩进会累加。
+- Nest
+  `Nest(Int, ExtendDoc)` 用于处理缩进。第一个参数表示缩进的空格数，第二个参数表示内部的 `ExtendDoc` 。当内部的 `ExtendDoc` 包含 `Line` 时，render函数将在打印换行的同时追加相应数量的空格。 `Nest` 嵌套使用时缩进会累加。
 
-* Choice
-`Choice(ExtendDoc, ExtendDoc)` 保存了两种打印方式。通常第一个参数表示不包含换行更紧凑的布局，第二个参数则是包含 `Line` 的布局。当render在紧凑模式时，使用第一个布局，否则使用第二个。
+- Choice
+  `Choice(ExtendDoc, ExtendDoc)` 保存了两种打印方式。通常第一个参数表示不包含换行更紧凑的布局，第二个参数则是包含 `Line` 的布局。当render在紧凑模式时，使用第一个布局，否则使用第二个。
 
-* Group
-`Group(ExtendDoc)` 将ExtendDoc分组，并根据 `ExtendDoc` 的长度和剩余的空间切换打印 `ExtendDoc` 时的模式。如果剩余空间足够，则在紧凑模式下打印，否则使用包含换行的布局。
+- Group
+  `Group(ExtendDoc)` 将ExtendDoc分组，并根据 `ExtendDoc` 的长度和剩余的空间切换打印 `ExtendDoc` 时的模式。如果剩余空间足够，则在紧凑模式下打印，否则使用包含换行的布局。
 
 ## 计算所需空间
 
@@ -197,7 +199,6 @@ let softbreak : ExtendDoc = Choice(Text(" "), Line)
 
 和 `softline` 类似，不同的是在紧凑模式下它会加入额外的空格。注意在同一层 `Group` 中，每个 `Choice` 都会一致选择紧凑或非紧凑模式。
 
-
 ```moonbit
 let abc : ExtendDoc = Text("abc")
 
@@ -220,6 +221,7 @@ test "softbreak" {
 ```
 
 ## autoline & autobreak
+
 ```moonbit
 let autoline : ExtendDoc = Group(softline)
 
@@ -227,7 +229,6 @@ let autobreak : ExtendDoc = Group(softbreak)
 ```
 
 `autoline` 和 `autobreak` 实现一种类似于文字编辑器的排版：尽可能多地将内容放进一行内，溢出则换行。
-
 
 ```moonbit
 test {

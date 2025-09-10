@@ -6,6 +6,8 @@ image: cover.png
 
 # Prettyprinter: Declarative Structured Data Formatting with Function Composition
 
+![](./cover.png)
+
 When working with structured data, printing it in a clear and adaptable format is a common challenge. This comes up often in debugging, logging, and code generation. For instance, an array literal `[a,b,c]` should ideally print on one line if the screen is wide enough, but gracefully wrap and indent when space is limited.
 
 Traditional solutions often rely on manually concatenating strings while tracking indentation levels. This approach is not only tedious, but also error-prone.
@@ -27,10 +29,10 @@ enum SimpleDoc {
 }
 ```
 
-* `Empty`: represents an empty string
-* `Line`: represents a newline
-* `Text(String)`: plain text without line breaks
-* `Cat(SimpleDoc, SimpleDoc)`: concatenates two `SimpleDocs`s
+- `Empty`: represents an empty string
+- `Line`: represents a newline
+- `Text(String)`: plain text without line breaks
+- `Cat(SimpleDoc, SimpleDoc)`: concatenates two `SimpleDocs`s
 
 Using these primitives, we can implement a simple rendering function. It flattens a `SimpleDoc` into a string using a stack-based traversal:
 
@@ -74,7 +76,7 @@ At this stage, the `SimpleDoc` doesn’t yet handle indentation or layout choice
 
 # ExtendDoc: Nest, Choice, Group
 
-To handle real-world formatting, we extend `SimpleDoc` with three new primitives: 
+To handle real-world formatting, we extend `SimpleDoc` with three new primitives:
 
 ```moonbit
 enum ExtendDoc {
@@ -88,13 +90,13 @@ enum ExtendDoc {
 }
 ```
 
-* **Nest**
+- **Nest**
   `Nest(Int, ExtendDoc)` indents the doc by n spaces after each line break. Nested levels accumulate.
 
-* **Choice**
+- **Choice**
   `Choice(ExtendDoc, ExtendDoc)` stores two alternative layouts. Usually, the first parameter is the more compact layout without line breaks, and the second is the layout with `Line`s. The renderer uses the first layout in compact mode and the second otherwise.
 
-* **Group**
+- **Group**
   `Group(ExtendDoc)` groups an `ExtendDoc` and decides between compact or non-compact layout based on the available width. If the remaining space is sufficient, it prints compactly; otherwise, it falls back to the layout with line breaks.
 
 ## Measuring Space
@@ -185,7 +187,6 @@ Here, `softline` is defined as a choice between `Empty` and `Line`. Since render
 # Composition Functions
 
 In practice, users rely more on higher-level combinators built from the `ExtendDoc` primitives—like the `softline` above. Let’s introduce some useful functions for structured printing.
-
 
 ## softline & softbreak
 
@@ -401,7 +402,6 @@ test {
 }
 ```
 
-
 # Conclusion
 
 By combining a small set of primitives with function composition, we can build a flexible, declarative prettyprinter that adapts structured data layouts to the available screen width.
@@ -414,5 +414,4 @@ The current implementation can be further optimized:
 - Adding a `ribbon` parameter to balance whitespace vs. content density
 - Supporting advanced layouts like hanging indents or mandatory line breaks
 
-For a deeper dive, see Philip Wadler’s classic paper [*A prettier printer* – Philip Wadler](https://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf), as well as prettyprinter libraries in Haskell, OCaml, and other languages.
-
+For a deeper dive, see Philip Wadler’s classic paper [_A prettier printer_ – Philip Wadler](https://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf), as well as prettyprinter libraries in Haskell, OCaml, and other languages.
