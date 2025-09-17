@@ -124,7 +124,7 @@ While this imperative style of state management is routine for C++ programmers, 
 
 LLVM is the foundation of modern compilers, but its C++ API is notorious for its complexity and steep learning curve. Developers must contend with a multitude of header files, raw pointers, and manual memory management.
 
-MoonBit provides an official binding library that maintains a style consistent with the LLVM C++ API but is significantly safer and easier to use. It leverages MoonBit's type system and ownership mechanism to encapsulate unsafe operations.
+MoonBit provides an official binding library that maintains a style consistent with the LLVM C++ API but is significantly safer and easier to use. It leverages MoonBit's type system to encapsulate unsafe operations.
 
 **Generating an `add` function with MoonBit's LLVM bindings:**
 

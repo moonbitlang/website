@@ -124,7 +124,7 @@ std::vector<Token> tokenize(const std::string& code) {
 
 LLVM是现代编译器的基石，但其C++ API以复杂和陡峭的学习曲线著称。开发者需要和大量的头文件、裸指针、以及手动内存管理打交道。
 
-MoonBit官方提供了一个与LLVM C++ API风格保持一致，但更为安全和易用的绑定库。它利用MoonBit的类型系统和所有权机制，将不安全的操作封装起来。
+MoonBit官方提供了一个与LLVM C++ API风格保持一致，但更为安全和易用的绑定库。它利用MoonBit的类型系统，将不安全的操作封装起来。
 
 **用MoonBit的LLVM绑定生成一个****`add`****函数：**
 
