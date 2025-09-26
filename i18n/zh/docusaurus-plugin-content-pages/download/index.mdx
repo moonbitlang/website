@@ -34,7 +34,7 @@ MoonBit工具链需要[git](https://git-scm.com/)以正确工作, 请在安装Mo
 
 **第 5 步:** 点击terminal，输入`moon new hello ; code hello`以创建并打开新项目。
 
-**第 6 步:** 项目启动后，再次打开terminal，输入`moon run src/main`命令，即可开始执行代码。
+**第 6 步:** 项目启动后，再次打开terminal，输入`moon run cmd/main`命令，即可开始执行代码。
 
 ## MoonBit CLI 工具
 
@@ -95,30 +95,36 @@ Options:
 <Tabs>
 
 <TabItem value='mac-m1' label='Apple Silicon MacOS'>
-  ```bash
-  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-aarch64.sha256 # SHA checksums for binaries
-  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-aarch64.tar.gz.sha256 # SHA checksums for archive files
-  ```
+  ```bash curl -O -L
+  https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-aarch64.sha256 # SHA
+  checksums for binaries curl -O -L
+  https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-aarch64.tar.gz.sha256
+  # SHA checksums for archive files ```
 </TabItem>
 
 <TabItem value='mac-intel' label='Intel MacOS'>
-  ```bash
-  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-x86_64.sha256 # SHA checksums for binaries
-  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-x86_64.tar.gz.sha256 # SHA checksums for archive files
-  ```
+  ```bash curl -O -L
+  https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-x86_64.sha256 # SHA
+  checksums for binaries curl -O -L
+  https://cli.moonbitlang.cn/binaries/latest/moonbit-darwin-x86_64.tar.gz.sha256
+  # SHA checksums for archive files ```
 </TabItem>
 
 <TabItem value='ubuntu' label='x86-64 Ubuntu 20.04'>
-  ```bash
-  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-linux-x86_64.sha256 # SHA checksums for binaries
-  curl -O -L https://cli.moonbitlang.cn/binaries/latest/moonbit-linux-x86_64.tar.gz.sha256 # SHA checksums for archive files
-  ```
+  ```bash curl -O -L
+  https://cli.moonbitlang.cn/binaries/latest/moonbit-linux-x86_64.sha256 # SHA
+  checksums for binaries curl -O -L
+  https://cli.moonbitlang.cn/binaries/latest/moonbit-linux-x86_64.tar.gz.sha256
+  # SHA checksums for archive files ```
 </TabItem>
 
 <TabItem value='windows' label='Windows'>
-  ```bash
-  Invoke-WebRequest -Uri https://cli.moonbitlang.cn/binaries/latest/moonbit-windows-x86_64.sha256 -OutFile moonbit-windows-x86_64.sha256 # SHA checksums for binaries
-  Invoke-WebRequest -Uri https://cli.moonbitlang.cn/binaries/latest/moonbit-windows-x86_64.zip.sha256 -OutFile moonbit-windows-x86_64.zip.sha256 # SHA checksums for archive files
+  ```bash Invoke-WebRequest -Uri
+  https://cli.moonbitlang.cn/binaries/latest/moonbit-windows-x86_64.sha256
+  -OutFile moonbit-windows-x86_64.sha256 # SHA checksums for binaries
+  Invoke-WebRequest -Uri
+  https://cli.moonbitlang.cn/binaries/latest/moonbit-windows-x86_64.zip.sha256
+  -OutFile moonbit-windows-x86_64.zip.sha256 # SHA checksums for archive files
   ```
 </TabItem>
 
