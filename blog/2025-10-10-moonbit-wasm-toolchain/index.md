@@ -128,6 +128,12 @@ echo "export PATH=\"$MOON_HOME/bin:"'$PATH"' >> ~/.bashrc
 echo "export PATH=\"$MOON_HOME/bin:"'$PATH"' >> ~/.zshrc
 ```
 
+* fish
+
+```shell
+echo "fish_add_path $HOME/.moon/bin" >> ~/.config/fish/config.fish
+```
+
 ## Summary
 
 Now, you can try running `moon version --all` to verify your installation. Enjoy the modern programming experience brought by MoonBit!
