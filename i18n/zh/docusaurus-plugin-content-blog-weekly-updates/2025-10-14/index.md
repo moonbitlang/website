@@ -1,4 +1,4 @@
-# 20250908 MoonBit 月报 Vol.04
+# 20251014 MoonBit 月报 Vol.04
 
 对应moonc版本：v0.6.29
 
