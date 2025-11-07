@@ -58,8 +58,7 @@ export default function FooterLayout({
             <div className={clsx(styles['about-us'], 'margin-bottom--sm')}>
               {isZh ? (
                 <>
-                  粤港澳大湾区数字经济研究院（福田）（International Digital
-                  Economy
+                  粤港澳大湾区数字经济研究院（International Digital Economy
                   Academy，简称IDEA研究院）致力于人工智能和数字经济领域的前沿研究与产业落地，是一家国际化创新型机构。MoonBit是编程语言以及开发者平台，专注于AI原生通用程序语言的设计、编译器、运行时、IDE以及构建系统的开发。
                   <br />
                   地址：中国深圳市福田区市花路5号长富金茂大厦1号楼20层

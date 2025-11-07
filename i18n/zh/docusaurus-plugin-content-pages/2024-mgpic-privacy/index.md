@@ -4,7 +4,7 @@
 
 本隐私政策订立的背景：
 
-粤港澳大湾区数字经济研究院（福田）（以下简称“IDEA研究院”或“我们”）系本次2024MoonBit全球编程挑战赛（以下简称“本次比赛”，赛事链接见：https://www.moonbitlang.cn/2024-mgpic ，游戏开发赛道： https://tianchi.aliyun.com/competition/entrance/532262/introduction ，编程语言设计与实现赛道：https://tianchi.aliyun.com/competition/entrance/532263/introduction ）的大赛举办方。
+粤港澳大湾区数字经济研究院（以下简称“IDEA研究院”或“我们”）系本次2024MoonBit全球编程挑战赛（以下简称“本次比赛”，赛事链接见：https://www.moonbitlang.cn/2024-mgpic ，游戏开发赛道： https://tianchi.aliyun.com/competition/entrance/532262/introduction ，编程语言设计与实现赛道：https://tianchi.aliyun.com/competition/entrance/532263/introduction ）的大赛举办方。
 
 为更好地举办本次比赛以及向参赛者（以下简称“参赛者”或“您”）提供更好的参赛服务，本次比赛将通过阿里云天池平台报名参赛（平台主体为：阿里云计算有限公司，以下简称“阿里云”，域名：https://tianchi.aliyun.com ）届时需要您注册、登录阿里云账号，并通过阿里云天池平台报名参加本次比赛，相关服务内容及文档请您参见服务协议，阿里云处理您信息的相关规则请您参见隐私政策。
 
@@ -156,7 +156,7 @@
 九、联系方式
 9.1. 如对本政策或个人信息保护有任何疑问，您可以通过如下联系方式与我们联系，我们将会解答您的疑问并尽力解决。一般情况下，我们将在十五个工作日内完成核查、处理或提供合理解释。
 
-名称：粤港澳大湾区数字经济研究院（福田）
+名称：粤港澳大湾区数字经济研究院
 地址：深圳市福田区福保街道市花路长富金茂大厦1号楼39楼3901单元
 联系邮箱： jichuruanjian@idea.edu.cn
 
