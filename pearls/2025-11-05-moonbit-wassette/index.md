@@ -47,7 +47,7 @@ Among them, `wasm-tools`, `wit-deps`, and `wit-bindgen` can be installed via car
 
 ```bash
 cargo install wasm-tools
-cargo install wit-deps
+cargo install wit-deps-cli
 cargo install wit-bindgen-cli
 ```
 
@@ -255,7 +255,7 @@ After a successful build, a `weather.wasm` file will be generated in the project
 You can then load it into Wassette:
 
 ```bash
-wassette component load file://$(pwd)/component.wasm
+wassette component load file://$(pwd)/weather.wasm
 ```
 
 ## Step 6 (Optional): Configure Security Policy
@@ -287,7 +287,7 @@ Finally, we can use Wassette to run our component and interact with AI. For exam
 
 After restarting Wassette, you can ask AI:
 
-> Using Wassette, load the component `./component.wasm` (note the use of the file schema) and query the weather for Shenzhen.
+> Using Wassette, load the component `./weather.wasm` (note the use of the file schema) and query the weather for Shenzhen.
 
 The AI will call `load-component` and `get-weather` in sequence, returning:
 

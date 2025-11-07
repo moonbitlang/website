@@ -55,7 +55,7 @@ graph TD
 
 ```bash
 cargo install wasm-tools
-cargo install wit-deps
+cargo install wit-deps-cli
 cargo install wit-bindgen-cli
 ```
 
@@ -296,7 +296,7 @@ wasm-tools component new core.wasm -o weather.wasm
 来进行动态加载，不仅可以加载本地文件，也可以加载远程服务器上的文件。
 
 ```bash
-wassette component load file://$(pwd)/component.wasm
+wassette component load file://$(pwd)/weather.wasm
 ```
 
 ## 第6步（可选）：配置安全策略
@@ -342,7 +342,7 @@ wassette permission grant network weather wttr.in
 
 当然，如果我们允许使用动态加载功能，我们也可以和 AI 这么说：
 
-> 用 wassette，加载组件 `./component.wasm`（注意使用 file
+> 用 wassette，加载组件 `./weather.wasm`（注意使用 file
 > schema），并查询深圳的天气
 
 于是，AI 便会先后调用 `load-component` 以及 `get-weather`
