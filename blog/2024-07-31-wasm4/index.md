@@ -26,7 +26,7 @@ For developing locally, we expect [Node.js](https://nodejs.org/en) and [MoonBit]
 We first create a new project with MoonBit in the current directory, and we install the `wasm4` with `npm`
 
 ```bash
-moon new --user moonbit --name demo --lib --path .
+moon new --user moonbit --name demo --path .
 npm install -D wasm4
 ```
 
@@ -35,10 +35,8 @@ We will have the following directory structure (`node_modules` not included):
 ```bash
 .
 ├── .gitignore
-├── lib
-│  ├── hello.mbt
-│  ├── hello_test.mbt
-│  └── moon.pkg.json
+├── demo.mbt
+├── demo_test.mbt
 ├── moon.mod.json
 ├── moon.pkg.json
 ├── package-lock.json

@@ -37,10 +37,10 @@ MoonBit now supports the JS string builtins proposal. Below are two examples dem
 
 ### Deno Environment
 
-First, create a new project using `moon new --lib demo-js-builtin-string`. Next, create a package called `palindrome` and write a function in MoonBit to check if a string is a palindrome:
+First, create a new project using `moon new demo_js_builtin_string`. Next, create a package called `palindrome` and write a function in MoonBit to check if a string is a palindrome:
 
 ```moonbit
-// demo-js-builtin-string/palindrome/palindrome.mbt
+// demo_js_builtin_string/palindrome/palindrome.mbt
 pub fn palindrome(s : String) -> String {
   let len = s.length()
   for i in 0..<(len / 2) {

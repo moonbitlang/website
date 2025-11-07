@@ -27,7 +27,7 @@ tags: [MoonBit]
 
 ### 使用 deno 环境
 
-首先使用 `moon new --lib demo-js-builtin-string` 来创建一个新的项目，接下来我们在这个项目中新建一个叫做 `palindrome` 的包，并且用 MoonBit 写一个判断回文字符串的函数：
+首先使用 `moon new demo-js-builtin-string` 来创建一个新的项目，接下来我们在这个项目中新建一个叫做 `palindrome` 的包，并且用 MoonBit 写一个判断回文字符串的函数：
 
 ```moonbit
 // demo-js-builtin-string/palindrome/palindrome.mbt

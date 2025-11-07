@@ -37,7 +37,7 @@ gallery: https://www.moonbitlang.cn/gallery/wasm4-snake/
 在当前目录下使用 MoonBit 创建一个新项目，并使用 `npm` 安装 `wasm4`。
 
 ```bash
-moon new --user moonbit --name demo --lib --path .
+moon new --user moonbit --name demo --path .
 npm install -D wasm4
 ```
 
