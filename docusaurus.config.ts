@@ -16,6 +16,7 @@
 
 import { Config } from '@docusaurus/types'
 import { Options as BlogOptions } from '@docusaurus/plugin-content-blog'
+import { Options as RedirectOptions } from '@docusaurus/plugin-client-redirects'
 import math from 'remark-math'
 import katex from 'rehype-katex'
 import 'dotenv/config'
@@ -116,10 +117,10 @@ export default async (): Promise<Config> => {
       [
         '@docusaurus/plugin-content-blog',
         {
-          id: 'weekly-updates',
-          path: 'weekly',
+          id: 'updates',
+          path: 'updates',
           blogDescription: 'Updates from the MoonBit team',
-          routeBasePath: 'weekly-updates',
+          routeBasePath: 'updates',
           blogSidebarCount: 'ALL',
           blogSidebarTitle: 'All posts',
           onUntruncatedBlogPosts: 'ignore',
@@ -139,16 +140,27 @@ export default async (): Promise<Config> => {
           remarkPlugins: [math],
           rehypePlugins: [katex, rehypeMoonbitMarkdown]
         } satisfies BlogOptions
+      ],
+      [
+        '@docusaurus/plugin-client-redirects',
+        {
+          createRedirects(existingPath) {
+            if (existingPath === '/updates' || existingPath.startsWith('/updates/')) {
+              return existingPath.replace('/updates', '/weekly-updates')
+            }
+            return undefined
+          }
+        } satisfies RedirectOptions
       ]
     ],
 
     themeConfig: {
-      announcementBar: {
-        content: isZh
-          ? `🎉️ <b><a href="/2025-mgpic">2025全球编程挑战赛火热来袭，立即参赛赢取丰厚奖金</a></b> 🥳️`
-          : `🎉️ <b><a href="/blog/beta-release">MoonBit hits Beta — fast, stable, and async-ready.</a></b> 🥳️`,
-        isCloseable: false
-      },
+      announcementBar: isZh
+        ? undefined
+        : {
+            content: `🎉️ <b><a href="/blog/beta-release">MoonBit hits Beta — fast, stable, and async-ready.</a></b> 🥳️`,
+            isCloseable: false
+          },
       navbar: {
         title: 'MoonBit',
         hideOnScroll: true,
@@ -197,7 +209,7 @@ export default async (): Promise<Config> => {
                 label: 'Gallery'
               },
               {
-                to: '/weekly-updates/',
+                to: '/updates/',
                 label: 'Updates'
               },
               {
@@ -231,8 +243,8 @@ export default async (): Promise<Config> => {
             position: 'left',
             items: [
               {
-                to: '/weekly-updates/',
-                label: 'Weekly Updates'
+                to: '/updates/',
+                label: 'Updates'
               },
               {
                 to: '/pearls/',
@@ -344,7 +356,7 @@ export default async (): Promise<Config> => {
               },
               {
                 label: 'Updates',
-                to: '/weekly-updates/',
+                to: '/updates/',
                 locale: ['en']
               },
               {
@@ -379,7 +391,7 @@ export default async (): Promise<Config> => {
               },
               {
                 label: '动态',
-                to: '/weekly-updates/',
+                to: '/updates/',
                 locale: ['zh']
               },
               {

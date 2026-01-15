@@ -25,7 +25,7 @@ The design of type system is one of the most complex parts in modern language. M
 
 ### Precise Error Handling
 
-If you’ve been following our [recent updates](/weekly-updates/), you'll notice lots of efforts on crafting rigorous error handling. In most programming languages, error handling isn't adequately supported during static analysis, resulting in untracked exceptions that can lead to potential reliability issues in software. MoonBit, through precise control flow analysis, tracks function errors entirely at compile-time. This process is almost entirely inferred by the compiler, sparing developers from cumbersome error-handling annotations, while preserving error safety.
+If you’ve been following our [recent updates](/updates/), you'll notice lots of efforts on crafting rigorous error handling. In most programming languages, error handling isn't adequately supported during static analysis, resulting in untracked exceptions that can lead to potential reliability issues in software. MoonBit, through precise control flow analysis, tracks function errors entirely at compile-time. This process is almost entirely inferred by the compiler, sparing developers from cumbersome error-handling annotations, while preserving error safety.
 
 ### Efficient Iterators
 
