@@ -19,10 +19,6 @@
     "message": "Blog",
     "description": "The label of footer link with label=Blog linking to /blog/"
   },
-  "link.item.label.Weekly Updates": {
-    "message": "Weekly Updates",
-    "description": "The label of footer link with label=Weekly Updates linking to /updates/"
-  },
   "link.item.label.Courses": {
     "message": "Courses",
     "description": "The label of footer link with label=Courses linking to https://moonbitlang.github.io/moonbit-textbook/"
@@ -38,10 +34,6 @@
   "link.item.label.博客": {
     "message": "博客",
     "description": "The label of footer link with label=博客 linking to /blog/"
-  },
-  "link.item.label.每周动态": {
-    "message": "每周动态",
-    "description": "The label of footer link with label=每周动态 linking to /updates/"
   },
   "link.item.label.课程": {
     "message": "课程",
@@ -102,5 +94,21 @@
   "link.item.label.动态": {
     "message": "动态",
     "description": "The label of footer link with label=动态 linking to /updates/"
+  },
+  "link.item.label.Online Judge": {
+    "message": "Online Judge",
+    "description": "The label of footer link with label=Online Judge linking to https://oj.moonbitlang.com"
+  },
+  "link.item.label.在线评测": {
+    "message": "在线评测",
+    "description": "The label of footer link with label=在线评测 linking to https://oj.moonbitlang.com"
+  },
+  "link.item.label.About Us": {
+    "message": "About Us",
+    "description": "The label of footer link with label=About Us linking to /about-us"
+  },
+  "link.item.label.关于我们": {
+    "message": "关于我们",
+    "description": "The label of footer link with label=关于我们 linking to /about-us"
   }
 }

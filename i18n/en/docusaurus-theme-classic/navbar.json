@@ -23,10 +23,6 @@
     "message": "Gallery",
     "description": "Navbar item with label Gallery"
   },
-  "item.label.Weekly Updates": {
-    "message": "Weekly Updates",
-    "description": "Navbar item with label Weekly Updates"
-  },
   "item.label.Course": {
     "message": "Course",
     "description": "Navbar item with label Course"
@@ -114,5 +110,29 @@
   "item.label.线上挑战赛": {
     "message": "线上挑战赛",
     "description": "Navbar item with label 线上挑战赛"
+  },
+  "item.label.AI原生": {
+    "message": "AI原生",
+    "description": "Navbar item with label AI原生"
+  },
+  "item.label.Pearls": {
+    "message": "Pearls",
+    "description": "Navbar item with label Pearls"
+  },
+  "item.label.黑板报": {
+    "message": "黑板报",
+    "description": "Navbar item with label 黑板报"
+  },
+  "item.label.2025 MGPIC": {
+    "message": "2025 MGPIC",
+    "description": "Navbar item with label 2025 MGPIC"
+  },
+  "item.label.2024 MoonBit 编程挑战赛": {
+    "message": "2024 MoonBit 编程挑战赛",
+    "description": "Navbar item with label 2024 MoonBit 编程挑战赛"
+  },
+  "item.label.2025 MoonBit 编程挑战赛": {
+    "message": "2025 MoonBit 编程挑战赛",
+    "description": "Navbar item with label 2025 MoonBit 编程挑战赛"
   }
 }

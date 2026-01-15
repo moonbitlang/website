@@ -27,10 +27,6 @@
     "message": "课程",
     "description": "Navbar item with label Course"
   },
-  "item.label.Weekly Updates": {
-    "message": "每周动态",
-    "description": "Navbar item with label Weekly Updates"
-  },
   "item.label.Community": {
     "message": "Community",
     "description": "Navbar item with label Community"
@@ -96,7 +92,7 @@
     "description": "Navbar item with label 导览"
   },
   "item.label.Updates": {
-    "message": "Updates",
+    "message": "动态",
     "description": "Navbar item with label Updates"
   },
   "item.label.Online Judge": {
