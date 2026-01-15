@@ -25,7 +25,7 @@ By following this guide, you will not only master the core concepts of static an
 
 Let's start by demonstrating the final objective. Consider the following code snippet:
 
-```JavaScript
+```js
 var x
 var y = input()
 if y > 0 {
@@ -101,7 +101,7 @@ A basic block is a sequence of code that executes linearly, with no branches in 
 
 Basic blocks are connected via explicit jumps. For example:
 
-```C++
+```cpp
 if cond {       ──▶    Block0: if cond goto Block1 else Block2
   A                    Block1: A; goto Block3
 } else {               Block2: B; goto Block3
