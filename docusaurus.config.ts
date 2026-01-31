@@ -482,15 +482,18 @@ export default async (): Promise<Config> => {
     },
 
     stylesheets: [
-      {
-        href: isZh
-          ? 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.13.24/katex.min.css'
-          : 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
-        type: 'text/css',
-        integrity:
-          'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
-        crossorigin: 'anonymous'
-      },
+      isZh
+        ? {
+            href: '/katex/katex.min.css',
+            type: 'text/css'
+          }
+        : {
+            href: 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
+            type: 'text/css',
+            integrity:
+              'sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb',
+            crossorigin: 'anonymous'
+          },
       '/fira-code.css'
     ],
     customFields: {
