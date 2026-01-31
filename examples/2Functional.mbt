@@ -23,13 +23,10 @@ fn main {
   .map(res => {
     let (name, content) = res
     let name = name.pad_start(10, ' ')
-    let content = content
-      .pad_end(10, ' ')
-      .replace_all(old="\n", new=" ")
-      .substring(start=0, end=10)
+    let content = try! content.pad_end(10, ' ').replace_all(old="\n", new=" ")[:10]
     "\{name}: \{content} ..."
   })
   .intersperse("\n")
-  .fold(init="Summary:\n", String::op_add)
+  .fold(init="Summary:\n", String::add)
   |> println
 }

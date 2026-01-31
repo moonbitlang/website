@@ -18,8 +18,8 @@ importers:
         specifier: ^3.8.1
         version: 3.8.1(@docusaurus/plugin-content-docs@3.8.1(@mdx-js/react@3.0.0(@types/react@18.2.42)(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.2.2))(@mdx-js/react@3.0.0(@types/react@18.2.42)(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.2.2)
       '@moonbit/moonpad-monaco':
-        specifier: ^0.1.202506241
-        version: 0.1.202506241(monaco-editor-core@0.52.2)
+        specifier: ^0.1.202601214
+        version: 0.1.202601214(monaco-editor-core@0.52.2)
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
@@ -1575,8 +1575,8 @@ packages:
     resolution: {integrity: sha512-FDSOghenHTiToteC/QRlv2q3DhPZ/oOXTBoirfWNx1Cx3TMVcGWQtMMmQcSvb/JjpNeGzx8Pq/b4fKEJuWm1sw==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/runtime@7.27.6':
-    resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
+  '@babel/runtime@7.28.6':
+    resolution: {integrity: sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.22.15':
@@ -2594,14 +2594,14 @@ packages:
   '@mermaid-js/parser@0.4.0':
     resolution: {integrity: sha512-wla8XOWvQAwuqy+gxiZqY+c7FokraOTHRWMsbB4AgRx9Sy7zKslNyejy7E+a77qHfey5GXw/ik3IXv/NHMJgaA==}
 
-  '@moonbit/analyzer@0.1.202506241':
-    resolution: {integrity: sha512-/MnHRuOnzzDhmZCbq0Ix7PiIgIVBevtueSaoivngAHBmNQuDRFkUwiHE0ld6z2+2q3wbDNOOzcAhXslXvHgSRA==}
+  '@moonbit/analyzer@0.1.202601213':
+    resolution: {integrity: sha512-RQet30chix8EGAHbSqgmZNwMGey3ISMICmC90BhH2mcxkL8bRqZ/LGUH2qNOh28ZEKbgnCNwLt2DsXI09A2miw==}
 
-  '@moonbit/moonc-worker@0.1.202506241':
-    resolution: {integrity: sha512-8USv5oLt3tU9CyiZypGIeIKjCae+IMmW1H4QudoT0KVjM1D+gitQrOr+zQtcOhLQS433BFphz09bYahcu1DINg==}
+  '@moonbit/moonc-worker@0.1.202601213':
+    resolution: {integrity: sha512-tScGGD0uvlcEDD7y3gZb+dWHNPuJ/qf54lQDshIce/sepliOfbI7VfbCL/JZGMZgGhMnp+OAO/JsFEs9vi6ZIQ==}
 
-  '@moonbit/moonpad-monaco@0.1.202506241':
-    resolution: {integrity: sha512-GiD57LuwHb8ApApDzLdZn59YsvDfllVroILc+MMgvpmbYZsaQsLsq46yUQlkfBAP3wXc/yvmtFXe+BoTkDQcyg==}
+  '@moonbit/moonpad-monaco@0.1.202601214':
+    resolution: {integrity: sha512-i+le/J+iImzO3Un0puesRp0J06fs52dXtqmC8CyYvi2JTH2onoJuyoWfmTxEoA00wJWo+9bcgVT8HKbyMmKN1w==}
     peerDependencies:
       monaco-editor-core: ^0.52.0
 
@@ -7325,6 +7325,9 @@ packages:
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
 
+  vscode-uri@3.1.0:
+    resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
+
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
 
@@ -9242,7 +9245,7 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 
-  '@babel/runtime@7.27.6': {}
+  '@babel/runtime@7.28.6': {}
 
   '@babel/template@7.22.15':
     dependencies:
@@ -11445,14 +11448,14 @@ snapshots:
     dependencies:
       langium: 3.3.1
 
-  '@moonbit/analyzer@0.1.202506241': {}
+  '@moonbit/analyzer@0.1.202601213': {}
 
-  '@moonbit/moonc-worker@0.1.202506241': {}
+  '@moonbit/moonc-worker@0.1.202601213': {}
 
-  '@moonbit/moonpad-monaco@0.1.202506241(monaco-editor-core@0.52.2)':
+  '@moonbit/moonpad-monaco@0.1.202601214(monaco-editor-core@0.52.2)':
     dependencies:
-      '@moonbit/analyzer': 0.1.202506241
-      '@moonbit/moonc-worker': 0.1.202506241
+      '@moonbit/analyzer': 0.1.202601213
+      '@moonbit/moonc-worker': 0.1.202601213
       '@zenfs/core': 1.11.4
       comlink: 4.4.2
       monaco-editor-core: 0.52.2
@@ -11460,6 +11463,7 @@ snapshots:
       vscode-languageserver-protocol: 3.17.5
       vscode-oniguruma: 2.0.1
       vscode-textmate: 9.2.0
+      vscode-uri: 3.1.0
 
   '@moonpad-wc/moonpad-wc@0.0.9(@lezer/common@1.2.1)':
     dependencies:
@@ -11578,7 +11582,7 @@ snapshots:
 
   '@slorber/react-helmet-async@1.3.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@babel/runtime': 7.27.6
+      '@babel/runtime': 7.28.6
       invariant: 2.2.4
       prop-types: 15.8.1
       react: 18.2.0
@@ -17348,6 +17352,8 @@ snapshots:
   vscode-textmate@9.2.0: {}
 
   vscode-uri@3.0.8: {}
+
+  vscode-uri@3.1.0: {}
 
   w3c-keyname@2.2.8: {}
 

@@ -7,7 +7,7 @@ fn main {
     "boolean": true,
   }
   let greeting = match json_example {
-    { "age": Number(age), "name": String(name), .. } =>
+    { "age": Number(age, ..), "name": String(name), .. } =>
       "Hello \{name}. You are \{age}"
     _ => "not match"
   }
