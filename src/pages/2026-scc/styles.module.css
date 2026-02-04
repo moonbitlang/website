@@ -92,41 +92,41 @@
   margin-left: 4px;
 }
 
-section {
+.container section {
   margin-bottom: 2.5rem;
 }
 
-section h2 {
+.container section h2 {
   color: #5856d6;
   border-bottom: 2px solid #5856d6;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
 }
 
-section h3 {
+.container section h3 {
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
 }
 
-section h4 {
+.container section h4 {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
 
-section ul,
-section ol {
+.container section ul,
+.container section ol {
   padding-left: 1.5rem;
 }
 
-section li {
+.container section li {
   margin-bottom: 0.5rem;
   line-height: 1.7;
 }
 
-a {
+.container a {
   color: #5856d6;
 }
 
-a:hover {
+.container a:hover {
   text-decoration: underline;
 }
