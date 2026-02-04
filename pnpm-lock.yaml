@@ -18,8 +18,8 @@ importers:
         specifier: ^3.8.1
         version: 3.8.1(@docusaurus/plugin-content-docs@3.8.1(@mdx-js/react@3.0.0(@types/react@18.2.42)(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.2.2))(@mdx-js/react@3.0.0(@types/react@18.2.42)(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.2.2)
       '@moonbit/moonpad-monaco':
-        specifier: ^0.1.202601214
-        version: 0.1.202601214(monaco-editor-core@0.52.2)
+        specifier: ^0.1.202602023
+        version: 0.1.202602023(monaco-editor-core@0.52.2)
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
@@ -2594,14 +2594,14 @@ packages:
   '@mermaid-js/parser@0.4.0':
     resolution: {integrity: sha512-wla8XOWvQAwuqy+gxiZqY+c7FokraOTHRWMsbB4AgRx9Sy7zKslNyejy7E+a77qHfey5GXw/ik3IXv/NHMJgaA==}
 
-  '@moonbit/analyzer@0.1.202601213':
-    resolution: {integrity: sha512-RQet30chix8EGAHbSqgmZNwMGey3ISMICmC90BhH2mcxkL8bRqZ/LGUH2qNOh28ZEKbgnCNwLt2DsXI09A2miw==}
+  '@moonbit/analyzer@0.1.202602022':
+    resolution: {integrity: sha512-LmSyhFBj3aSe0mvam1jcAwVpbEhguw7aqXHiH6HtwBSV5f94h2VUlDr+Vx+sdWn8WMffGtE6qpdUxc01bYrJaQ==}
 
-  '@moonbit/moonc-worker@0.1.202601213':
-    resolution: {integrity: sha512-tScGGD0uvlcEDD7y3gZb+dWHNPuJ/qf54lQDshIce/sepliOfbI7VfbCL/JZGMZgGhMnp+OAO/JsFEs9vi6ZIQ==}
+  '@moonbit/moonc-worker@0.1.202602022':
+    resolution: {integrity: sha512-uZxb8Vl8V3aOEr6QkRrFMTKS7mq0Ld9JZihcou9/D0CTZRdb0OtIyD6Obq3hAI3C0MsC1jz24a+tVAv44ngZIQ==}
 
-  '@moonbit/moonpad-monaco@0.1.202601214':
-    resolution: {integrity: sha512-i+le/J+iImzO3Un0puesRp0J06fs52dXtqmC8CyYvi2JTH2onoJuyoWfmTxEoA00wJWo+9bcgVT8HKbyMmKN1w==}
+  '@moonbit/moonpad-monaco@0.1.202602023':
+    resolution: {integrity: sha512-705BfqLCKMXPxQyGFgmRA6mRUKbr82wVd3zQrsHYotlvUoO/dGzVK2gPYsYem2Rfk84MVM6epL0HL6MGVw2VcQ==}
     peerDependencies:
       monaco-editor-core: ^0.52.0
 
@@ -11448,14 +11448,14 @@ snapshots:
     dependencies:
       langium: 3.3.1
 
-  '@moonbit/analyzer@0.1.202601213': {}
+  '@moonbit/analyzer@0.1.202602022': {}
 
-  '@moonbit/moonc-worker@0.1.202601213': {}
+  '@moonbit/moonc-worker@0.1.202602022': {}
 
-  '@moonbit/moonpad-monaco@0.1.202601214(monaco-editor-core@0.52.2)':
+  '@moonbit/moonpad-monaco@0.1.202602023(monaco-editor-core@0.52.2)':
     dependencies:
-      '@moonbit/analyzer': 0.1.202601213
-      '@moonbit/moonc-worker': 0.1.202601213
+      '@moonbit/analyzer': 0.1.202602022
+      '@moonbit/moonc-worker': 0.1.202602022
       '@zenfs/core': 1.11.4
       comlink: 4.4.2
       monaco-editor-core: 0.52.2
@@ -16432,7 +16432,7 @@ snapshots:
 
   regenerator-transform@0.15.2:
     dependencies:
-      '@babel/runtime': 7.26.0
+      '@babel/runtime': 7.28.6
 
   regex-recursion@6.0.2:
     dependencies:

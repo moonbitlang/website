@@ -25,7 +25,7 @@
     "@docusaurus/core": "^3.8.1",
     "@docusaurus/preset-classic": "^3.8.1",
     "@docusaurus/theme-mermaid": "^3.8.1",
-    "@moonbit/moonpad-monaco": "^0.1.202601214",
+    "@moonbit/moonpad-monaco": "^0.1.202602023",
     "clsx": "^1.2.1",
     "jwt-decode": "^4.0.0",
     "monaco-editor-core": "^0.52.2",
