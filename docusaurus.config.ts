@@ -292,6 +292,10 @@ export default async (): Promise<Config> => {
               {
                 href: '/2025-mgpic',
                 label: '2025 MGPIC'
+              },
+              {
+                href: '/2026-scc',
+                label: '2026 Software Synthesis Challenge'
               }
             ],
             locale: ['en']
