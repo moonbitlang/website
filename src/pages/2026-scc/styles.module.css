@@ -130,3 +130,11 @@
 .container a:hover {
   text-decoration: underline;
 }
+
+.container a:global(.button) {
+  color: white;
+}
+
+.container a:global(.button):hover {
+  text-decoration: none;
+}
