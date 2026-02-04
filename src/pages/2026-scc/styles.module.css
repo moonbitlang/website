@@ -1,0 +1,132 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.intro {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(88, 86, 214, 0.1), rgba(139, 92, 246, 0.1));
+  border-radius: 8px;
+  border-left: 4px solid #5856d6;
+}
+
+.intro p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.introBtn {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.note {
+  color: #666;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.requirementItem,
+.evaluationItem {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+[data-theme='dark'] .requirementItem,
+[data-theme='dark'] .evaluationItem {
+  background: #2a2a2a;
+}
+
+.requirementItem h5,
+.evaluationItem h5 {
+  margin: 0 0 0.5rem 0;
+  color: #5856d6;
+}
+
+.rewardTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.rewardTable th,
+.rewardTable td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+[data-theme='dark'] .rewardTable th,
+[data-theme='dark'] .rewardTable td {
+  border-color: #444;
+}
+
+.rewardTable th {
+  background: #5856d6;
+  color: white;
+}
+
+.rewardTable tbody tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+[data-theme='dark'] .rewardTable tbody tr:nth-child(even) {
+  background: #2a2a2a;
+}
+
+.tooltip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #5856d6;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: help;
+  margin-left: 4px;
+}
+
+section {
+  margin-bottom: 2.5rem;
+}
+
+section h2 {
+  color: #5856d6;
+  border-bottom: 2px solid #5856d6;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+section h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+section h4 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+section ul,
+section ol {
+  padding-left: 1.5rem;
+}
+
+section li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+a {
+  color: #5856d6;
+}
+
+a:hover {
+  text-decoration: underline;
+}

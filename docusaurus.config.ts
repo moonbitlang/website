@@ -156,7 +156,10 @@ export default async (): Promise<Config> => {
 
     themeConfig: {
       announcementBar: isZh
-        ? undefined
+        ? {
+            content: `🚀 <b><a href="/2026-scc">2026 MoonBit 大型软件合成挑战赛</a></b> 火热报名中！总奖金池 15 万元 🎉`,
+            isCloseable: false
+          }
         : {
             content: `🎉️ <b><a href="/blog/beta-release">MoonBit hits Beta — fast, stable, and async-ready.</a></b> 🥳️`,
             isCloseable: false
@@ -318,6 +321,10 @@ export default async (): Promise<Config> => {
               {
                 href: '/2025-mgpic',
                 label: '2025 MoonBit 编程挑战赛'
+              },
+              {
+                href: '/2026-scc',
+                label: '2026 MoonBit 软件合成挑战赛'
               }
             ]
           },
