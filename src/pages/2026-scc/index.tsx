@@ -8,6 +8,7 @@ export default function Page() {
       mobileHeroImg='/img/2026-contest/kv.jpg'
       qqGroupId='（待定）'
       qqGroupImg='/img/2026-contest/qq-group.png'
+      heroBgColor='#051033'
     >
       <div className={styles.container}>
         <section className={styles.intro}>
@@ -201,7 +202,7 @@ export default function Page() {
             </thead>
             <tbody>
               <tr>
-                <td>特等奖 <span className={styles.tooltip} title="用于奖励具备高度工程成熟度与实际应用价值的项目">?</span></td>
+                <td>特等奖</td>
                 <td>15,000</td>
                 <td>1</td>
               </tr>
