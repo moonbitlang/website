@@ -10,8 +10,9 @@ export default function Page() {
     <ContestLayout
       heroImg={isZh ? '/img/2026-contest/kv.jpg' : '/img/2026-contest/kv-en.jpg'}
       mobileHeroImg={isZh ? '/img/2026-contest/kv.jpg' : '/img/2026-contest/kv-en.jpg'}
-      qqGroupId={isZh ? '（待定）' : '(TBD)'}
-      qqGroupImg='/img/2026-contest/qq-group.png'
+      {...(isZh && {
+        qqGroupImg: '/img/2026-contest/qq-group.png'
+      })}
       heroBgColor='#051033'
     >
       <div className={styles.container}>
@@ -29,7 +30,7 @@ function EnglishContent() {
         <p>Under the vision of an <strong>"AI-Native Software Factory,"</strong> this challenge explores how Large Language Models (LLMs) can work together with the MoonBit programming language and its toolchain. The goal is to move software development from ad-hoc, experience-driven implementations toward workflows that are <strong>reusable, evolvable, and sustainable</strong>.</p>
         <p>This challenge is for developers who want to actively shape the MoonBit ecosystem by leveraging AI for code generation, architectural reasoning, and collaborative engineering.</p>
         <div className={styles.introBtn}>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfExample" target="_blank" className="button button--primary button--lg">Apply Now</a>
+          <a href="https://forms.gle/VcgnUK8qTJVKrDkBA" target="_blank" className="button button--primary button--lg">Apply Now</a>
         </div>
       </section>
 

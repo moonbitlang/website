@@ -10,8 +10,8 @@ type HeroProps = {
 type LayoutProps = {
   heroImg: string
   mobileHeroImg: string
-  qqGroupImg: string
-  qqGroupId: string
+  qqGroupImg?: string
+  qqGroupId?: string
   heroBgColor?: string
   children: React.ReactNode
 }
@@ -22,16 +22,17 @@ export default function ContestLayout(props: LayoutProps) {
     <Layout>
       <Hero img={heroImg} mobileHeroImg={mobileHeroImg} bgColor={heroBgColor} />
       <main>
-        <div className={styles['qq-group']}>
-          <div className={styles['qq-group__card']}>
-            <img src={qqGroupImg} alt='' />
-            <div className={styles['qq-group__text']}>
-              大赛官方QQ群
-              <br />
-              {qqGroupId}
+        {qqGroupImg && (
+          <div className={styles['qq-group']}>
+            <div className={styles['qq-group__card']}>
+              <img src={qqGroupImg} alt='' />
+              <div className={styles['qq-group__text']}>
+                大赛官方QQ群
+                {qqGroupId && <><br />{qqGroupId}</>}
+              </div>
             </div>
           </div>
-        </div>
+        )}
         <article className='container container--fluid margin-vert--lg'>
           {children}
         </article>
