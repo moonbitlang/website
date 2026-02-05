@@ -161,7 +161,7 @@ export default async (): Promise<Config> => {
             isCloseable: false
           }
         : {
-            content: `🚀 <b><a href="/2026-scc">2026 MoonBit Software Synthesis Challenge</a></b> is now open! Total prize pool: $20,000+ 🎉`,
+            content: `🚀 <b><a href="/2026-scc">2026 MoonBit Software Synthesis Challenge</a></b> is now open! Up to $600 per participant 🎉`,
             isCloseable: false
           },
       navbar: {
