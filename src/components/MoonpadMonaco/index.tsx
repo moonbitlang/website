@@ -18,6 +18,13 @@ import React, { useEffect, useRef } from 'react'
 import * as moonbitMode from '@moonbit/moonpad-monaco'
 import * as monaco from 'monaco-editor-core'
 
+type MoonRuntime = ReturnType<typeof moonbitMode.init>
+const MOON_RUNTIME_KEY = Symbol.for('moonpad.monaco.runtime')
+
+type MoonRuntimeGlobal = typeof globalThis & {
+  [MOON_RUNTIME_KEY]?: MoonRuntime
+}
+
 // @ts-ignore
 self.MonacoEnvironment = {
   getWorker() {
@@ -25,6 +32,26 @@ self.MonacoEnvironment = {
       new URL('monaco-editor-core/esm/vs/editor/editor.worker', import.meta.url)
     )
   }
+}
+
+function getMoonRuntime() {
+  const globalRef = globalThis as MoonRuntimeGlobal
+  if (!globalRef[MOON_RUNTIME_KEY]) {
+    globalRef[MOON_RUNTIME_KEY] = moonbitMode.init({
+      lspWorker: new Worker('/lsp-server.js'),
+      onigWasmUrl: new URL(
+        '@moonbit/moonpad-monaco/onig.wasm',
+        import.meta.url
+      ).toString(),
+      mooncWorkerFactory: () => {
+        return new Worker('/moonc-worker.js')
+      },
+      codeLensFilter: (_lens) => {
+        return false
+      }
+    })
+  }
+  return globalRef[MOON_RUNTIME_KEY]
 }
 
 const Container: React.FunctionComponent<{
@@ -45,27 +72,6 @@ const MoonpadMonaco: React.FunctionComponent<{
   const { className, value, onOutput } = params
   const containerRef = useRef<HTMLDivElement>(null)
   const modelRef = useRef<monaco.editor.ITextModel>()
-  const moonRef = useRef<ReturnType<typeof moonbitMode.init>>()
-  function getMoon() {
-    if (moonRef.current) {
-      return moonRef.current
-    }
-    const moon = moonbitMode.init({
-      lspWorker: new Worker('/lsp-server.js'),
-      onigWasmUrl: new URL(
-        '@moonbit/moonpad-monaco/onig.wasm',
-        import.meta.url
-      ).toString(),
-      mooncWorkerFactory: () => {
-        return new Worker('/moonc-worker.js')
-      },
-      codeLensFilter: (_lens) => {
-        return false
-      }
-    })
-    moonRef.current = moon
-    return moon
-  }
 
   function getModel() {
     if (modelRef.current) return modelRef.current
@@ -85,7 +91,7 @@ const MoonpadMonaco: React.FunctionComponent<{
   useEffect(() => {
     if (!containerRef.current) return
     // const container = containerRef.current
-    const moon = getMoon()
+    const moon = getMoonRuntime()
     const model = getModel()
     model.onDidChangeContent(async () => {
       const content = model.getValue()
