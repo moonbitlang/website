@@ -11,7 +11,7 @@ tags: [MoonBit]
 
 
 我们很高兴正式发布 MoonBit 0.8.0。
-MoonBit 是一门 AI 友好的通用编程语言，它易读、高效且便于拓展。0.8 版本是MoonBit 迈向稳定、可用于生产环境的重要里程碑版本。
+MoonBit是一门AI原生的编程语言，它的主要特点是**高可靠，易读和高性能**。0.8 版本是MoonBit 迈向稳定、可用于生产环境的重要里程碑版本。
 
 这次发布并非一系列零散改动的简单集合。MoonBit 0.8 标志着项目从实验性语言，明确迈入工程级语言与工具链阶段：在调试能力、错误处理、包管理以及开发者工具等方面都有了显著提升，尤其更适合支撑大规模代码库和以 Agent 为核心的开发工作流。
 
@@ -22,9 +22,9 @@ MoonBit 是一门 AI 友好的通用编程语言，它易读、高效且便于�
 随着 0.8 版本的发布，这些设计目标已不再停留在抽象理念层面，而是 在语言、编译器、运行时以及 IDE 等各个层面得到一致体现。
 
 ## 0.8版本重点更新：
-**Native 后端 Backtrace 支持**
+**WasmGC/LLVM/Native 后端 Backtrace 支持**
 
-  MoonBit 的 native/LLVM 后端现支持在程序崩溃时，自动打印崩溃处的调用栈。并且能直接输出对应的 MoonBit 源码的位置，极大改善了调试体验：
+  MoonBit 的 wasmGC/native/LLVM 后端现支持在程序崩溃时，自动打印崩溃处的调用栈。并且能直接输出对应的 MoonBit 源码的位置，极大改善了调试体验（以下是Native后端的调用栈示例）：
   ```plain text
   RUNTIME ERROR: abort() called
   /path/to/moonbitlang/core/array/array.mbt:187 at @moonbitlang/core/array.Array::at[Int]
@@ -59,7 +59,7 @@ MoonBit 是一门 AI 友好的通用编程语言，它易读、高效且便于�
 3. 支持了在 MoonBit 中直接调用 `FuncRef[_]` 类型的值。
 这一功能可以用于在 native 后端实现动态加载函数或 JIT。
 
-4. Native 后端 Backtrace 支持：现在，使用native后端或者llvm后端时，如果触发panic，例如数组下标越界，对为`None`的`Option[T]`进行`unwrap`，`try!`一个会抛出错误的函数，或者手动调用panic函数时，在debug模式下会打印出调用栈，例如下方的函数：
+4. WasmGC/LLVM/Native 后端 Backtrace 支持：现在，使用wasm-gc，native后端或者llvm后端时，如果触发panic，例如数组下标越界，对为`None`的`Option[T]`进行`unwrap`，`try!`一个会抛出错误的函数，或者手动调用panic函数时，在debug模式下会打印出调用栈，例如下方的函数：
     ```moonbit
     fn demo(a: Array[Int], b: Array[Int]) -> Unit {
       let _ = a[1]
@@ -72,13 +72,14 @@ MoonBit 是一门 AI 友好的通用编程语言，它易读、高效且便于�
       demo(a, b)
     }
     ```
-    使用`moon run main --target native`，将会看到下面的调用栈：
+    以native后端为例，使用`moon run main --target native`，将会看到下面的调用栈：
     ```plain text
       RUNTIME ERROR: abort() called
       /path/to/moonbitlang/core/array/array.mbt:187 at @moonbitlang/core/array.Array::at[Int]
       /path/to/pkg/main/main.mbt:3 by @username/hello/out_of_idx.demo
       /path/to/pkg/main/main.mbt:9 by main
     ```
+    注：目前Windows系统上native和LLVM后端暂不支持此项功能。
 
 5. 新增了 `declare` 关键字，用于替代原本的 `#declaration_only` 属性。`declare` 新增了 trait 实现的支持。比如：
     ```moonbit
@@ -112,7 +113,7 @@ MoonBit 是一门 AI 友好的通用编程语言，它易读、高效且便于�
     ```
     为了让语法更一致，正向的两侧闭合的 range 表达式的语法从 `x..=y` 迁移至 `x..<=y`。这一改动可以通过 `moon fmt` 自动迁移。
 
-7. 禁用了在外部使用 `{ ..old_struct, field: .. }` ，语法更新一个带有 `priv` 字段的结构体的行为。
+7. 禁用了在外部使用 `{ ..old_struct, field: .. }` 语法更新一个带有 `priv` 字段的结构体的行为。
 
 8. `lexmatch` 表达式 first match 下新增 guard 支持。
   包含 guard 的 lexmatch 性能会有损失，因此推荐在快速开发过程中使用，之后再考虑是否改写。其语法和 match 表达式中的 guard 一致，可查看 https://github.com/moonbitlang/lexmatch_spec 了解更多：
@@ -338,7 +339,7 @@ MoonBit 是一门 AI 友好的通用编程语言，它易读、高效且便于�
 ![alt text](./image-2.png)
 
 2. `moon ide hover`：`moon ide`新增 `hover` 子命令，用于显示源代码中某个符号的类型和文档：
-    ````plaintext
+    ````plain text
     $ moonide hover -no-check filter -loc hover.mbt:14
     test {
       let a: Array[Int] = [1]
@@ -374,7 +375,7 @@ MoonBit 是一门 AI 友好的通用编程语言，它易读、高效且便于�
     ````
 3. `moon ide rename`: `moon ide`新增 `rename` 子命令，用于生成符合codex apply_patch 工具格式的重命名patch，方便agent更准确快速地重构代码。例如：
 
-    ```plaintext
+    ```plain text
     $ moon ide rename TaskGroup TG
     *** Begin Patch
     *** Update File: /Users/baozhiyuan/Workspace/async/src/async.mbt

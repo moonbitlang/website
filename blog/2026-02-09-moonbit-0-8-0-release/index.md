@@ -11,7 +11,7 @@ tags: [MoonBit]
 
 We are excited to announce the release of **MoonBit 0.8.0**.
 
-MoonBit is a **readable, fast, scale, and AI-agent-friendly** general-purpose programming language. This release marks an important milestone on MoonBit’s path toward stability and production use.
+MoonBit is an AI native programming language. It's **reliable,readable and fast.**. This release marks an important milestone on MoonBit’s path toward stability and production use.
 
 MoonBit 0.8 is not a simple collection of incremental changes. It represents a clear transition from an experimental language to an engineering-grade language and toolchain. Significant improvements have been made across **language semantics, error handling, package management, and developer tooling**—making MoonBit better suited for large-scale codebases and agent-centric development workflows.
 
@@ -24,9 +24,9 @@ With the release of version 0.8, these design goals are no longer abstract princ
 
 ## Key Updates
 
-**Native Backend Backtrace Support**
+**WasmGC/Native/LLVM Backend Backtrace Support**
 
-The MoonBit native/LLVM backend now supports automatically printing call stacks when a program crashes. Backtraces are mapped directly to the corresponding MoonBit source locations, significantly improving the debugging experience.
+The MoonBit wasmg-gc/native/LLVM backend now supports automatically printing call stacks when a program crashes. Backtraces are mapped directly to the corresponding MoonBit source locations, significantly improving the debugging experience.
 ```plain text
 RUNTIME ERROR: abort() called
 /path/to/moonbitlang/core/array/array.mbt:187 at @moonbitlang/core/array.Array::at[Int]
@@ -45,7 +45,7 @@ During development, the compiler’s warning messages guide the AI to progressiv
 
 ## Completed Technical Changelog in MoonBit 0.8
 ### Language Updates
-1. The `suberror Err PayloadType` syntax has been deprecated. Users need to migrate the the `enum`-like sytax for declaring error type:
+1. The `suberror Err PayloadType` syntax has been deprecated. Users need to migrate to the `enum`-like sytax for declaring error type:
     ```moonbit
     suberror Err {
       Err(PayloadType)
@@ -57,7 +57,7 @@ During development, the compiler’s warning messages guide the AI to progressiv
 2. Type inference for builtin error constructors (maily `Failure`) is deprecated to avoid scope pollution. When the expected error type is unknown, `raise Failure(..)` should be migrated to `raise Failure::Failure(..)`, similarly for `catch`.
 3. Values of type `FuncRef[_]` can now be called directly from MoonBit code. This feature can be used for dynamic symbol loading or implementing JIT in native backend.
 
-4. MoonBit's native backend and LLVM backend now supports backtrace. When a MoonBit program panic (performing an out-of-bound array indexing operation, failure of `guard` statement without `else`, or `try!` expression receiving an error, or manually calling `panic`/`abort`, etc.), the stack trace of the panic will be printed under debug mode. Here's an example:
+4. MoonBit's wasm-gc, native backend and LLVM backend now supports backtrace. When a MoonBit program panic (performing an out-of-bound array indexing operation, failure of `guard` statement without `else`, or `try!` expression receiving an error, or manually calling `panic`/`abort`, etc.), the stack trace of the panic will be printed under debug mode. Here's an example:
     ```moonbit
     fn demo(a: Array[Int], b: Array[Int]) -> Unit {
       let _ = a[1]
@@ -70,13 +70,14 @@ During development, the compiler’s warning messages guide the AI to progressiv
       demo(a, b)
     }
     ```
-    When run with `moon run --target native`, the program will output:
+    Take native backend as example, when run with `moon run --target native`, the program will output:
     ```plain text
     RUNTIME ERROR: abort() called
     /path/to/moonbitlang/core/array/array.mbt:187 at @moonbitlang/core/array.Array::at[Int]
     /path/to/pkg/main/main.mbt:3 by @username/hello/out_of_idx.demo
     /path/to/pkg/main/main.mbt:9 by main
     ```
+    Note: Native/LLVM backend stacktrace has not been supported on Windows Platform.
 
 5. A new keyword `declare` is introduced to replace the previous `#declaration_only` attribute. In addition, `declare` now supports declaring trait implementations. For example:
     ```moonbit
@@ -106,7 +107,7 @@ During development, the compiler’s warning messages guide the AI to progressiv
       debug_inspect(result, content="[4, 3, 2, 1, 0]")
     }
     ```
-  To make the syntax for consistent,  the syntax `x..=y` for forward, closed range expression has been migrated to `x..<=y`, the old syntax is deprecated. This change can be migrated automatically via `moon fmt`
+    To make the syntax for consistent,  the syntax `x..=y` for forward, closed range expression has been migrated to `x..<=y`, the old syntax is deprecated. This change can be migrated automatically via `moon fmt`
 
 7. Using `{ ..old_struct, field: .. }` to update a `struct` with `priv` fields (outside its package) is now forbidden
 
@@ -246,10 +247,9 @@ During development, the compiler’s warning messages guide the AI to progressiv
 
 2. `moon test` now supports using the `-j` parameter to run tests in parallel
 3. `moon test` can now list all tests to run via the `--outline` parameter
-4. `moon test` --index can now specify a range of test index (inclusive on the left and exclusive on the right). For example, `moon test /path/to/test/file.mbt --index 0-2` will now run the first two tests in `/path/to/test/file.mbt`
-5. `moon install` now supports globally installing executables from MoonBit projects, as dependency installation is already handled automatically by `moon check` and `moon build`.
-
-    The new behavior of `moon install` is similar to `cargo install` or `go install`. It allows users to globally install one or more binaries from [mooncakes.io](https://mooncakes.io/), a `git` repo, or a local project. The installed package must support native backend and must have `is-main` set to `true` in its package configuration. For example:
+4. `moon test --index` can now specify a range of test index (inclusive on the left and exclusive on the right). For example, `moon test /path/to/test/file.mbt --index 0-2` will now run the first two tests in `/path/to/test/file.mbt`
+5. The old behavior of `moon install`(install all dependencies of current project) has been deprecated, because `moon check` and `moon build` now automatically install dependencies.
+  The new behavior of `moon install` is similar to cargo install or go install. It allows users to globally install one or more binaries from [mooncakes.io](https://mooncakes.io), a git repo, or a local project. The installed package must support native backend and must have `is-main` set to true in its package configuration. For example:
     ```moonbit
     moon install username/package (when the project root is a package)
     moon install username/cmd/main (install a specific package)
@@ -284,7 +284,7 @@ During development, the compiler’s warning messages guide the AI to progressiv
 
 8. `moon run` and `moon build` now use `--debug` by default
 9. The front matter syntax for declaring dependencies of `.mbt.md` files has been updated. Previously, only module level dependency can be declared, and all packages in those modules will be imported implicitly, which may result in package alias conflict. The the new version, `.mbt.md` can declare package import directly in the front matter header, with support for package alias. The version of the modules to import should be explicitly written in the import path. If a module appears multiple times in the import list, its version need to specified only once. Dependencies in `moonbitlang/core` do not need a version number:
-    ```YAML
+    ```yaml
     ---
     moonbit:
       import:
@@ -340,7 +340,7 @@ During development, the compiler’s warning messages guide the AI to progressiv
 ![alt text](./image.png)
 
 2. `moon ide` now supports a new subcommand `moon ide hover`, which display the signature and document for a symbol in the source code:
-    ```plaintext
+    ````plaintext
     $ moonide hover -no-check filter -loc hover.mbt:14
     test {
       let a: Array[Int] = [1]
@@ -375,7 +375,7 @@ During development, the compiler’s warning messages guide the AI to progressiv
     }
     ````
 3. `moon ide` introduces a new subcommand `moon ide rename`, which generates a patch that renames a symbol. The format of the patch is compatible with the `apply_patch` tool of OpenAI codex. `moon ide rename` allows AI agents to perform large scale code refactor robustly and efficiently.
-    ```plaintext
+    ```moonbit
     $ moon ide rename TaskGroup TG
     *** Begin Patch
     *** Update File: /Users/baozhiyuan/Workspace/async/src/async.mbt
