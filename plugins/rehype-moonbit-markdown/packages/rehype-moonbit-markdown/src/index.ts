@@ -54,7 +54,7 @@ async function moonbitCodeToLineHast(content: string): Promise<hast.Element[]> {
   const tempMbtUri = url.pathToFileURL(tempMbtFile).toString()
   const tempLsifFile = await tempFile()
   const moonHome = process.env['MOON_HOME'] ?? path.join(os.homedir(), '.moon')
-  const stdpath = path.join(moonHome, 'lib/core/target/wasm-gc/release/bundle')
+  const stdpath = path.join(moonHome, 'lib/core/_build/wasm-gc/release/bundle')
   cp.execSync(
     `moondoc '${tempMbtFile}' -std-path '${stdpath}' -lsif -o '${tempLsifFile}'`
   )

@@ -11,7 +11,7 @@ function out(fixturePath: string) {
     ? process.env['MOON_HOME']
     : path.join(os.homedir(), '.moon')
   const name = path.basename(fixturePath)
-  const stdPath = path.join(moonHome, 'lib/core/target/wasm-gc/release/bundle')
+  const stdPath = path.join(moonHome, 'lib/core/_build/wasm-gc/release/bundle')
   cp.execSync('moon check', { cwd: fixturePath })
   cp.execSync(
     `moondoc -packages-json ./target/packages.json -std-path ${stdPath} -lsif -o a.lsif`,
