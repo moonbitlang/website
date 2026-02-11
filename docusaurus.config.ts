@@ -145,7 +145,10 @@ export default async (): Promise<Config> => {
         '@docusaurus/plugin-client-redirects',
         {
           createRedirects(existingPath) {
-            if (existingPath === '/updates' || existingPath.startsWith('/updates/')) {
+            if (
+              existingPath === '/updates' ||
+              existingPath.startsWith('/updates/')
+            ) {
               return existingPath.replace('/updates', '/weekly-updates')
             }
             return undefined
