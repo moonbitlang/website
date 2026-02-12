@@ -96,8 +96,10 @@ function ChineseContent() {
       <section id='types'>
         <h2>三、项目类型参考（不限于以下方向）</h2>
         <p>
+          不知道从哪里开始？
+          我们准备了一份推荐项目方向清单，既包含经典工程方向，也包含具有挑战性的进阶主题，欢迎参考并延展。
           <a href={recommendedProjectListPdf} target='_blank' rel='noreferrer'>
-            推荐项目具体清单列表
+            👉 点击查看推荐项目清单
           </a>
         </p>
         <p>项目类型包括但不限于：</p>
