@@ -23,13 +23,29 @@ import 'dotenv/config'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import rehypeShiki, { RehypeShikiOptions } from '@shikijs/rehype'
+import * as shiki from 'shiki'
 import { bundledLanguages, type BundledLanguage } from 'shiki'
 import moonbit from './plugins/rehype-moonbit-markdown/packages/moonbit-tmlanguage/moonbit.tmLanguage.json'
 import rehypeMoonbitMarkdown from './plugins/rehype-moonbit-markdown/packages/rehype-moonbit-markdown'
 import type * as Preset from '@docusaurus/preset-classic'
 
+let highlighter: shiki.Highlighter | undefined
+
+async function shikiHighlighter(): Promise<shiki.Highlighter> {
+  if (highlighter) return highlighter
+  highlighter = await shiki.createHighlighter({
+    themes: ['one-dark-pro'],
+    langs: Object.keys(bundledLanguages).concat(moonbit as any),
+    langAlias: {
+      mbt: 'moonbit'
+    }
+  })
+  return highlighter
+}
+
 async function readExamples() {
   const items = await fs.readdir(path.join(process.cwd(), 'examples'))
+  const highlighter = await shikiHighlighter()
   const res = []
   for (const item of items.sort()) {
     const content = await fs.readFile(
@@ -37,7 +53,11 @@ async function readExamples() {
       'utf-8'
     )
     const title = item.slice(1).replace('-', ' ').replace('.mbt', '')
-    res.push({ title, code: content })
+    const html = highlighter.codeToHtml(content, {
+      lang: 'moonbit',
+      theme: 'one-dark-pro'
+    })
+    res.push({ title, code: content, html })
   }
   return res
 }

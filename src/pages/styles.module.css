@@ -176,6 +176,49 @@
   align-self: flex-start;
 }
 
+.why-moonbit-code-tabs {
+  width: 100%;
+}
+
+.why-moonbit-code-tabs :global(.tabs) {
+  display: flex;
+}
+
+.why-moonbit-code-tabs :global(.tabs__item) {
+  flex: 1 1 0;
+  max-width: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.why-moonbit-code-block {
+  height: 32rem;
+}
+
+.why-moonbit-code-block :global(pre.shiki) {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  overflow: auto;
+}
+
+.why-moonbit-code-fallback {
+  margin: 0;
+  height: 32rem;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  overflow: auto;
+}
+
+.why-moonbit-code-fallback code {
+  white-space: pre;
+}
+
 .moonpad-monaco {
   width: 100%;
   height: 200px;

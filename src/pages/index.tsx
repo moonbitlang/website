@@ -18,17 +18,36 @@ import Layout from '@theme/Layout'
 import styles from './styles.module.css'
 import clsx from 'clsx'
 import { translate } from '@docusaurus/Translate'
-import MoonpadMonacoTabs from '@site/src/components/MoonpadMonacoTabs'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import RecentBlogPosts from '@site/src/components/RecentBlogPosts'
 import { HiChevronRight } from 'react-icons/hi'
 import Link from '@docusaurus/Link'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+type HomePageCodeExample = {
+  title: string
+  code: string
+  html?: string
+}
+
+function getTabValue(title: string, index: number): string {
+  const normalized = title
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+  if (normalized) {
+    return normalized
+  }
+  return `example-${index + 1}`
+}
 
 export default function Page() {
   const siteConfig = useDocusaurusContext().siteConfig
   const nrRecentBlogPosts = siteConfig.customFields!
     .recentBlogPostsOnHomePage as number
-  const examples = siteConfig.customFields!.homePageCodeExamples as any
+  const examples = (siteConfig.customFields!.homePageCodeExamples ??
+    []) as HomePageCodeExample[]
   const isZh = useDocusaurusContext().i18n.currentLocale.startsWith('zh')
   return (
     <Layout>
@@ -82,7 +101,33 @@ export default function Page() {
         <div className={styles['section-wrapper']}>
           <section className={styles['why-moonbit']}>
             <h2>{translate({ id: 'index.why-section.why-moonbit' })}</h2>
-            <MoonpadMonacoTabs items={examples} />
+            {examples.length > 0 ? (
+              <div className={styles['why-moonbit-code-tabs']}>
+                <Tabs
+                  groupId='home-page-code-examples'
+                  defaultValue={getTabValue(examples[0].title, 0)}
+                  block
+                >
+                  {examples.map((example, index) => {
+                    const value = getTabValue(example.title, index)
+                    return (
+                      <TabItem key={value} value={value} label={example.title}>
+                        {example.html ? (
+                          <div
+                            className={styles['why-moonbit-code-block']}
+                            dangerouslySetInnerHTML={{ __html: example.html }}
+                          />
+                        ) : (
+                          <pre className={styles['why-moonbit-code-fallback']}>
+                            <code>{example.code}</code>
+                          </pre>
+                        )}
+                      </TabItem>
+                    )
+                  })}
+                </Tabs>
+              </div>
+            ) : null}
             <a
               className={styles['colorful-button']}
               style={{ padding: '.75rem 2rem' }}
