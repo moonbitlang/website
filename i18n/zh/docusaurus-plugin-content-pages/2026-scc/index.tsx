@@ -58,7 +58,7 @@ function ChineseContent() {
             <strong>申报启动：</strong>2026 年 2 月 9 日
           </li>
           <li>
-            <strong>申报截止：</strong>2026 年 3 月 6 日
+            <strong>申报截止：</strong>2026 年 3 月 20 日
           </li>
           <li>
             <strong>申报评审：</strong>赛事组滚动审核申报书，审核将在申报 2
