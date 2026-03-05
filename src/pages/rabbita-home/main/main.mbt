@@ -181,8 +181,8 @@ fn view_hero(dispatch : Dispatch[Msg], model : Model) -> Html {
     div(class="hero-inner", [
       div(class="hero-left", [
         h1(class="hero-title", [
-          span(class="hero-accent", "AI Native"),
-          text(" Programming Language."),
+          text("The Language and Toolchain "),
+          span(class="hero-accent", "for Agents at Scale"),
         ]),
         p(class="hero-desc", "Reliable, readable and fast."),
         div(class="hero-actions", [
