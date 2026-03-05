@@ -7,27 +7,29 @@ struct TabEntry {
 ///|
 let code_tabs : Array[TabEntry] = [
   {
-    label: "match",
+    label: "pattern match",
     src: (
-      #|fn classify(c : Char) -> String {
-      #|  match c {
-      #|    'a' | 'e' | 'i' | 'o' | 'u' => "vowel"
-      #|    '0'..='9' => "digit"
-      #|    x if x.is_ascii_alphabetic() => "letter"
-      #|    _ => "other"
+      #|// Define a recursive enum for expressions
+      #|enum Expr { Num(Int); Mul(Expr, Expr) }
+      #|
+      #|// Evaluate expression with pattern matching
+      #|fn eval(expr : Expr) -> Int {
+      #|  match expr {
+      #|    Num(n) => n
+      #|    Mul(a, b) => eval(a) * eval(b)
       #|  }
       #|}
       #|
       #|fn main {
-      #|  println(classify('e'))
-      #|  println(classify('5'))
-      #|  println(classify('m'))
+      #|  let expr = Mul(Mul(Num(2), Num(3)), Num(4))
+      #|  println(eval(expr))  // 24
       #|}
     ),
   },
   {
     label: "trait",
     src: (
+      #|// Generic quicksort: works on any type with Compare
       #|fn[T : Compare] qsort(input : Array[T]) -> Array[T] {
       #|  guard input is [p, .. rs] else { [] }
       #|  qsort(rs.filter(x => x <= p)) + [p] + qsort(rs.filter(x => x > p))
@@ -40,14 +42,33 @@ let code_tabs : Array[TabEntry] = [
     ),
   },
   {
-    label: "structural concurrency",
+    label: "structured concurrency",
     src: (
+      #|// Async with retry, timeout, and structured concurrency
       #|async test "https request" {
       #|  let (response, body) = @async.retry(FixedDelay(250), max_retry=3, () => {
       #|    @async.with_timeout(3000, () => @http.get("https://www.moonbitlang.com"))
       #|  })
       #|  assert_true(response.code is (200..<300))
       #|  assert_true(body.text().has_prefix("<!doctype html>"))
+      #|}
+    ),
+  },
+  {
+    label: "first class json",
+    src: (
+      #|// Pattern match directly on JSON structure
+      #|fn extract_name(data : Json) -> String? {
+      #|  match data {
+      #|    { "user": { "name": String(name), .. }, .. } => Some(name)
+      #|    _ => None
+      #|  }
+      #|}
+      #|
+      #|fn main {
+      #|  // JSON literals are built-in syntax
+      #|  let data : Json = { "user": { "name": "Alice", "age": 30 } }
+      #|  println(extract_name(data))  // Some("Alice")
       #|}
     ),
   },
@@ -72,58 +93,58 @@ let code_tabs : Array[TabEntry] = [
   //     #| }
   //   ),
   // },
-  {
-    label: "test",
-    src: (
-      #|test {
-      #|  // expect test
-      #|  debug_inspect([1, 2, 3, 4, 5].filter(x => x < 3), content="[1, 2]")
-      #|  // property based test
-      #|  let arrays : Array[Array[Int]] = @quickcheck.samples(1000)
-      #|  assert_true(arrays.all(arr => arr.rev().rev() == arr))
-      #|}  
-    ),
-  },
-  {
-    label: "loop",
-    src: (
-      #|fn is_palindromic(s : String) -> Bool {
-      #|  loop s[:] {
-      #|    [l, .. m, r] if l == r => continue m
-      #|    [] | [_] => true
-      #|    _ => false
-      #|  }
-      #|}
-      #|
-      #|fn main {
-      #|  println(is_palindromic("12321"))
-      #|  println(is_palindromic("abba"))
-      #|  println(is_palindromic("abcd"))
-      #|}
-    ),
-  },
-  {
-    label: "is",
-    src: (
-      #|struct Event {
-      #|  timestamp : Int
-      #|  content : String
-      #|}
-      #|
-      #|fn drain(queue : @queue.Queue[Event]) -> Unit {
-      #|  while queue.pop() is Some({ timestamp, content }) {
-      #|    println("\{timestamp}: \{content}")
-      #|  }
-      #|}
-      #|
-      #|fn main {
-      #|  let queue = @queue.new()
-      #|    ..push({ timestamp: 1, content: "c1" })
-      #|    ..push({ timestamp: 2, content: "c2" })
-      #|  drain(queue)
-      #|}
-    ),
-  },
+  // {
+  //   label: "test",
+  //   src: (
+  //     #|test {
+  //     #|  // expect test
+  //     #|  debug_inspect([1, 2, 3, 4, 5].filter(x => x < 3), content="[1, 2]")
+  //     #|  // property based test
+  //     #|  let arrays : Array[Array[Int]] = @quickcheck.samples(1000)
+  //     #|  assert_true(arrays.all(arr => arr.rev().rev() == arr))
+  //     #|}  
+  //   ),
+  // },
+  // {
+  //   label: "loop",
+  //   src: (
+  //     #|fn is_palindromic(s : String) -> Bool {
+  //     #|  loop s[:] {
+  //     #|    [l, .. m, r] if l == r => continue m
+  //     #|    [] | [_] => true
+  //     #|    _ => false
+  //     #|  }
+  //     #|}
+  //     #|
+  //     #|fn main {
+  //     #|  println(is_palindromic("12321"))
+  //     #|  println(is_palindromic("abba"))
+  //     #|  println(is_palindromic("abcd"))
+  //     #|}
+  //   ),
+  // },
+  // {
+  //   label: "is",
+  //   src: (
+  //     #|struct Event {
+  //     #|  timestamp : Int
+  //     #|  content : String
+  //     #|}
+  //     #|
+  //     #|fn drain(queue : @queue.Queue[Event]) -> Unit {
+  //     #|  while queue.pop() is Some({ timestamp, content }) {
+  //     #|    println("\{timestamp}: \{content}")
+  //     #|  }
+  //     #|}
+  //     #|
+  //     #|fn main {
+  //     #|  let queue = @queue.new()
+  //     #|    ..push({ timestamp: 1, content: "c1" })
+  //     #|    ..push({ timestamp: 2, content: "c2" })
+  //     #|  drain(queue)
+  //     #|}
+  //   ),
+  // },
 ]
 
 // ─── Features data ────────────────────────────────────────────────────────
