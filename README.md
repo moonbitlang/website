@@ -14,7 +14,14 @@ This command starts a local development server and opens up a browser window. Mo
 ## Build
 
 ```
+pnpm install
 pnpm build
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
+
+## Working with new homepage
+
+Using the instructions above will bundle the `rabbita-home` with other website content.
+
+See [src/pages/rabbita-home/README.md](./src/pages/rabbita-home/README.md) for project layout, integration details.

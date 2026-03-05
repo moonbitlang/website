@@ -5,9 +5,11 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "docusaurus start --host 0.0.0.0",
+    "dev": "pnpm rabbita-home:build && (cd src/pages/rabbita-home && npm run watch) & docusaurus start",
     "data": "tsx ./scripts/gen-data.ts",
-    "build": "docusaurus build",
+    "build": "pnpm rabbita-home:build && docusaurus build",
+    "rabbita-home:build": "node ./scripts/build-rabbita-home.mjs",
     "postbuild": "cp -R static-gallery/* build/gallery/",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -52,7 +54,8 @@
     "remark-math": "^6.0.0",
     "shiki": "^3.6.0",
     "tsx": "^4.9.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "@rabbita/vite": "^0.1.0"
   },
   "browserslist": {
     "production": [
