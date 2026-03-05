@@ -184,7 +184,7 @@ fn view_hero(dispatch : Dispatch[Msg], model : Model) -> Html {
           text("The Language and Toolchain "),
           span(class="hero-accent", "for Agents at Scale"),
         ]),
-        p(class="hero-desc", "Reliable, readable and fast."),
+        p(class="hero-desc", "Reliable, readable, and fast."),
         div(class="hero-actions", [
           a(
             class="btn-primary btn-cta",
