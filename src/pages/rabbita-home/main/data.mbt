@@ -26,7 +26,7 @@ let code_tabs : Array[TabEntry] = [
     ),
   },
   {
-    label: "generics",
+    label: "trait",
     src: (
       #|fn[T : Compare] qsort(input : Array[T]) -> Array[T] {
       #|  guard input is [p, .. rs] else { [] }
