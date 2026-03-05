@@ -1,0 +1,1692 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap");
+
+/* ─── Scoped reset & tokens ───────────────────────────────── */
+
+#rabbita-home *,
+#rabbita-home *::before,
+#rabbita-home *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#rabbita-home {
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #b92482;
+  --accent-2: #d1288f;
+  --accent-bg: rgba(185, 36, 130, 0.09);
+  --accent-grad: linear-gradient(135deg, #d1288f 0%, #b92482 100%);
+  --code-bg: #0d1117;
+  --code-text: #e6edf3;
+  --radius: 12px;
+
+  font-family: "Manrope", "Avenir Next", "Trebuchet MS", sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+[data-theme="dark"] #rabbita-home {
+  --bg: #0f1014;
+  --surface: #17181f;
+  --text: #e8eaf0;
+  --muted: #8b93a8;
+  --border: #26283a;
+  --accent: #b92482;
+  --accent-2: #d1288f;
+  --accent-bg: rgba(185, 36, 130, 0.12);
+  --accent-grad: linear-gradient(135deg, #d1288f 0%, #b92482 100%);
+  --code-bg: #0d0e12;
+  --code-text: #e8d5ff;
+}
+
+/* ─── Root ────────────────────────────────────────────────── */
+
+#rabbita-home .site {
+  color: var(--text);
+}
+
+/* ─── Buttons ─────────────────────────────────────────────── */
+
+#rabbita-home .btn-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--accent-grad);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 700;
+  font-family: inherit;
+  text-decoration: none;
+  font-size: 0.94rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 120ms, transform 120ms;
+}
+
+#rabbita-home .btn-primary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+#rabbita-home .btn-secondary {
+  display: inline-block;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-weight: 700;
+  font-family: inherit;
+  text-decoration: none;
+  font-size: 0.94rem;
+  cursor: pointer;
+  transition: border-color 120ms, color 120ms, transform 120ms;
+}
+
+#rabbita-home .btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+#rabbita-home .btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#rabbita-home .btn-arrow-icon {
+  flex-shrink: 0;
+}
+
+/* ─── Hero ────────────────────────────────────────────────── */
+
+#rabbita-home .hero {
+  padding: 56px 24px 36px;
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(185, 36, 130, 0.05) 0%, transparent 100%), var(--surface);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+#rabbita-home .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* Ultra-crisp, faint technical grid */
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.8;
+  /* Spotlight fade-out: Anchored further up from the bottom */
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 80%, black 20%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 80%, black 20%, transparent 100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] #rabbita-home .hero {
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(224, 64, 176, 0.16) 0%, transparent 100%), var(--surface);
+}
+
+[data-theme="dark"] #rabbita-home .hero::before {
+  opacity: 1;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+}
+
+#rabbita-home .hero-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 4.7fr 6.3fr;
+  gap: 52px;
+  align-items: center;
+}
+
+#rabbita-home .hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+#rabbita-home .hero-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  margin-bottom: 22px;
+  color: var(--text);
+}
+
+#rabbita-home .hero-accent {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#rabbita-home .hero-desc {
+  font-size: 1.18rem;
+  color: var(--muted);
+  margin-bottom: 32px;
+  line-height: 1.72;
+  max-width: 440px;
+}
+
+#rabbita-home .hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ─── Hero code panel ─────────────────────────────────────── */
+
+#rabbita-home .hero-right {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+#rabbita-home .hero-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 6px 6px 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+#rabbita-home .hero-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px 0;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 120ms;
+  white-space: nowrap;
+}
+
+#rabbita-home .hero-tab::after {
+  content: '';
+  width: 18px;
+  height: 3px;
+  border-radius: 999px;
+  background: transparent;
+  margin-bottom: -2px;
+  transition: background 150ms;
+}
+
+#rabbita-home .hero-tab:hover {
+  color: var(--text);
+}
+
+#rabbita-home .hero-tab--active {
+  color: var(--accent);
+}
+
+#rabbita-home .hero-tab--active::after {
+  background: var(--accent);
+}
+
+#rabbita-home .hero-code .code-block {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+/* ─── Code blocks ─────────────────────────────────────────── */
+
+#rabbita-home .code-block {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 20px 24px;
+  font-family: "Menlo", "Consolas", "Monaco", monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: pre;
+  border-radius: var(--radius);
+  margin-bottom: 0;
+}
+
+#rabbita-home .code-block code {
+  font: inherit;
+  color: inherit;
+  background: none;
+}
+
+#rabbita-home .install-block {
+  background: var(--code-bg);
+  color: var(--code-text);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  font-family: "Menlo", "Consolas", "Monaco", monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.5;
+}
+
+#rabbita-home .install-block code {
+  font: inherit;
+  color: inherit;
+  background: none;
+}
+
+/* ─── Shared section titles ───────────────────────────────── */
+
+#rabbita-home .section-title {
+  text-align: center;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 52px;
+  color: var(--text);
+}
+
+#rabbita-home .section-desc {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* ─── Features (Gleam-style alternating rows) ──────────────── */
+
+#rabbita-home .features {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+#rabbita-home .features {
+  border-bottom: 1px solid var(--border);
+}
+
+#rabbita-home .features-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 24px 0;
+}
+
+#rabbita-home .features-header .section-title {
+  margin-bottom: 0;
+}
+
+#rabbita-home .feat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 24px;
+  gap: 56px;
+}
+
+/* Flip: visual on left, text on right */
+#rabbita-home .feat-row-flip .feat-visual {
+  order: -1;
+}
+
+#rabbita-home .feat-heading {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+#rabbita-home .feat-body {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+/* Shiki code block wrapper */
+#rabbita-home .feat-code {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+#rabbita-home .feat-code .code-themed {
+  border: none;
+  border-radius: 0;
+}
+
+#rabbita-home .feat-code>pre {
+  margin: 0;
+  padding: 24px;
+  font-family: "Menlo", "Consolas", "Monaco", monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+}
+
+/* Benchmark widget */
+#rabbita-home .feat-bench {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-family: "Menlo", "Consolas", "Monaco", monospace;
+}
+
+#rabbita-home .feat-bench-hdr {
+  display: flex;
+  align-items: center;
+  padding: 10px 18px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+#rabbita-home .feat-bench-col1 {
+  flex: 1;
+}
+
+#rabbita-home .feat-bench-col2 {
+  width: 50px;
+  text-align: right;
+}
+
+#rabbita-home .feat-bench-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+#rabbita-home .feat-bench-row:last-child {
+  border-bottom: none;
+}
+
+#rabbita-home .feat-bench-label {
+  flex: 1;
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+#rabbita-home .feat-bench-bar-wrap {
+  flex: 2;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+#rabbita-home .feat-bench-bar {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+#rabbita-home .feat-bench-bar.w99 {
+  width: 99%;
+}
+
+#rabbita-home .feat-bench-bar.w97 {
+  width: 97%;
+}
+
+#rabbita-home .feat-bench-bar.w92 {
+  width: 92%;
+}
+
+#rabbita-home .feat-bench-bar.w87 {
+  width: 87%;
+}
+
+#rabbita-home .feat-bench-val {
+  width: 46px;
+  text-align: right;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+#rabbita-home .feat-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+#rabbita-home .feat-platform-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#rabbita-home .feat-img-placeholder {
+  background-color: var(--bg);
+  background-image: repeating-linear-gradient(-45deg,
+      var(--border) 0px,
+      var(--border) 1px,
+      transparent 1px,
+      transparent 12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+#rabbita-home .feat-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
+
+#rabbita-home .feat-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+/* ─── CTA ─────────────────────────────────────────────────── */
+
+#rabbita-home .quickstart {
+  padding: 56px 24px 72px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(185, 36, 130, 0.06) 0%, transparent 70%),
+    var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+#rabbita-home .quickstart-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+#rabbita-home .quickstart-tagline {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 36px;
+}
+
+#rabbita-home .btn-cta {
+  padding: 14px 32px;
+  font-size: 1rem;
+  border-radius: 100px;
+}
+
+#rabbita-home .qs-steps {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+#rabbita-home .qs-steps::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 34px;
+  bottom: 34px;
+  width: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+#rabbita-home .qs-step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 52px;
+  padding-bottom: 28px;
+  position: relative;
+}
+
+#rabbita-home .qs-step:last-child {
+  padding-bottom: 0;
+}
+
+#rabbita-home .qs-step-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#rabbita-home .qs-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-grad);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+#rabbita-home .qs-step-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 34px;
+}
+
+#rabbita-home .qs-step-code-wrap {
+  position: relative;
+}
+
+#rabbita-home .qs-step-code {
+  margin-bottom: 0;
+}
+
+#rabbita-home .qs-copy-btn {
+  display: flex;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: background 120ms, color 120ms;
+}
+
+#rabbita-home .qs-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+#rabbita-home .qs-copy-btn--done {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+#rabbita-home .qs-copy-icon {
+  display: block;
+}
+
+#rabbita-home .quickstart-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* ─── Shiki themed block (dual-theme via CSS vars) ────────── */
+
+/* code_to_html_themes wraps shiki output in a <code>; display:contents
+   makes it a transparent layout container so the inner <pre> is direct child */
+#rabbita-home .code-themed>code {
+  display: contents;
+}
+
+#rabbita-home .code-themed {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+#rabbita-home .code-themed pre {
+  margin: 0;
+  padding: 14px 18px;
+  font-family: "Menlo", "Consolas", "Monaco", monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  overflow-x: auto;
+}
+
+/* Hero code animation */
+@keyframes rabbita-hero-slide-a {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes rabbita-hero-slide-b {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+#rabbita-home .hero-code {
+  overflow: hidden;
+  background: #ffffff;
+}
+
+[data-theme="dark"] #rabbita-home .hero-code {
+  background: #0d1117;
+}
+
+#rabbita-home .hero-anim-wrap.anim-a {
+  animation: rabbita-hero-slide-a 0.22s ease;
+}
+
+#rabbita-home .hero-anim-wrap.anim-b {
+  animation: rabbita-hero-slide-b 0.22s ease;
+}
+
+/* Hero panel: remove border/radius so it bleeds edge-to-edge */
+#rabbita-home .hero-code .code-themed {
+  border: none;
+  border-radius: 0;
+}
+
+#rabbita-home .hero-code .code-themed pre,
+#rabbita-home .hero-code .code-block {
+  font-size: 0.83rem;
+  line-height: 1.55;
+  padding: 20px 24px 4px;
+  height: 360px;
+  overflow-y: auto;
+}
+
+/* Fix plain code-block background before Shiki loads */
+#rabbita-home .code-block {
+  color: #24292e !important;
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] #rabbita-home .code-block {
+  color: var(--code-text) !important;
+  background-color: var(--code-bg) !important;
+}
+
+[data-theme="dark"] #rabbita-home .install-block {
+  color: var(--code-text) !important;
+  background-color: var(--code-bg) !important;
+}
+
+/* ─── Community ───────────────────────────────────────────── */
+
+#rabbita-home .community {
+  padding: 88px 24px 0;
+  background:
+    radial-gradient(ellipse 65% 90% at -5% 110%, rgba(158, 16, 132, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 75% at 107% -5%, rgba(205, 21, 172, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 60% at 107% 107%, rgba(244, 76, 213, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 15% at 50% 100%, rgba(185, 36, 130, 0.04) 0%, transparent 100%),
+    var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] #rabbita-home .community {
+  background:
+    radial-gradient(ellipse 65% 90% at -5% 110%, rgba(232, 14, 192, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 75% at 107% -5%, rgba(244, 76, 213, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 60% at 107% 107%, rgba(205, 21, 172, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 15% at 50% 100%, rgba(224, 64, 176, 0.05) 0%, transparent 100%),
+    var(--surface);
+}
+
+#rabbita-home .community::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--accent) 40%, var(--muted)) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 15%, black 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 15%, black 100%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] #rabbita-home .community::before {
+  opacity: 0.42;
+}
+
+#rabbita-home .community-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Community header: title + description */
+
+#rabbita-home .community-header {
+  text-align: center;
+}
+
+#rabbita-home .community-header .section-title {
+  margin-bottom: 18px;
+}
+
+#rabbita-home .community-desc {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.72;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Projects block: cycling cards + see more button */
+
+#rabbita-home .comm-projs-block {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+#rabbita-home .comm-links-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+#rabbita-home .comm-links-label {
+  color: var(--muted);
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+#rabbita-home .comm-links-sep {
+  color: var(--muted);
+  font-weight: 600;
+  margin: 0 5px 0 0;
+}
+
+#rabbita-home .comm-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  vertical-align: middle;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 120ms;
+}
+
+#rabbita-home .comm-link-btn:hover {
+  opacity: 0.72;
+}
+
+#rabbita-home .gh-icon {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+#rabbita-home .comm-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+#rabbita-home .comm-block-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+#rabbita-home .comm-see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 120ms;
+}
+
+#rabbita-home .comm-see-all:hover {
+  opacity: 0.75;
+}
+
+/* Projects — cycling batch animation */
+
+/* comm-proj-cycle: designed for N=3 batches, 3s per slot (9s total cycle).
+   Formula: slot_pct = 100/N, visible_end = 95 - (N-1)*slot_pct.
+   Duration and delay are set inline by view_community() in main.mbt.
+   If N changes, recompute: visible_end = 95 - (N-1)*(100/N). */
+@keyframes comm-proj-cycle {
+  0%, 29% { opacity: 1; }
+  33%, 90% { opacity: 0; }
+  100%     { opacity: 1; }
+}
+
+#rabbita-home .comm-proj-outer {
+  display: grid;
+}
+
+#rabbita-home .comm-proj-batch {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+#rabbita-home .comm-project-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+#rabbita-home .comm-project-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px var(--accent-bg);
+}
+
+#rabbita-home .comm-project-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  font-family: "Menlo", "Consolas", "Monaco", monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rabbita-home .comm-project-desc {
+  font-size: 0.84rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* Voices section */
+
+#rabbita-home .voices-section {
+  padding: 52px 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+#rabbita-home .voices-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+#rabbita-home .voices-inner .section-title {
+  margin-bottom: 28px;
+}
+
+/* Voices — infinite horizontal scroll */
+
+@keyframes comm-voices-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-1 * var(--voices-one-set-px)));
+  }
+}
+
+#rabbita-home .comm-voices-outer {
+  overflow: hidden;
+  mask-image: linear-gradient(to right,
+      transparent 255px,
+      black 315px,
+      black calc(100% - 315px),
+      transparent calc(100% - 255px));
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 255px,
+      black 315px,
+      black calc(100% - 315px),
+      transparent calc(100% - 255px));
+}
+
+#rabbita-home .comm-voices-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: comm-voices-scroll 120s linear infinite;
+}
+
+#rabbita-home .comm-voices-track:hover {
+  animation-play-state: paused;
+}
+
+#rabbita-home .comm-voice-card {
+  flex: 0 0 340px;
+  min-height: 220px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#rabbita-home .comm-voice-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#rabbita-home .comm-voice-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+#rabbita-home .comm-voice-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+#rabbita-home .comm-voice-name-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#rabbita-home .comm-voice-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rabbita-home .voice-verified {
+  flex-shrink: 0;
+}
+
+#rabbita-home .comm-voice-handle {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+#rabbita-home .comm-voice-quote-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 120px;
+}
+
+#rabbita-home .comm-voice-quote-wrap .comm-voice-quote {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+
+#rabbita-home .comm-voice-quote-wrap .comm-voice-quote--original {
+  opacity: 0;
+}
+
+#rabbita-home .comm-voice-card--has-original:hover .comm-voice-quote--translated {
+  opacity: 0;
+}
+
+#rabbita-home .comm-voice-card--has-original:hover .comm-voice-quote--original {
+  opacity: 1;
+}
+
+#rabbita-home .comm-voice-card--has-original .comm-voice-footer {
+  transition: opacity 0.3s ease;
+}
+
+#rabbita-home .comm-voice-card--has-original:hover .comm-voice-footer {
+  opacity: 0;
+}
+
+#rabbita-home .comm-voice-quote {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text);
+  flex: 1;
+}
+
+#rabbita-home .comm-voice-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+#rabbita-home .comm-voice-source {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+#rabbita-home .comm-voice-bio {
+  font-size: 0.76rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Contributors — dense grid */
+
+#rabbita-home .comm-avatars {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 44px);
+  grid-auto-rows: 44px;
+  gap: 8px;
+  padding-top: 3px;
+  max-height: 244px;
+  overflow: hidden;
+  justify-content: center;
+  mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+}
+
+#rabbita-home .comm-avatar-link {
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--surface);
+  outline: 1px solid var(--border);
+  transition: outline-color 150ms, transform 120ms;
+}
+
+#rabbita-home .comm-avatar-link:hover {
+  outline-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+#rabbita-home .comm-avatar {
+  display: block;
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+}
+
+/* News */
+
+#rabbita-home .comm-news {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+#rabbita-home .comm-news-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 18px;
+  background: var(--surface);
+  text-decoration: none;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  transition: background 120ms;
+}
+
+#rabbita-home .comm-news-item:last-child {
+  border-bottom: none;
+}
+
+#rabbita-home .comm-news-item:hover {
+  background: var(--bg);
+}
+
+#rabbita-home .comm-news-tag {
+  flex-shrink: 0;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  min-width: 60px;
+  text-align: center;
+}
+
+#rabbita-home .comm-news-title {
+  flex: 1;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rabbita-home .comm-news-date {
+  flex-shrink: 0;
+  font-size: 0.76rem;
+  color: var(--muted);
+  font-family: "Menlo", "Consolas", "Monaco", monospace;
+}
+
+/* ─── News + Roadmap (stacked full-width) ─────────────────── */
+
+#rabbita-home .news-roadmap-section {
+  padding: 88px 24px;
+}
+
+#rabbita-home .news-roadmap-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+#rabbita-home .nr-block {
+  min-width: 0;
+}
+
+#rabbita-home .nr-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+#rabbita-home .nr-block-title {
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* News 4-column horizontal grid */
+
+#rabbita-home .news-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+#rabbita-home .news-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: border-color 150ms, transform 150ms, box-shadow 150ms;
+}
+
+#rabbita-home .news-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+#rabbita-home .news-card-img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px,
+      transparent 12px,
+      var(--border) 12px,
+      var(--border) 13px
+    ),
+    var(--accent-bg);
+}
+
+#rabbita-home .news-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+#rabbita-home .news-card-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+#rabbita-home .news-card-date {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* Roadmap — horizontal timeline */
+
+#rabbita-home .rdm-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  background: var(--accent);
+  opacity: 0.65;
+  border: 2px solid var(--surface);
+  outline: 2px solid var(--accent);
+}
+
+#rabbita-home .rdm-track-h {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+#rabbita-home .rdm-node-h {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#rabbita-home .rdm-node-h-top {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#rabbita-home .rdm-h-line {
+  flex: 1;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.3;
+}
+
+#rabbita-home .rdm-node-h:first-child .rdm-h-line--left {
+  background: linear-gradient(to right, transparent, var(--accent));
+}
+
+#rabbita-home .rdm-node-h:last-child .rdm-h-line--right {
+  background: linear-gradient(to right, var(--accent), transparent);
+}
+
+#rabbita-home .rdm-content-h {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 20px;
+  margin: 0 8px;
+  width: calc(100% - 16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  flex: 1;
+}
+
+#rabbita-home .rdm-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+#rabbita-home .rdm-period {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+#rabbita-home .rdm-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+#rabbita-home .rdm-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+#rabbita-home .rdm-item {
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.5;
+}
+
+#rabbita-home .rdm-item::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.52em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+  opacity: 0.5;
+}
+
+#rabbita-home .rdm-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+
+#rabbita-home .rdm-badge--done {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--muted);
+}
+
+#rabbita-home .rdm-badge--active {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+#rabbita-home .rdm-badge--planned {
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+/* ─── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  #rabbita-home .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  #rabbita-home .hero-left {
+    align-items: center;
+    text-align: center;
+  }
+
+  #rabbita-home .hero-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #rabbita-home .hero-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  #rabbita-home .comm-voices {
+    grid-template-columns: 1fr;
+  }
+
+  #rabbita-home .comm-proj-batch {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+
+  /* Voices: disable infinite scroll, show as plain horizontal swipe */
+  #rabbita-home .voices-section {
+    padding: 40px 0;
+  }
+
+  #rabbita-home .voices-inner {
+    padding: 0 20px;
+  }
+
+  #rabbita-home .comm-voices-outer {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+    padding: 0 20px 12px;
+  }
+
+  #rabbita-home .comm-voices-track {
+    animation: none;
+    /* show only original cards, hide duplicates via nth-child */
+  }
+
+  /* Hide duplicated sets, show only the original set */
+  #rabbita-home .comm-voice-card--duplicate {
+    display: none;
+  }
+
+  #rabbita-home .hero {
+    padding: 40px 20px 56px;
+  }
+
+  #rabbita-home .features-header {
+    padding: 40px 20px 0;
+  }
+
+  #rabbita-home .feat-row {
+    grid-template-columns: 1fr;
+    padding: 32px 20px;
+    gap: 24px;
+  }
+
+  #rabbita-home .feat-row-flip .feat-visual {
+    order: 0;
+  }
+
+  #rabbita-home .feat-heading {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  #rabbita-home .feat-body {
+    font-size: 0.95rem;
+  }
+
+  #rabbita-home .feat-term .code-themed pre {
+    font-size: 0.75rem;
+    padding: 14px 16px;
+  }
+
+  #rabbita-home .comm-proj-batch {
+    grid-template-columns: 1fr;
+  }
+
+  #rabbita-home .community {
+    padding: 64px 20px 0;
+  }
+
+  #rabbita-home .community-inner {
+    gap: 44px;
+  }
+
+  #rabbita-home .news-roadmap-section {
+    padding: 64px 20px;
+  }
+
+  #rabbita-home .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #rabbita-home .rdm-track-h {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #rabbita-home .rdm-node-h {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  #rabbita-home .rdm-node-h-top {
+    flex-direction: column;
+    align-items: center;
+    width: 20px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    margin-right: 16px;
+  }
+
+  #rabbita-home .rdm-h-line {
+    width: 2px;
+    height: auto;
+    flex: 1;
+  }
+
+  #rabbita-home .rdm-node-h:first-child .rdm-h-line--left {
+    background: linear-gradient(to bottom, transparent, var(--accent));
+  }
+
+  #rabbita-home .rdm-node-h:last-child .rdm-h-line--right {
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  #rabbita-home .rdm-node-h:nth-child(2n+1) .rdm-h-line--left,
+  #rabbita-home .rdm-node-h:nth-child(2n) .rdm-h-line--right {
+    visibility: visible;
+  }
+
+  #rabbita-home .rdm-content-h {
+    flex: 1;
+    margin: 0 0 16px 0;
+    width: auto;
+  }
+
+  #rabbita-home .quickstart {
+    padding: 64px 20px;
+  }
+
+  #rabbita-home .section-title {
+    margin-bottom: 36px;
+  }
+}
+
+/* ─── Feature carousel ────────────────────────────────────── */
+
+#rabbita-home .feat-carousel-outer {
+  display: flex;
+  flex-direction: column;
+}
+
+#rabbita-home .feat-carousel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+#rabbita-home .feat-carousel .feat-img-placeholder {
+  border: none;
+  border-radius: 0;
+}
+
+#rabbita-home .feat-carousel-img {
+  width: 100%;
+  display: block;
+}
+
+#rabbita-home .feat-carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0 8px;
+}
+
+#rabbita-home .feat-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#rabbita-home .feat-carousel-dot:hover {
+  background: var(--muted);
+}
+
+#rabbita-home .feat-carousel-dot--active {
+  background: var(--muted);
+}
+
+/* ─── Feature code block (term visual) ────────────────────── */
+
+#rabbita-home .feat-term {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+#rabbita-home .feat-term .code-themed {
+  border: none;
+  border-radius: 0;
+}
+
+#rabbita-home .feat-term .code-themed pre {
+  margin: 0;
+  padding: 20px 24px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  font-family: Menlo, Consolas, Monaco, monospace;
+  overflow-x: auto;
+}

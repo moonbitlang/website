@@ -3,6 +3,9 @@ build
 buildzh
 **/.*.pdf.*
 .vscode
+**/_build/
+**/.mooncakes/
+
 
 !static/**/node_modules
 !static-gallery/**/node_modules
@@ -21,6 +24,8 @@ static/moonc-worker.js
 !/static/**/build
 
 # Generated files
+static/rabbita-home/
+src/static/rabbita-home/
 .docusaurus
 .cache-loader
 

@@ -21,6 +21,15 @@ import math from 'remark-math'
 import katex from 'rehype-katex'
 import 'dotenv/config'
 import fs from 'node:fs/promises'
+import {
+  readFileSync,
+  readdirSync,
+  existsSync,
+  copyFileSync,
+  mkdirSync,
+  writeFileSync,
+} from 'node:fs'
+import { spawnSync } from 'node:child_process'
 import path from 'node:path'
 import rehypeShiki, { RehypeShikiOptions } from '@shikijs/rehype'
 import * as shiki from 'shiki'
@@ -114,6 +123,9 @@ export default async (): Promise<Config> => {
         {
           docs: false,
           blog: false,
+          pages: {
+            exclude: ['**/rabbita-home/**']
+          },
           theme: {
             customCss: './src/css/custom.css'
           }
@@ -122,6 +134,118 @@ export default async (): Promise<Config> => {
     ],
 
     plugins: [
+      // In dev mode, watch .mbt source files and run moon build on each change,
+      // then copy output to static/rabbita-home/ for Docusaurus to serve.
+      // A polling script detects the updated main.js (via ETag/Last-Modified)
+      // and triggers a browser reload.
+      function rabbitaHomePlugin() {
+        const rabbitaHomeDir = path.join(
+          process.cwd(),
+          'src',
+          'pages',
+          'rabbita-home'
+        )
+        const staticDir = path.join(process.cwd(), 'static', 'rabbita-home')
+        const stylesSrc = path.join(rabbitaHomeDir, 'styles.css')
+
+        function collectWatchFiles(dir: string, files: string[] = []): string[] {
+          const skip = new Set(['node_modules', '_build', 'target', '.git'])
+          for (const entry of readdirSync(dir, { withFileTypes: true })) {
+            if (skip.has(entry.name)) continue
+            const full = path.join(dir, entry.name)
+            if (entry.isDirectory()) {
+              collectWatchFiles(full, files)
+            } else if (
+              entry.name.endsWith('.mbt') ||
+              entry.name.endsWith('.mbti') ||
+              entry.name === 'moon.pkg.json' ||
+              entry.name === 'moon.mod.json'
+            ) {
+              files.push(full)
+            }
+          }
+          return files
+        }
+
+        function findFirstJs(dir: string): string | null {
+          for (const entry of readdirSync(dir, { withFileTypes: true })) {
+            const full = path.join(dir, entry.name)
+            if (entry.isDirectory()) {
+              const found = findFirstJs(full)
+              if (found) return found
+            } else if (entry.name.endsWith('.js')) {
+              return full
+            }
+          }
+          return null
+        }
+
+        function buildAndCopy(): void {
+          const result = spawnSync('moon', ['build', '--target', 'js', '--debug'], {
+            cwd: rabbitaHomeDir,
+            stdio: 'inherit',
+          })
+          if (result.status !== 0) return
+          const buildDir = path.join(
+            rabbitaHomeDir,
+            '_build',
+            'js',
+            'debug',
+            'build'
+          )
+          if (!existsSync(buildDir)) return
+          const jsFile = findFirstJs(buildDir)
+          if (!jsFile) return
+          if (!existsSync(staticDir)) mkdirSync(staticDir, { recursive: true })
+          const code = readFileSync(jsFile, 'utf8')
+            .replace(/\n?\/\/[#@]\s*sourceMappingURL=.*$/m, '')
+            .replace(/\n?\/\*#\s*sourceMappingURL=.*?\*\//m, '')
+          writeFileSync(path.join(staticDir, 'main.js'), code)
+          if (existsSync(stylesSrc)) {
+            copyFileSync(stylesSrc, path.join(staticDir, 'styles.css'))
+          }
+        }
+
+        return {
+          name: 'rabbita-home',
+          getPathsToWatch() {
+            const files = collectWatchFiles(rabbitaHomeDir)
+            if (existsSync(stylesSrc)) files.push(stylesSrc)
+            return files
+          },
+          async loadContent() {
+            if (process.env.NODE_ENV === 'development') {
+              buildAndCopy()
+            }
+            return null
+          },
+          injectHtmlTags() {
+            if (process.env.NODE_ENV !== 'development') return {}
+            return {
+              headTags: [
+                {
+                  tagName: 'script',
+                  innerHTML: `
+                    (function () {
+                      var known = null;
+                      setInterval(async function () {
+                        if (!document.getElementById('rabbita-home')) return;
+                        try {
+                          var r = await fetch('/rabbita-home/main.js', { method: 'HEAD', cache: 'no-store' });
+                          if (!r.ok) return;
+                          var tag = r.headers.get('etag') || r.headers.get('last-modified');
+                          if (known === null) { known = tag; return; }
+                          if (tag !== known) { known = tag; location.reload(); }
+                        } catch (e) {}
+                      }, 500);
+                    })();
+                  `,
+                },
+              ],
+            }
+          },
+        }
+      },
       [
         './plugins/blog-plugin',
         {

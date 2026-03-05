@@ -1,0 +1,36 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "user/app/main"
+
+// Values
+
+// Errors
+
+// Types and methods
+type Contrib
+
+type FeatureRow
+
+type FeatureVisual
+
+type Milestone
+
+type Model
+
+type Msg
+
+type NewsItem
+
+type Project
+
+type RoadmapStatus
+
+type TabEntry
+
+type TermSnippet
+
+type Voice
+
+// Type aliases
+
+// Traits
+
