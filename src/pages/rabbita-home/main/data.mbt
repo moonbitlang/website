@@ -40,7 +40,7 @@ let code_tabs : Array[TabEntry] = [
     ),
   },
   {
-    label: "http",
+    label: "structural concurrency",
     src: (
       #|async test "https request" {
       #|  let (response, body) = @async.retry(FixedDelay(250), max_retry=3, () => {
