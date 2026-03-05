@@ -75,10 +75,6 @@
     "message": "联系我们",
     "description": "The label of footer link with label=联系我们 linking to mailto:support@moonbitlang.com"
   },
-  "copyright": {
-    "message": "Copyright © 2024 MoonBit",
-    "description": "The footer copyright"
-  },
   "link.item.label.Tour": {
     "message": "Tour",
     "description": "The label of footer link with label=Tour linking to https://tour.moonbitlang.com"
