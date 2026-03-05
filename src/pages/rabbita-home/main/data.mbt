@@ -51,27 +51,27 @@ let code_tabs : Array[TabEntry] = [
       #|}
     ),
   },
-  {
-    label: "io",
-    src: (
-      #| // A simple `cat` command line program
-      #| async fn main {
-      #|   match @env.args() {
-      #|     [] | [_] => @stdio.stdout.write_reader(@stdio.stdin)
-      #|     [_, .. files] =>
-      #|       for file in files {
-      #|         if file == "-" {
-      #|           @stdio.stdout.write_reader(@stdio.stdin)
-      #|         } else {
-      #|           let file = @fs.open(file, mode=ReadOnly)
-      #|           defer file.close()
-      #|           @stdio.stdout.write_reader(file)
-      #|         }
-      #|       }
-      #|   }
-      #| }
-    ),
-  },
+  // {
+  //   label: "io",
+  //   src: (
+  //     #| // A simple `cat` command line program
+  //     #| async fn main {
+  //     #|   match @env.args() {
+  //     #|     [] | [_] => @stdio.stdout.write_reader(@stdio.stdin)
+  //     #|     [_, .. files] =>
+  //     #|       for file in files {
+  //     #|         if file == "-" {
+  //     #|           @stdio.stdout.write_reader(@stdio.stdin)
+  //     #|         } else {
+  //     #|           let file = @fs.open(file, mode=ReadOnly)
+  //     #|           defer file.close()
+  //     #|           @stdio.stdout.write_reader(file)
+  //     #|         }
+  //     #|       }
+  //     #|   }
+  //     #| }
+  //   ),
+  // },
   {
     label: "test",
     src: (
