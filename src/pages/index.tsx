@@ -18,19 +18,10 @@ import Layout from '@theme/Layout'
 import { useEffect } from 'react'
 
 const mountId = 'rabbita-home'
-const styleId = 'rabbita-home-style'
 const scriptId = 'rabbita-home-script'
 
 function RabbitaHome() {
   useEffect(() => {
-    if (document.getElementById(styleId) === null) {
-      const style = document.createElement('link')
-      style.id = styleId
-      style.rel = 'stylesheet'
-      style.href = '/rabbita-home/styles.css'
-      document.head.appendChild(style)
-    }
-
     const oldScript = document.getElementById(scriptId)
     if (oldScript) {
       oldScript.remove()
