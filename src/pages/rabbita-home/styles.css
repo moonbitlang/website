@@ -337,6 +337,12 @@
   gap: 56px;
 }
 
+/* Grid children: min-width:0 prevents code blocks from overflowing */
+#rabbita-home .feat-row > * {
+  min-width: 0;
+  overflow: hidden;
+}
+
 /* Flip: visual on left, text on right */
 #rabbita-home .feat-row-flip .feat-visual {
   order: -1;
@@ -362,6 +368,7 @@
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
+  max-width: 100%;
 }
 
 #rabbita-home .feat-code .code-themed {
@@ -1675,6 +1682,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  max-width: 100%;
 }
 
 #rabbita-home .feat-term .code-themed {
