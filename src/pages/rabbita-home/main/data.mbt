@@ -397,6 +397,50 @@ let voices : Array[Voice] = [
     source: "X / Twitter",
     bio: "CEO @ZivergeTech, CEO @GolemCloud, OSS contributor @zioscala",
   },
+  // source: https://redmonk.com/sogrady/2025/06/18/language-rankings-1-25/
+  // {
+  //   avatar: "https://unavatar.io/twitter/sogrady",
+  //   name: "Stephen O'Grady",
+  //   handle: "@sogrady",
+  //   verified: true,
+  //   quote: "Which is yet another reason why we’re carefully evaluating our options moving forward, but in the meantime we’ll keep all of these languages on our “to watch” list.",
+  //   quote_original: None,
+  //   source: "RedMonk Language Rankings",
+  //   bio: "Co-founder and principal analyst at RedMonk",
+  // },
+  // source: https://mysticmatrix.tech/top-programming-languages-of-late-2025/
+  {
+    avatar: "https://mysticmatrix.tech/wp-content/litespeed/avatar/3b734a83dbf7f4c51485dd6c069a347e.jpg?ver=1772139726",
+    name: "Mystic Matrix",
+    handle: "mysticmatrix.tech",
+    verified: false,
+    quote: "As we approach the end of 2025, three programming languages are gaining serious momentum — Mojo, Rust, and MoonBit. Each brings something unique to the table: from systems-level speed to safe concurrency to WebAssembly-first",
+    quote_original: None,
+    source: "Top Programming Languages of Late 2025",
+    bio: "Technology and software consultancy blog",
+  },
+  // source: https://thenewstack.io/moonbit-wasm-optimized-language-creates-less-code-than-rust/
+  {
+    avatar: "https://thenewstack.io/wp-content/uploads/2023/08/4de88b83-4756312a-326a38b7-lorainelawson2-600x600-1-96x96.jpeg",
+    name: "Loraine Lawson",
+    handle: "thenewstack.io",
+    verified: false,
+    quote: "MoonBit is an end-to-end programming language that’s optimized for WebAssembly, while also compiling to JavaScript and Assembly code.",
+    quote_original: None,
+    source: "MoonBit: Wasm-Optimized Language Creates Less Code Than Rust",
+    bio: "Technology reporter at The New Stack",
+  },
+  // source: https://thenewstack.io/introduction-to-moonbit-a-new-language-toolchain-for-wasm/
+  {
+    avatar: "https://thenewstack.io/wp-content/uploads/2022/09/2e2ac7a2-cropped-a46bbf33-photo-96x96.png",
+    name: "David Eastman",
+    handle: "thenewstack.io",
+    verified: false,
+    quote: "We check out MoonBit, a modern language plus workflow designed to create efficient WebAssembly projects (it can also target JavaScript).",
+    quote_original: None,
+    source: "Introduction to MoonBit, a New Language Toolchain for Wasm",
+    bio: "Contributor at The New Stack",
+  },
 ]
 
 ///|
