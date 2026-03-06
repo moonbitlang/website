@@ -1,6 +1,7 @@
 // Auto-generated, do not edit by hand.
 
-///| Run: node scripts/gen-recent-blogs.mjs
+///|
+/// Run: node scripts/gen-recent-blogs.mjs
 let news_items : Array[NewsItem] = [
   {
     title: "MoonBit 0.8.0 Released",
