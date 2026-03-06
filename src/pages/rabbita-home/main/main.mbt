@@ -845,7 +845,7 @@ fn view_community() -> Html {
       p(class="comm-project-desc", proj.desc),
     ])
   })
-  // Chunk into batches of 3, padding last batch by cycling if needed
+  // Chunk into batches of 3, cycling from start to pad the last batch
   let n_projects = cards.length()
   let n_batches = (n_projects + 2) / 3
   let batches : Array[Array[Html]] = []
@@ -859,7 +859,7 @@ fn view_community() -> Html {
   // Compute animation timing. Keyframe is defined in CSS for N=3 batches.
   // If batch count changes, update the @keyframes comm-proj-cycle rule in styles.css.
   let n = batches.length()
-  let slot_s = 3
+  let slot_s = 5
   let duration_s = n * slot_s
   let batch_divs = batches.mapi(fn(i, batch_cards) {
     let delay_s = -(i * slot_s)
@@ -1024,7 +1024,7 @@ fn view_quickstart() -> Html {
     div(class="quickstart-inner", [
       h2(
         class="quickstart-tagline",
-        "Your next AI cloud-native developer platform.",
+        "Experience MoonBit: Code Faster, Perform Better!",
       ),
       a(class="btn-primary btn-icon btn-cta", href=ide_url, target=Blank, [
         text("Try Now"),
