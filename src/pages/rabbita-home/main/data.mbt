@@ -153,6 +153,7 @@ let code_tabs : Array[TabEntry] = [
 struct TermSnippet {
   lang : String
   src : String
+  plain : String?
 }
 
 ///|
@@ -182,6 +183,20 @@ let feature_rows : Array[FeatureRow] = [
     visual: Term({
       lang: "ansi",
       src: "\u{1b}[32m➜\u{1b}[0m server \u{1b}[36mgit:(main)\u{1b}[0m \u{1b}[31m✗\u{1b}[0m moon check\n \u{1b}[1;33mWarning:\u{1b}[0m \u{1b}[33m[0056]\u{1b}[0m\n     \u{1b}[2m╭─[\u{1b}[0m \u{1b}[36m/source/server/main.mbt:77:7\u{1b}[0m \u{1b}[2m]\u{1b}[0m\n     \u{1b}[2m│\u{1b}[0m\n  \u{1b}[2m77\u{1b}[0m │   let { name, email } = user\n     │       \u{1b}[33m───────┬───────\u{1b}[0m\n     │              \u{1b}[33m╰───────── Warning (missing_pattern_field):\u{1b}[0m\n     │   The struct pattern is missing the field(s) kind.\n     │   Please add them to the pattern or use `..` to ignore them.\n \u{1b}[2m────╯\u{1b}[0m",
+      plain: Some(
+        (
+          #|➜ server git:(main) ✗ moon check
+          #| Warning: [0056]
+          #|     ╭─[ /source/server/main.mbt:77:7 ]
+          #|     │
+          #|  77 │   let { name, email } = user
+          #|     │       ───────┬───────
+          #|     │              ╰───────── Warning (missing_pattern_field):
+          #|     │   The struct pattern is missing the field(s) kind.
+          #|     │   Please add them to the pattern or use `..` to ignore them.
+          #| ────╯
+        ),
+      ),
     }),
   },
   {
@@ -206,6 +221,7 @@ let feature_rows : Array[FeatureRow] = [
         #|  }
         #|}
       ),
+      plain: None,
     }),
   },
   {
@@ -217,6 +233,23 @@ let feature_rows : Array[FeatureRow] = [
     visual: Term({
       lang: "ansi",
       src: "\u{1b}[32m$\u{1b}[0m moon ide rename \u{1b}[36msummary\u{1b}[0m \u{1b}[36mrender_summary\u{1b}[0m --loc \u{1b}[35mcontent.mbt:10:8\u{1b}[0m\n\u{1b}[2m# semantic rename that outputs a ready-to-apply patch\u{1b}[0m\n\u{1b}[34m*** Begin Patch\u{1b}[0m\n\u{1b}[34m*** Update File: /content_model/content.mbt\u{1b}[0m\n\u{1b}[34m@@\u{1b}[0m\n   content.views + content.title.length()\n }\n\n\u{1b}[31m-pub fn summary(content : Content) -> String {\u{1b}[0m\n\u{1b}[32m+pub fn render_summary(content : Content) -> String {\u{1b}[0m\n   content.title + \" - \" + score(content).to_string()\n }\n\u{1b}[34m*** End Patch\u{1b}[0m",
+      plain: Some(
+        (
+          #|$ moon ide rename summary render_summary --loc content.mbt:10:8
+          #|# semantic rename that outputs a ready-to-apply patch
+          #|*** Begin Patch
+          #|*** Update File: /content_model/content.mbt
+          #|@@
+          #|   content.views + content.title.length()
+          #| }
+          #|
+          #|-pub fn summary(content : Content) -> String {
+          #|+pub fn render_summary(content : Content) -> String {
+          #|   content.title + " - " + score(content).to_string()
+          #| }
+          #|*** End Patch
+        ),
+      ),
     }),
     //   Term({
     //     lang: "ansi",

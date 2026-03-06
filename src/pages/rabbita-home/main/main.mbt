@@ -665,7 +665,8 @@ fn view_platform_svg() -> Html {
 fn view_feat_term(snippet : TermSnippet, hl : @shiki.Highlighter?) -> Html {
   let code_html = match hl {
     Some(h) => themed_block(h, snippet.src, snippet.lang)
-    None => pre(class="code-block", [code(snippet.src)])
+    None =>
+      pre(class="code-block", [code(snippet.plain.unwrap_or(snippet.src))])
   }
   div(class="feat-term", [code_html])
 }
