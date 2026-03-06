@@ -204,8 +204,16 @@ let feature_rows : Array[FeatureRow] = [
   },
   {
     heading: "Toolchain for Agents",
-    body: "MoonBit provides a complete development platform out of the box: compiler, build system, formatter, editor integrations, and AI-assisted tooling, all designed to work together. The unified toolchain lets both developers and AI systems easily invoke MoonBit workflows, automating building, testing, and evolving software. Thousands of packages on mooncakes.io make it easy to build and share real-world libraries.",
-    visual: Video("/img/index/ai.mp4"),
+    body: "MoonBit provides a complete development platform out of the box: compiler, build system, formatter, editor integrations, and AI-assisted tooling, all designed to work together. The unified toolchain lets both developers and AI systems easily invoke MoonBit workflows, automating building, testing, and evolving software. Thousands of packages on mooncakes.io make it easy to build and share real-world libraries.", //Carousel([
+    visual: Term({
+      lang: "ansi",
+      src: "\u{1b}[32m$\u{1b}[0m moon ide rename \u{1b}[36msummary\u{1b}[0m \u{1b}[36mrender_summary\u{1b}[0m --loc \u{1b}[35mcontent.mbt:10:8\u{1b}[0m\n\u{1b}[2m# semantic rename that outputs a ready-to-apply patch\u{1b}[0m\n\u{1b}[34m*** Begin Patch\u{1b}[0m\n\u{1b}[34m*** Update File: /content_model/content.mbt\u{1b}[0m\n\u{1b}[34m@@\u{1b}[0m\n   content.views + content.title.length()\n }\n\n\u{1b}[31m-pub fn summary(content : Content) -> String {\u{1b}[0m\n\u{1b}[32m+pub fn render_summary(content : Content) -> String {\u{1b}[0m\n   content.title + \" - \" + score(content).to_string()\n }\n\u{1b}[34m*** End Patch\u{1b}[0m",
+    }),
+    //   Term({
+    //     lang: "ansi",
+    //     src: "\u{1b}[32m$\u{1b}[0m moon ide doc \u{1b}[36mTaskGroup\u{1b}[0m \u{1b}[2m# search Type across the MoonBit ecosystem\u{1b}[0m\n\u{1b}[35mpackage\u{1b}[0m \"moonbitlang/async\" \u{1b}[2m// moon add moonbitlang/async@0.16.4\u{1b}[0m\n\u{1b}[36mtype\u{1b}[0m \u{1b}[1mTaskGroup[X]\u{1b}[0m\n  A `TaskGroup` can be used to spawn children tasks that run in parallel.\n  Task groups implements \u{1b}[33mstructured concurrency\u{1b}[0m:\n  a task group will only return after all its children task terminates.\n  Task groups also handles \u{1b}[33merror propagation\u{1b}[0m:\n  ...\n\n  \u{1b}[33mpub fn[X] TaskGroup::add_defer(Self[X], async () -> Unit) -> Unit\u{1b}[0m\n  \u{1b}[33mpub fn[X] TaskGroup::return_immediately(Self[X], X) -> Unit raise\u{1b}[0m\n  ...",
+    //   }),
+    // ]),
   },
   {
     heading: "Fast Where It Matters",
