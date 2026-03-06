@@ -6,7 +6,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start --host 0.0.0.0",
-    "dev": "pnpm rabbita-home:build && (cd src/pages/rabbita-home && npm run watch) & docusaurus start",
+    "dev": "pnpm rabbita-home:build && (cd src/pages/rabbita-home && npm run watch &) && docusaurus start --host 0.0.0.0",
     "data": "tsx ./scripts/gen-data.ts",
     "build": "pnpm rabbita-home:build && docusaurus build",
     "rabbita-home:build": "node ./scripts/build-rabbita-home.mjs",
@@ -44,6 +44,7 @@
     "@docusaurus/theme-common": "^3.8.1",
     "@docusaurus/tsconfig": "^3.8.1",
     "@docusaurus/types": "^3.8.1",
+    "@rabbita/vite": "^0.1.0",
     "@shikijs/rehype": "^3.6.0",
     "@types/node": "^18.19.2",
     "@types/react": "^18.2.42",
@@ -54,8 +55,7 @@
     "remark-math": "^6.0.0",
     "shiki": "^3.6.0",
     "tsx": "^4.9.3",
-    "typescript": "^5.2.2",
-    "@rabbita/vite": "^0.1.0"
+    "typescript": "^5.2.2"
   },
   "browserslist": {
     "production": [
