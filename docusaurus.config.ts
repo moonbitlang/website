@@ -652,7 +652,8 @@ export default async (): Promise<Config> => {
               'sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb',
             crossorigin: 'anonymous'
           },
-      '/fira-code.css'
+      '/fira-code.css',
+      '/rabbita-home/styles.css'
     ],
     customFields: {
       MOONCAKES_API_HOST: process.env.MOONCAKES_API_HOST,
