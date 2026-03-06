@@ -203,7 +203,7 @@ let feature_rows : Array[FeatureRow] = [
     }),
   },
   {
-    heading: "Toolchain for Humans and AI",
+    heading: "Toolchain for Agents",
     body: "MoonBit provides a complete development platform out of the box: compiler, build system, formatter, editor integrations, and AI-assisted tooling, all designed to work together. The unified toolchain lets both developers and AI systems easily invoke MoonBit workflows, automating building, testing, and evolving software. Thousands of packages on mooncakes.io make it easy to build and share real-world libraries.",
     visual: Video("/img/index/ai.mp4"),
   },
