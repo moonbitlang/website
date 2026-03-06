@@ -2,6 +2,7 @@ import {
   "moonbit-community/rabbita",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/svg",
+  "moonbit-community/rabbita/dom",
   "Yoorkin/shiki",
 }
 
