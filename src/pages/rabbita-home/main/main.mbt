@@ -71,6 +71,33 @@ let ide_url : String = "https://tour.moonbitlang.com"
 // ─── Icons ────────────────────────────────────────────────────────────────
 
 ///|
+fn img_with_fallback(
+  class? : String = "",
+  src~ : String,
+  alt? : String = "",
+  width? : Int = 0,
+  height? : Int = 0,
+  loading? : String = "lazy",
+) -> Html {
+  div(class~, [
+    img(
+      src~,
+      alt~,
+      width~,
+      height~,
+      loading~,
+      attrs=@html.Attrs::build().handler("error", fn(e, _) {
+        match (e : @dom.Event).target().to_html_image_element() {
+          Some(el) => el.get_style().set_property("display", "none")
+          None => ()
+        }
+      }),
+      nothing,
+    ),
+  ])
+}
+
+///|
 /// Blue verified checkmark (Twitter-style)
 fn icon_verified() -> Html {
   @svg.svg(view_box="0 0 22 22", width=16, height=16, class="voice-verified", [
@@ -776,14 +803,12 @@ fn voice_card(v : Voice, duplicate? : Bool = false) -> Html {
   }
   div(class=card_class, [
     div(class="comm-voice-header", [
-      img(
+      img_with_fallback(
         class="comm-voice-avatar",
         src=v.avatar,
         alt=v.name,
         width=44,
         height=44,
-        loading="lazy",
-        nothing,
       ),
       div(class="comm-voice-meta", [
         div(class="comm-voice-name-row", [
@@ -919,14 +944,12 @@ fn view_community() -> Html {
             href="https://github.com/\{c.login}",
             target=Blank,
             [
-              img(
+              img_with_fallback(
                 class="comm-avatar",
                 src="https://github.com/\{c.login}.png?size=80",
                 alt=c.login,
                 width=44,
                 height=44,
-                loading="lazy",
-                nothing,
               ),
             ],
           )
