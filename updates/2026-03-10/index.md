@@ -2,7 +2,7 @@
 
 ## Language Updates
 
-1. Functions marked with `#alias` and `#as_free_fn` no longer inherit attributes that should not be inherited, such as `#deprecated`. Alias metadata and attributes on the original function body can now be controlled independently:
+1. **Functions marked with `#alias` and `#as_free_fn` will no longer inherit attributes that they should not inherit**, such as the `#deprecated` attribute. Now, the alias declared by `#alias` and the various attributes on the original function body can be controlled independently:
 
    ```moonbit
    // Neither the original nor the alias is deprecated
@@ -46,21 +46,21 @@
    }
    ```
 
-   With this new feature, `for .. in` loops can maintain extra state in a functional style without using `let mut`.
+   With this new feature, `for .. in` loops can now maintain extra state in a functional style without using `let mut`.
 
-4. Implicit implementation of method-less traits is now deprecated. Previously, a trait with no methods was implicitly implemented by all types without requiring an explicit `impl Trait for Type`. Using this behavior now produces a warning. In the future, this behavior will be removed entirely, and all traits will require explicit implementation.
+4. **Deprecate implicit implementation of method-less traits.Previously**, a trait with no methods was implicitly implemented by all types, without requiring an explicit `impl Trait for Type`. This behavior has now been deprecated, and using such implicit implementations will produce a warning. In the future, this behavior will be removed entirely, and all traits will uniformly require explicit implementation.
 
-5. `for { ... }` as infinite-loop syntax is now deprecated. Such loops should be written as `for ;; { ... }` or `while true { ... }` instead. This migration can be performed automatically with `moon fmt`. The motivation is that MoonBit may add pattern matching support to `for .. in` loops in the future, and `for { .. }` would conflict syntactically with struct or `Map` patterns.
+5. **Deprecate `for { ... }` infinite loop syntax**.Previously, `for { ... }` could be used to write an infinite loop with no termination condition. This syntax has now been deprecated. Such loops should instead be written as `for ;; { ... }` or `while true { ... }`. This migration can be performed automatically using `moon fmt`. The motivation for this change is that we may add pattern matching support to `for .. in` loops in the future, such as `for (x, y) in array_of_tuple`. The `for { .. }` syntax conflicts syntactically with pattern matching on structs or `Map`s.
 
-6. For `for` loops without an update clause, the semicolon after the condition can now be omitted. For example, `for i = 0; i < 10; { ... }` can now be written as `for i = 0; i < 10 { ... }`.
+6. **Allow omitting the semicolon in `for` loops without an update clause**`.`For `for` loops such as `for i = 0; i < 10; { ... }` (with no update clause), the semicolon after the loop condition can now be omitted, so it can be written as `for i = 0; i < 10 { ... }`.
 
-7. The old behavior that allowed `impl` methods in the current package to always be called via `.` has now been officially removed. In MoonBit, `x.f(..)` syntax is only valid when the `impl` and the type definition are in the same package.
+7. **Remove the behavior allowing impl to always be called via** `.`In MoonBit, an `impl` can only be called using `x.f(..)` syntax when both the `impl` and the type definition are in the same package. However, before the MoonBit beta release, `impls` in the current package could always be called using `.` syntax. This behavior was deprecated with a warning in the beta release, and has now been officially removed.
 
-8. FFI parameters without an explicitly annotated lifetime management mode are now treated as an error rather than a warning. This prepares for a future change where the default lifetime management mode for FFI parameters will change from `#owned` to `#borrow`.
+8. **FFI parameters without an explicitly annotated lifetime management mode are now treated as an error rather than a warning**. In the future, we will officially change the default lifetime management mode for FFI parameters from `#owned` to `#borrow`. For now, the compiler will report an error for any FFI function whose lifetime management mode is not explicitly annotated.
 
-9. Fixed an issue where the loop variable in `for i in x..<y` could still be referenced inside the `nobreak` block. Some code that accidentally relied on this behavior may now fail to compile.
+9. **Fix referencing loop variable `i` in `nobreak` blocks of `for i in x..y` loops**.Fixed an issue where the loop variable i could still be referenced inside the nobreak block of a for i in x..<y loop. Some code that accidentally relied on this behavior may now fail to compile.
 
-10. Improved error messages for mismatched top-level function signatures by showing only the differing parts of the signature. For example:
+10. **Improve error messages for mismatched top-level function signatures**. Improved some error messages for mismatched top-level function signatures: the error output now shows only the differing parts of the signature, making it easier to locate the problem. For example:
 
     ```moonbit
     trait I {
@@ -80,7 +80,7 @@
       actual:   (Self, flag1~ : Int, flga2~ : Int, flag3~ : Int) -> Unit
     ```
 
-    It is now shortened to:
+    The improved error message is now:
 
     ```moonbit
     ...
@@ -88,100 +88,98 @@
       actual:   (.., flga2~ : _, ..) -> Unit
     ```
 
-11. Added the `#unsafe_skip_stub_check` attribute. It can be used to skip checks on whether types in an FFI signature have a stable ABI, which is useful for advanced wasm FFI experiments. Since this makes FFI behavior undefined and subject to change, it should only be used experimentally.
+11. **Added the `#unsafe_skip_stub_check` attribute**, which can be used to skip checks on whether types in an FFI signature have a stable ABI. This attribute can be used by advanced users for more complex FFI experiments on the wasm backend. Note that once this check is skipped, FFI behavior becomes undefined and may change at any time, so this attribute should only be used for experimentation.
 
 ## Toolchain Updates
 
-1. `moon ide` now includes a new `analyze` command for analyzing usage of a package's public APIs. It prints the package's public APIs in `mbti` format and appends usage information to each item, including total usage count, test usage count, and whether the API is defined in `exports.mbt`:
+1.  **`moon ide` now includes a new `analyze` command for analyzing usage of a package’s public APIs**. It prints the package’s public APIs in `mbti` format, and appends a comment to each API showing its usage information, including total usage count, usage count in tests, and whether the API is defined in `exports.mbt`. Below is an example of the output:
 
-   ```moonbit
-   $ moon ide analyze . # path to packages to be analyzed
-   package "username/analyze"
+    ```moonbit
+    $ moon ide analyze . # path to packages to be analyzed
+    package "username/analyze"
 
-   import {
-   "username/analyze/util",
-   }
+    import {
+    "username/analyze/util",
+    }
 
-   // Values
-   pub const REPORT_CONST_TAG : String = "analyze-tag"  // usage: 2 (1 in test)
+    // Values
+    pub const REPORT_CONST_TAG : String = "analyze-tag"  // usage: 2 (1 in test)
 
-   #alias(analyze_raw)                                  // usage: 2 (1 in test)
-   pub fn analyze_text(String) -> @util.Token           // usage: 2 (1 in test)
+    #alias(analyze_raw)                                  // usage: 2 (1 in test)
+    pub fn analyze_text(String) -> @util.Token           // usage: 2 (1 in test)
 
-   pub fn build_report(String, @util.Level) -> Report   // usage: 2 (1 in test), in exports.mbt
+    pub fn build_report(String, @util.Level) -> Report   // usage: 2 (1 in test), in exports.mbt
 
-   pub fn never_called_pub() -> String                  // usage: 0 (0 in test), in exports.mbt
+    pub fn never_called_pub() -> String                  // usage: 0 (0 in test), in exports.mbt
 
-   // Errors
+    // Errors
 
-   // Types and methods
-   pub(all) struct Report {
-     title : String                                     // usage: 1 (0 in test)
-     score : Int                                        // usage: 1 (0 in test)
+    // Types and methods
+    pub(all) struct Report {
+      title : String                                     // usage: 1 (0 in test)
+      score : Int                                        // usage: 1 (0 in test)
 
-     fn new(String, Int) -> Report                      // usage: 2 (1 in test)
-   }
-   #as_free_fn(make_report)                             // usage: 2 (1 in test)
-   pub fn Report::new(String, Int) -> Self              // usage: 0 (0 in test)
-   pub impl Analyzer for Report                         // usage: 2 (1 in test)
+      fn new(String, Int) -> Report                      // usage: 2 (1 in test)
+    }
+    #as_free_fn(make_report)                             // usage: 2 (1 in test)
+    pub fn Report::new(String, Int) -> Self              // usage: 0 (0 in test)
+    pub impl Analyzer for Report                         // usage: 2 (1 in test)
 
-   // Type aliases
-   pub using @util { type Token as PublicResult }       // usage: 0 (0 in test)
+    // Type aliases
+    pub using @util {type Token as PublicResult}         // usage: 0 (0 in test)
 
-   // Traits
-   pub trait Analyzer {
-     analyze(Self, String) -> @util.Token               // usage: 2 (1 in test)
-   }
-   ```
+    // Traits
+    pub trait Analyzer {
+      analyze(Self, String) -> @util.Token               // usage: 2 (1 in test)
+    }
+    ```
 
-   `moon ide analyze` supports two invocation styles:
+    `moon ide analyze` supports two ways of passing arguments:
 
-   - `moon ide analyze` analyzes all packages in the current module.
-   - `moon ide analyze path/to/pkg1 path/to/pkg2 ...` analyzes the specified packages and can be combined with shell glob patterns such as `moon ide analyze internal/*`.
+    - `moon ide analyze` analyzes all packages in the current module.
+    - `moon ide analyze path/to/pkg1 path/to/pkg2 ...` analyzes all specified packages, and can be used together with shell glob patterns. For example, `moon ide analyze internal/*` can be used to analyze all packages under `internal`.
 
-   This command is useful for AI-assisted refactoring when cleaning up unused public APIs inside a module. For non-`internal` packages, public APIs may still be used outside the module, so MoonBit now uses a convention that APIs intended for external users should be defined in `exports.mbt`. `moon ide analyze` highlights those APIs specially.
+    This command can be used together with AI-powered refactoring to quickly remove unused public APIs within a module. However, since the public APIs of non-`internal` packages may be used by users outside the module, this kind of refactoring is, in principle, only safe for `internal` packages. To distinguish between APIs in non-`internal` packages that are intended for `internal` use and those intended for external use, we have introduced a new convention: any public API intended for users outside the module should be defined in exports.mbt. Such APIs should not be removed, even if they have no usage within the module. `moon ide analyze` will specially highlight APIs defined in `exports.mbt` in its output, such as `build_report` and `never_called_pub`
 
-2. Support for `supported-targets` has been improved:
+2.  Support for `supported-targets` has been improved.
+    The new syntax is now enabled, allowing users to explicitly declare which backends are supported using forms like `"+js+wasm+wasm-gc"`, or to declare which backends are not supported using `"+all-js"`.
 
-   - New syntax allows explicit backend declarations such as `"+js+wasm+wasm-gc"` or exclusions such as `"+all-js"`.
-   - The setting can be defined in both `moon.mod.json` and `moon.pkg`, and the effective supported backends are the intersection of the two.
-   - Error messages are better when dependency graphs cannot be constructed.
+        This can be defined in both `moon.mod.json` and `moon.pkg`. For a given package, the supported backends are the intersection of the two.
 
-3. The build system now tracks the compiler itself, reducing `segfault` issues caused by compiler version updates and cache mismatches.
+        Better error messages are now provided when a dependency graph cannot be constructed.
 
-4. `mbtx` script mode now supports input from `stdin`:
+3.  The build system now tracks the compiler itself, reducing `segfault` issues caused by compiler version updates and cache mismatches.
 
-   ```shell
-   $ echo "fn main {println(\"hello\")}" | moon run -
-   ```
-
-   ```shell
-   $ moon run - <<EOF
-   import {
-     "moonbitlang/core/list"
-   }
-   fn main {
-     debug(@list.from_array([1, 2, 3]))
-   }
-   EOF
-   ```
+4.  The `mbtx` script mode now supports input from `stdin`:
+    ```shell
+    $ echo "fn main {println(\"hello\")}" | moon run -
+    ```
+    ```shell
+    $ echo "fn main {println(\"hello\")}" | moon run -
+    $ moon run - <<EOF
+    import {
+      "moonbitlang/core/list"
+    }
+    fn main {
+      debug(@list.from_array([1, 2, 3]))
+    }
+    EOF
+    ```
 
 ## Standard Library Updates
 
 1. Added the `argparse` library, which provides basic command-line argument parsing:
-
    ```moonbit
    ///|
    async fn main {
-     let cmd = @argparse.Command(
-       "demo",
-       options=[@argparse.OptionArg("name")],
-       positionals=[@argparse.PositionArg("target")],
-     )
+     let cmd = @argparse.Command("demo", options=[@argparse.OptionArg("name")], positionals=[
+       @argparse.PositionArg("target"),
+     ])
      let _ = cmd.parse()
    }
    ```
-
 2. Updates to `moonbitlang/async`:
-   - The JavaScript backend now includes HTTP client support based on the Fetch API. All HTTP client APIs in `moonbitlang/async/http` are available on the JavaScript backend except HTTP proxy support, including in browser environments.
-   - `moonbitlang/async/js_async` now includes support for interacting with the Web API `ReadableStream`.
+
+   The JavaScript backend now includes HTTP client support based on the Fetch API. All HTTP client APIs in `moonbitlang/async/http` are available on the JavaScript backend except HTTP proxy support, including in browser environments.
+
+   `moonbitlang/async/js_async` now includes support for interacting with the Web API `ReadableStream`.
