@@ -1,6 +1,4 @@
-# 20260310 MoonBit Monthly Update Vol.08
-
-## Version v0.8.3 (JadeRabbit)
+# 20260310 MoonBit v0.8.3 Release
 
 ## Language Updates
 
