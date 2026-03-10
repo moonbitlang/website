@@ -58,7 +58,7 @@
 
 8. **FFI parameters without an explicitly annotated lifetime management mode are now treated as an error rather than a warning**. In the future, we will officially change the default lifetime management mode for FFI parameters from `#owned` to `#borrow`. For now, the compiler will report an error for any FFI function whose lifetime management mode is not explicitly annotated.
 
-9. **Fix referencing loop variable `i` in `nobreak` blocks of `for i in x..y` loops**.Fixed an issue where the loop variable i could still be referenced inside the nobreak block of a for i in x..<y loop. Some code that accidentally relied on this behavior may now fail to compile.
+9. **Fix referencing loop variable `i` in `nobreak` blocks of `for i in x..y` loops**.Fixed an issue where the loop variable i could still be referenced inside the nobreak block of a `for i in x..<y` loop. Some code that accidentally relied on this behavior may now fail to compile.
 
 10. **Improve error messages for mismatched top-level function signatures**. Improved some error messages for mismatched top-level function signatures: the error output now shows only the differing parts of the signature, making it easier to locate the problem. For example:
 
