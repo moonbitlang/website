@@ -4,10 +4,9 @@ description: 'QuickCheck 教程第一部分：核心概念与属性设计方法�
 image: cover.png
 ---
 
-# Quick Check 教程 Part 1
+# QuickCheck 教程 Part 1
 
 ![](./cover.png)
-
 
 这是一个长系列，目标是系统介绍 MoonBit 中的 QuickCheck 框架及其在工程实践中的应用，
 向广大开发者介绍「基于属性的测试设计」理念与方法论。
@@ -112,11 +111,10 @@ test "peek generator" {
 
 在这里我们可以讨论一些 QuickCheck 内部的结构细节：
 
-> 
 > 从执行流程上看，Testable 会被转成 Property，Property 内部再被展开成可遍历的测试树，QuickCheck
 > 沿着这棵树运行、记录、缩减并最终决定结果。我们暂时不需要理解这些结构细节，但要清楚性质是「可执行」
 > 的对象，而不是静态文档，这一层理解会决定我们之后如何组织属性与生成器。
-> 
+>
 > 当然读者无需担心这些细节会妨碍我们使用 QuickCheck，框架已经帮我们封装好了这些复杂性，
 > 我们只需专注于「写性质」与「选生成器」即可。
 
@@ -336,7 +334,7 @@ test "property Q2" {
 这是否能保证 Queue 的实现是完全正确的呢？很遗憾这并不一定。
 下面我们考虑如下构造：
 
-```mbt check 
+```mbt check
 ///|
 struct Queue {
   f : @list.List[Int]

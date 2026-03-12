@@ -4,31 +4,48 @@ description: 'QuickCheck tutorial part 2: constrained generators in MoonBit'
 image: cover.png
 ---
 
-# QuickCheck Tutorial Part 2
+# QuickCheck 教程 Part 2
 
 ![](./cover.png)
 
-## The Challenge of Constrained Generators
+## 受限生成器的挑战
 
-One of the biggest challenges in property-based testing (PBT) is **constrained random generation**. Real-world inputs are often not something a simple structural generator can handle. We can automatically derive generators for simple types, but once a type has internal invariants—or values must satisfy a predicate—this approach quickly runs out of steam. A naïve idea is: "generate values from a large domain first, then filter out the ones that don’t satisfy the condition inside the property." But that often makes testing extremely inefficient, or even yields no valid samples at all, because valid inputs are typically very sparse.
+基于属性测试（PBT）中最大的挑战之一是受限随机生成问题，现实场景往往不是简单的结构化生成器可以应对的，
+我们可以自动 derive 简单类型的生成器，但是对于具有内部不变量的复杂类型，或者是受谓词约束的值，
+此种手段就显得力不从心了。一个天真的想法是「先生成一个大范围的值，再在性质里过滤掉不满足条件的」，
+但这会导致测试效率极低，甚至无法得到任何有效样本，因为满足条件的值分布往往非常稀疏。
 
-Consider a classic constrained PBT scenario:
+考虑一个经典的受限 PBT 场景：
 
 $$
 \forall x,\forall t, \text{isBST}(t) \implies \text{isBST}(\text{insert}(t, x))
 $$
 
-This says: if a tree $t$ is a valid binary search tree (BST), then inserting a new value $x$ into $t$ produces another valid BST.
+这表明，如果一棵树 $t$ 是有效的二叉搜索树（BST），那么在 $t$ 中插入一个新值 $x$ 会得到另一个有效的 BST。
 
-To test this property, the framework repeatedly samples `(x, t)`. If `t` is not a BST, the sample is discarded immediately; only samples that meet the precondition will proceed to `insert` and then check the result. The problem is that the probability of a random tree being a BST is very low, so a naïve generator will waste most test iterations on discards. In such cases, we have to design a specialized generator that directly produces trees satisfying `isBST`. In this article, we’ll gradually explore how to design custom generators and implement them using QuickCheck’s API, so we can efficiently test constrained properties.
+为了测试这条性质，框架会反复采样 `(x, t)`。
+如果 `t` 不是 BST，就会被直接丢弃；
+只有通过前置条件的样本才会进入 `insert` 并检查结果。问题在于：
+随机树成为 BST 的概率很低，
+朴素生成器会让测试大部分轮次都浪费在 discard 上。
+因此，在这种情况下我们可能不得不自己设计一个专门的生成器来直接生成满足 isBST 条件的树。
+本文我们将由浅入深探讨自定义生成器的设计思路，并通过 QuickCheck 的 API 来实现它们，从而让我们能够高效地测试受限性质。
 
-## Simple Generators
+## 简单生成器
 
-Let’s start with a class of simple generators—the building blocks of more complex ones. They mainly handle things like restricting the domain of primitive values, mixing container types, combining product types, and so on.
+我们先聚焦一类简单的生成器，它们是复杂生成器的基础构件，
+主要负责对基础类型的值域进行约束、混合容器类型、积类型等等。
 
-### Range Control
+### 值范围控制
 
-In PBT, the commonest starting point is modeling the range of values for primitive types—more precisely, constraining the domain of an ordered type. For integers, we might only care about a certain interval; for characters, we might focus on a specific range or category. In QuickCheck, we have functions such as `@qc.int_range`, `@qc.small_int`, `@qc.nat`, and `@qc.neg_int` to express different integer domains, as well as `@qc.char_range`, `@qc.alphabet`, and `@qc.numeral` for constraining character domains. In practice, we usually use these generators to restrict inputs to the range allowed by the intended semantics, and then rely on the property to validate higher-level relationships.
+在 PBT 中，最常用的起点是对基础类型的取值范围进行建模，
+更确切的说，是对与有序类型的值域进行约束。对于整数，我们可能只关心某个区间内的值；对于字符，我们可能只关注特定范围或类别的字符。
+在 QuickCheck 中，我们有
+`@qc.int_range`、`@qc.small_int`、`@qc.nat`、
+`@qc.neg_int` 这些函数用于表达不同的整数域，
+也有 `@qc.char_range`、`@qc.alphabet`、`@qc.numeral`
+用于字符域的约束表达。
+我们通常先用这些生成器把输入限制在需求语义允许的范围内，再由性质去验证更高层的关系。
 
 ```mbt check
 ///|
@@ -39,7 +56,8 @@ test "gen @qc.int_range invariant" {
 }
 ```
 
-Generators are not always "random". We can also construct a constant generator with `@qc.pure`, which is useful for representing boundary cases or fixing certain preconditions. This kind of generator is crucial when composing generators: it lets us hold some inputs steady so we can focus on variation in the rest.
+生成器并不总是「随机」的，我们也可以通过 `@qc.pure` 构造一个恒定值生成器，用来表达边界场景或固定前置条件。
+这类生成器在组合时非常重要，它们能稳定地把某些输入固定住，从而让我们聚焦于另一部分输入的变化。
 
 ```mbt check
 ///|
@@ -50,9 +68,11 @@ test "gen @qc.pure value" {
 }
 ```
 
-### Deriving Generators with Arbitrary
+### Arbitrary 导出生成器
 
-`Arbitrary` is an important trait in QuickCheck: it defines how to generate random values for a given type. The MoonBit compiler has built-in support for automatically deriving `Arbitrary` instances, producing a default random generator for simplest types. You only need to write `derive(Arbitrary)`.
+`Arbitrary` 是 QuickCheck 中一个重要的 trait，它定义了如何为某个类型生成随机值。
+MoonBit 编译器内置了 `Arbitrary` 实例的自动派生机制，能够为大多数简单类型生成默认的随机值。
+只需要直接写 `derive(Arbitrary)` 即可。
 
 ```mbt check
 ///|
@@ -63,7 +83,10 @@ enum Color {
 } derive(Arbitrary, Show)
 ```
 
-If a type already has an `Arbitrary` instance, then `@qc.Gen::spawn` can produce a generator with the default distribution. This matches the implicit generation logic used by `@qc.quick_check_fn`, but it also allows us to insert the generator explicitly into `@qc.forall`. That keeps generator composition structurally clear, and still lets us layer additional constraints on top.
+如果我们已经为某个类型定义了 `Arbitrary` 实例，
+那么 `@qc.Gen::spawn` 可以直接生成默认分布的生成器。
+它与 `@qc.quick_check_fn` 的隐式生成逻辑一致，但允许我们显式地插入到 `@qc.forall` 之中，
+从而在组合生成器时保持结构清晰，且能够继续叠加其他约束。
 
 ```mbt check
 ///|
@@ -85,9 +108,12 @@ test "gen spawn for arbitrary" {
 }
 ```
 
-### Collections and Multi-Argument Composition
+### 集合结构与多参组合
 
-When a task involves collection structures, a basic generator needs to express both "length" and "where elements come from". `@qc.Gen::array_with_size` generates fixed-length arrays, and `@qc.list_with_size` constructs lists of a specified length. Fixed length is not just for convenience; it often corresponds directly to preconditions in protocols, formats, or algorithms.
+当需求涉及集合结构时，基础生成器需要能够表达「长度」与「元素来源」。
+`@qc.Gen::array_with_size` 提供了固定长度数组的生成能力，
+`@qc.list_with_size` 则用于构造指定长度的列表。固定长度并非只为了便于测试，
+它往往直接对应了协议、格式或算法的前提条件。
 
 ```mbt check
 ///|
@@ -109,7 +135,10 @@ test "gen @qc.list_with_size sample" {
 }
 ```
 
-Multi-argument functions are the norm in real systems. `@qc.tuple`, `@qc.triple`, and `@qc.quad` let us combine multiple generators into a single input, so we can keep the uniform "single-argument property" execution model. This not only simplifies the property itself, but also allows shrinking to consider interactions between multiple parameters at the same time.
+多参数函数是实际业务的常态，
+而 `@qc.tuple`、`@qc.triple`、`@qc.quad` 让我们可以将多个生成器合成为一个输入，
+从而保持「单参性质」的统一执行模型。这样做不仅让性质更简洁，
+也让缩减过程能够同时关注多个参数之间的相互作用。
 
 ```mbt check
 ///|
@@ -123,7 +152,9 @@ test "gen @qc.tuple for two args" {
 }
 ```
 
-The last key step in these building blocks is transformation. `@qc.Gen::fmap` lets us apply a pure function to certain results, mapping an existing domain into a new one. This capability looks simple, but it’s central to building business-specific inputs; later distribution control and conditional filtering will also be built on top of this layer.
+基础结构的最后一个关键环节是「变换」。`@qc.Gen::fmap` 允许我们在生成结果之上进行纯函数变换，
+从而把已有的值域映射为新的域。这个能力看似简单，却是我们构造业务特化输入的核心手段，
+后续的分布控制与条件过滤也会建立在这一层结构之上。
 
 ```mbt check
 ///|
@@ -134,13 +165,19 @@ test "gen fmap transform" {
 }
 ```
 
-With these basic structures, we can already cover the commonest input shapes in real-world testing: constrained numeric, fixed-length collections, and multi-parameter combinations. From here, the next problem is whether our distribution is "reasonable"—that is, how to get closer to real-world data while staying within a controllable design space. That will be the focus of the next section.
+通过这些基础结构，我们已经可以覆盖大量现实需求中最常见的输入形态：受限数值、固定长度集合以及多参组合。
+在此基础上，我们下一步要解决的是「分布是否合理」的问题，也就是如何在可控的前提下更接近真实数据形态，
+这将是下一章的核心内容。
 
-## Statistical Distribution Control
+## 统计分布控制
 
-Once we can generate inputs with "valid shapes", the next question is: do those inputs appear with frequencies that resemble the real world? That’s where distribution control comes in. Real data is often multimodal, skewed, or structurally biased. If we rely on a single range generator, coverage will feel thin. We need composition and weighting to bring the input distribution closer to realistic scenarios, while keeping properties concise.
+有了「合法形状」的输入后，下一个问题是：
+这些输入出现得是否像真实世界一样频繁？
+这就需要我们控制分布。现实数据往往呈现多峰、偏态或结构性特征，若只依赖单一范围生成器，
+测试覆盖会显得单薄。我们需要通过组合与加权，让输入分布更贴近真实场景，同时保持性质表达的简洁性。
 
-When the domain has multiple categories or paths, `@qc.one_of` is the directest combinator. It chooses uniformly among several generators. This is useful for placing boundary samples alongside normal cases, so a property can hit extreme conditions while still covering ordinary variations.
+当需求存在多种类别或路径时，`@qc.one_of` 是最直接的组合手段。它在若干生成器之间做均匀选择，
+适合把边界样本与常规样本并置，让性质既能触及极端情况，也能覆盖正常区间的变化。
 
 ```mbt check
 ///|
@@ -151,7 +188,9 @@ test "gen @qc.one_of mix" {
 }
 ```
 
-Uniform choice is often not ideal: real data usually has clear mainstream ranges or "hot" values. In that case, we can use `@qc.frequency` to weight branches. This lets us express a distribution like "most cases come from one range; a few come from another," concentrating test budget where bugs are likelier, while still keeping coverage of rare paths.
+均匀选择在很多场景并不理想，现实数据往往有明显的主流区间或热点值。此时我们可以使用 `@qc.frequency`
+对分支赋权，表达「多数情况来自某个范围，少数情况来自另一个范围」的分布设计，从而把测试资源集中到
+更可能出错的区域，同时仍保留稀有路径的覆盖。
 
 ```mbt check
 ///|
@@ -165,7 +204,9 @@ test "gen @qc.frequency weighted" {
 }
 ```
 
-For discrete enumerations, `@qc.one_of_array` and `@qc.one_of_list` are more natural: they sample directly from a given set, without requiring overly elaborate generator construction. We often use them to simulate protocol fields, status codes, or configuration values from a fixed set, making properties closer to real inputs.
+对离散枚举值而言，`@qc.one_of_array` 与 `@qc.one_of_list` 更加自然，
+它们直接从给定集合中取值，避免构造过度复杂的生成器。
+我们通常用它来模拟协议字段、状态码或固定集合的配置值，从而使性质更接近真实输入。
 
 ```mbt check
 ///|
@@ -177,9 +218,11 @@ test "gen @qc.one_of_array enum" {
 }
 ```
 
-When multiple fields have dependencies, `@qc.Gen::bind` allows us to encode those dependencies during generation. It lets us generate one value first, then generate subsequent fields based on it—satisfying constraints at the data level and avoiding large stacks of precondition checks inside the property.
+当多个字段存在依赖关系时，`@qc.Gen::bind` 可以将这种依赖编码进生成阶段。它允许我们先生成一个值，
+再根据该值生成后续字段，从而在数据层面满足约束，避免在性质内部叠加大量前置判断。
 
-> `bind` is a powerful monadic operation. It allows us to dynamically adjust distributions and structure during generation, producing inputs that satisfy complex relationships directly. At the same time, it’s harder to understand and debug, so we should keep the structure layered and clear—avoiding excessive nesting or relying on `bind` as a catch-all way to express complicated logic.
+> `bind` 是非常强大的单子操作，它让我们能够在生成过程中动态地调整分布与结构，从而直接生成满足复杂关系的输入。
+> 当然它也更加难以理解与调试，因此我们需要在使用时保持清晰的层次结构，避免过度嵌套或过度依赖 `bind` 来表达复杂逻辑，
 
 ```mbt check
 ///|
@@ -195,17 +238,25 @@ test "gen bind dependent" {
 }
 ```
 
-We already introduced `@qc.Gen::fmap`, and it remains a fundamental tool for composition: without changing branch probabilities, it maps generated values into a business-level structure. This mapping preserves the shape of the distribution while making the data better match interface semantics, so it’s commonly used to construct identifiers, normalized inputs, or derived fields.
+此前已经介绍过了 `@qc.Gen::fmap` ，它仍然是组合中的基础能力，可在不改变分支概率的前提下，把生成结果映射为业务结构。
+这种映射保持了分布的形状，却让数据更贴合接口语义，因而常被用于构造标识符、规范化输入或衍生字段。
 
-In practice, we often use `@qc.one_of` or `@qc.frequency` to set the "macro distribution", and then use `bind` and `fmap` to handle "micro structure" constraints and derivations. This two-level structure balances coverage and realism while keeping generators readable. Composition and distribution do not change the property itself, but they can significantly affect test effectiveness. Distribution design should follow the intended semantics: avoid being overly uniform, and avoid being overly biased, so that random testing can discover defects more reliably under a limited budget.
+在实践中，我们通常先用 `@qc.one_of` 或 `@qc.frequency` 设定「宏观分布」，再用 `bind` 与 `fmap` 完成
+「微观结构」的约束与衍生。这样的两层结构能够同时兼顾覆盖面与真实性，并且保持生成器的可读性。
+组合与分布并不会改变性质本身，但会显著影响测试的有效性。分布设计应当围绕需求语义展开，避免过度平均，
+也避免过度偏置，从而使随机测试在有限预算内提供更可靠的缺陷发现能力。
 
-On top of that, we still need to control size and complexity. That involves how the `size` parameter evolves and how we scale generators—this will be the focus of the next section.
+在此基础之上，我们还需要进一步控制规模与复杂度，这涉及 size 参数的演化与生成器的尺度策略，
+这将是下一章讨论的重点。
 
-## Size and Complexity
+## 规模与复杂度
 
-This section discusses how the `size` parameter affects data size and test complexity. Random testing is not "bigger is always better": inputs that are too large can obscure the essence of a bug, while inputs that are too small may not provide meaningful coverage. We should treat `size` as a knob that trades off cost and benefit, and use configuration and generator strategies to approximate real complexity within a controllable budget.
+本章讨论 size 参数如何影响数据规模与测试复杂度。随机测试并不是越大越好，规模过大会掩盖问题本质，
+规模过小又会失去覆盖价值。我们需要把 size 当作成本与收益之间的调节器，通过配置与生成器策略让测试
+在可控的预算内逼近真实复杂度。
 
-`@qc.quick_check` provides `max_size` to cap overall size. This is the most direct control mechanism. We often use it when algorithmic complexity is high or the input domain can grow exponentially, to prevent test time from blowing up while still checking the property thoroughly within a reasonable range.
+`@qc.quick_check` 提供了 `max_size` 用于限制整体规模，这是最直接的控制方式。我们常在算法复杂度较高、
+或输入域可能指数增长的场景中使用它，以避免测试时间失控，同时确保性质仍能在合理范围内被充分检验。
 
 ```mbt check
 ///|
@@ -216,7 +267,9 @@ test "@qc.quick_check max_size" {
 }
 ```
 
-When we want "data structures to grow in sync with `size`", `@qc.sized` is the most explicit tool. It passes `size` into the generation logic, letting us encode size constraints inside the generator and avoid dealing with size-related preconditions in the property. This is especially effective for arrays, lists, trees, and similar structures, because it internalizes complexity control into the construction rules of the input domain.
+当我们希望「数据结构与 size 同步增长」时，`@qc.sized` 是更明确的表达。它将 size 作为参数传入生成逻辑，
+从而把规模约束写在生成器内部，避免在性质中处理尺寸相关的前置条件。这种方式对数组、列表、树等结构
+尤其有效，因为它将复杂度控制内化为输入域的构造规则。
 
 ```mbt check
 ///|
@@ -234,7 +287,8 @@ test "@qc.sized array with explicit length" {
 }
 ```
 
-When we want to restrict size without changing the generator’s structure, we can use `@qc.Gen::resize`. It fixes `size` to a specific value, making complexity stable and predictable. This is often useful during debugging or regression testing, where we want counterexamples to be more concentrated and runtime more consistent.
+当我们需要在不修改生成器结构的前提下限制规模时，可以使用 `@qc.Gen::resize`。它会把 size 固定为指定值，
+从而将复杂度稳定在一个可预期的水平。我们常在调试或回归阶段使用它，让反例更集中、运行时间更稳定。
 
 ```mbt check
 ///|
@@ -246,7 +300,9 @@ test "resize clamps size" {
 }
 ```
 
-If we want size to vary with `size` but grow less steeply, we can use `@qc.Gen::scale` to adjust the size mapping. This effectively adds a function on top of the "complexity growth curve", letting input size grow more gradually as test rounds progress, resulting in more stable coverage and more controllable runtime within a limited budget.
+如果我们希望规模随 size 变化，但增长速度不那么陡峭，则可以使用 `@qc.Gen::scale` 调整 size 的映射关系。
+这相当于在「生成复杂度曲线」上加一层函数，使数据规模随测试轮次增长得更平缓，从而在有限预算中
+获得更稳定的覆盖与更可控的运行时间。
 
 ```mbt check
 ///|
@@ -258,11 +314,15 @@ test "scale slows growth" {
 }
 ```
 
-Size control affects not only performance but also failure explanation. Structures that are too large increase shrinking time, add noise to counterexamples, and can even hide the critical path. That’s why we should treat `max_size`, `resize`, and `scale` as one coherent strategy: use different growth curves at different stages so that properties can reach complex cases while keeping failures readable and diagnosable.
+规模控制不仅影响性能，也影响失败解释。过大的结构会导致缩减时间增加，反例噪声加重，甚至掩盖关键路径。
+因此我们需要把 `max_size`、`resize` 与 `scale` 作为统一策略使用，在不同阶段选择不同的规模曲线，
+让性质既能触及复杂情形，又能保持失败信息的可读性与可诊断性。
 
-## Combinator Constructors
+## 组合构造器
 
-At this point we have range constraints, distribution control, and size control. The remaining difficulty is **structural constraints**. For example, binary search or interval merging typically requires the input array to be sorted—something a basic generator like `int_range` cannot express directly as a precondition. A straightforward approach is to generate an array first, then use `@qc.filter` to keep only sorted samples; this is a common entry point to combinator-based construction.
+到这里我们已经有了范围、分布与规模控制，剩下的难点是「结构性约束」。
+例如二分查找、区间合并等逻辑都要求输入数组有序，单靠 `int_range` 这类基础生成器无法直接表达这个前置条件。
+一个直接做法是先生成数组，再用 `@qc.filter` 过滤为有序样本，这正是组合构造器最常见的入口。
 
 ```mbt check
 ///|
@@ -291,9 +351,11 @@ test "combinator sorted array with filter" {
 }
 ```
 
-This example has three layers of composition: first, `array_with_size` fixes the structure; then, nested `forall + one_of_array` sets up a dependency between an element and its container; finally, `filter` enforces the "sorted" constraint. The style is intuitive and works well for quickly validating an idea, but it still discards some samples.
+这个例子里有三个组合层次：先用 `array_with_size` 固定结构，再用嵌套 `forall + one_of_array` 建立元素与容器的依赖，
+最后用 `filter` 施加「有序」约束。写法直观，适合快速验证想法，但它仍然会丢弃一部分样本。
 
-When the discard rate is high, it’s usually better to move constraints into the construction phase. QuickCheck already provides `@qc.sorted_array`, which we can use directly:
+当过滤比例偏高时，我们更推荐把约束提前到「构造阶段」。
+QuickCheck 已经提供 `@qc.sorted_array`，我们可以直接利用它：
 
 ```mbt check
 ///|
@@ -308,20 +370,27 @@ test "combinator sorted array constructor" {
 }
 ```
 
-`filter` is good for expressing temporary preconditions; constructors like `sorted_array` are better for stable structural invariants. In engineering practice, we usually start with a filter to locate the right property, then gradually replace it with specialized constructors to make tests both readable and efficient.
+`filter` 适合表达「临时前置条件」，`sorted_array` 这类构造器适合表达「稳定结构不变量」。
+在工程实践中通常先用过滤器快速定位性质，再逐步替换为专门构造器，让测试既可读又高效。
 
-## A Case Study: Constructing Constrained Structures
+## 受限结构的构造器案例
 
-After introducing these combinators, it’s time to get to the main topic: designing generators that satisfy a specific property—sorted arrays, balanced trees, protocol-specific formats, and so on. Of course, this is not easy. This section can only offer a rough framework; complex situations still require creative design and iterative debugging from the tester.
+在介绍完上述的各种组合子之后，是时候进入我们的正题：
+设计一个满足特定性质的生成器，例如有序数组、平衡树、特定协议格式等。
+当然，这并非易事，本节也只能提供一个大致的思路框架，
+复杂情况仍然需要测试者进行创造性的设计与调试。
 
-At the core, writing QuickCheck generators by hand boils down to two goals:
+手写 QuickCheck 生成器的核心目标其实就两件事：
 
-* Encode the "valid input space" into generation—don’t rely on filtering.
-* Keep distribution and size (`size`) controllable, so tests can run efficiently while still covering the structural corners you care about.
+- 把「有效输入空间」编码进生成过程，别靠过滤；
+- 让分布与规模（size）可控，这样测试既跑得动又能覆盖到你真正关心的结构角落
 
-### Size as a First-Class Parameter
+### 规模作为一等公民
 
-QuickCheck’s `Gen` has an implicit `size` parameter: as the number of tests increases, `size` gradually grows. When writing generators for recursive structures, the most important thing is that each recursive layer must consume `size`. Otherwise, you either get infinite recursion or structures that explode in size and slow tests to a crawl.
+QuickCheck 的 `Gen` 有一个隐含的 `size` 参数：
+随着测试次数增长， `size` 会逐步变大。手写递归结构生成器时，
+最重要的是每一层递归都要消耗 `size`，否则要么无限递归，
+要么结构大得离谱导致测试变慢。
 
 ```mbt nocheck
 fn gen_t() -> @qc.Gen[T] {
@@ -335,11 +404,16 @@ fn gen_t() -> @qc.Gen[T] {
 }
 ```
 
-If you don’t want to "subtract 1 at every level", you can also split `n` into left and right sub-sizes (this is the standard pattern for trees, graphs, and ASTs): `let k = int_range(0, n - 1)`, use `k` on the left and `n - 1 - k` on the right. This tends to produce a more natural shape than always growing one-sided in depth. Alternatively, you can use `go(n / 2)` to slow growth.
+如果你不想「每层都减 1」，
+也可以把 n 拆成左右子规模
+（树、图、AST 都是这个套路）：
+`let k = int_range(0, n - 1)`，
+左用 `k`，右用 `n-1-k`。这样平均会更自然，
+而不是总在深度上单边生长，当然也可以直接 `go(n / 2)`，让规模指数级增长。
 
-### The Binary Search Tree Example
+### 二叉搜索树的例子
 
-First, define the BST data structure:
+先定义 BST 的数据结构：
 
 ```mbt check
 ///|
@@ -349,7 +423,13 @@ enum Tree[T] {
 } derive(Debug, Show)
 ```
 
-If the property does not strongly depend on the "shape distribution" of trees, the first approach is to define an `insert` function that inserts arbitrary values into a BST, and then use `from_array` to build a BST from an array. That way, we can generate a plain array with `@qc.int_range().array_with_size()`, convert it into a tree with `from_array`, and obtain a tree that naturally satisfies the BST invariant. Shrinking is also straightforward (shrink the list).
+如果性质测试不强依赖「树形分布」，
+第一个方案是，我们可以先定义一个「插入」函数，来把任意值插入到 BST 中，
+然后用 `from_array` 来把一个数组转成 BST。
+这样我们就能直接利用 `@qc.int_range().array_with_size()` 来先生成一个普通数组，
+再通过 `from_array` 来得到一棵树，
+这样天然满足 BST 不变量，
+而且 shrink 也很好做（缩列表即可）。
 
 ```mbt check
 ///|
@@ -388,9 +468,14 @@ test "generate BST" {
 }
 ```
 
-However, this requires us to understand BST insertion well enough to implement `Tree::insert` correctly. If `insert` itself is wrong, test results can become confusing. This approach can also be inefficient, because `from_array` may produce very unbalanced trees. So a natural next optimization is to generate "more balanced" trees, making it easier to cover diverse shapes.
+然而，这需要我们理解 BST 的插入逻辑，才能正确地实现 `Tree::insert`，
+如果这个函数也实现错误，那我们的测试结果会非常混乱。
+并且这个方案的效率也不高，因为 `from_array` 可能会生成非常不平衡的树，
+因此我们的下一个优化目标可能是「让树更加平衡」，从而更快地覆盖到不同的树形结构。
 
-A BST has a natural representation: its in order traversal is a sorted sequence. So we can generate a list, sort and deduplicate it, and then build an approximately balanced tree by repeatedly choosing the midpoint:
+BST 的一个天然表示是中序遍历是有序序列，
+所以我们可以先生成一个列表，排序去重，
+然后用「取中点」方式建近似平衡树：
 
 ```mbt check
 ///|
@@ -413,13 +498,19 @@ test "generate balanced BST" {
 }
 ```
 
-The advantage here is that most trees are more balanced: it becomes easier to hit cases where both left and right subtrees are non-empty, and we reduce performance issues caused by extreme depth.
+这个方案的优势是：大多数树更平衡，
+能更容易覆盖到「左右子树都非空」的情形，
+也能减小极端深度带来的性能问题。
 
-The next approach is **range-based recursive generation**, where we grow the tree according to BST semantics directly. The key is to maintain a value interval `(lo, hi)` during recursion: values in the left subtree must be `(< root)`, and values in the right subtree must be `(> root)`. This gives us fine-grained control. Below we use `Tree[Int]` as the example (since QuickCheck provides `int_range` out of the box):
+下一个方案叫做区间递归生成，直接按照 BST 的语义来生长，
+关键点是在递归时维护值域区间 `(lo, hi)`：
+左子树只能取 `(< root)`，右子树只能取 `(> root)`。
+这能控制很多细节，下面我们以 `Tree[Int]` 为例
+（因为 QuickCheck 天然提供了 `int_range`）：
 
 ```mbt check
 ///|
-fn gen_bst_ranged(min: Int, max: Int) -> @qc.Gen[Tree[Int]] {
+fn gen_bst_ranged(min : Int, max : Int) -> @qc.Gen[Tree[Int]] {
   letrec go = (n : Int, lo : Int, hi : Int) => {
     guard lo <= hi && n > 0 else { @qc.pure(Leaf) }
     @qc.frequency([
@@ -433,13 +524,14 @@ fn gen_bst_ranged(min: Int, max: Int) -> @qc.Gen[Tree[Int]] {
           let l = go(nL, lo, x - 1).run(i, rs)
           let r = go(nR, x + 1, hi).run(i, rs)
           Node(l, x, r)
-        })
+        }),
       ),
     ])
   }
   @qc.sized(n => go(n, min, max))
 }
 
+///|
 test "generate ranged BST" {
   let gen_bst = gen_bst_ranged(-100, 100)
   let prop = @qc.forall(gen_bst, fn(t) {
@@ -450,10 +542,21 @@ test "generate ranged BST" {
 }
 ```
 
-Note that to avoid duplicates, we use the "discrete domain" trick `x - 1` / `x + 1`. If you allow duplicates, you need to change the intervals to `(lo, x)` for `l` and `(x, hi)` for `r`, and decide consistently which side duplicates go to (the convention must be uniform, e.g. `<=` or `>=`).
+注意这里为了避免重复，
+用了 `x-1/x+1` 这样的「离散域」技巧；
+如果你允许重复值，
+就要改成 `l` 用 `(lo, x)`，`r` 用 `(x, hi)` 并决定重复放哪边（`<=` 或 `>=` 的约定必须统一）。
 
-The real value of the range-based approach is that, when your structural constraints are more complex (e.g. red-black trees, AVL trees, or ASTs with additional tags), you can carry the "constraint state" all the way down so generation is always valid—instead of gambling on filtering. In other words, this method is the most extensible, because it encodes the semantic invariants directly into the generation logic.
+区间法的真实价值在于：
+当你的结构约束更复杂（比如红黑树、AVL、带额外标签的 AST），
+你可以把「约束状态」一路带下去，让生成永远有效，而不是靠过滤赌概率。
+换句话说，这种方法永远是最具扩展性的，因为它把「语义不变量」直接编码在生成逻辑里了。
 
-## Summary
+## 总结
 
-Designing constrained generators is one of the core challenges in PBT. By composing basic generators carefully, controlling distribution and size, and internalizing semantic constraints into the generation process, we can efficiently test most constrained properties. Of course, we hope to make this more automated in the future—for example, letting users write only the property and deriving a generator that satisfies its preconditions—lowering the barrier to PBT and expanding its reach. This is quite feasible, and in the next article we’ll discuss more of these frontier techniques (such as [inductive relations](https://github.com/moonbit-community/inrel) and functional enumeration).
+受限生成器的设计是 PBT 中的核心挑战之一。
+通过合理地组合基础生成器、控制分布与规模，并把语义约束内化到生成过程中，
+确实可以满足大多数受限性质的测试需求。当然，未来我们希望让它更加自动化，
+例如用户只需要编写性质，就可以推导出满足性质前置条件的生成器，
+从而让 PBT 的使用门槛更低，覆盖更广。
+这是相当具有可行性的，我们将在下一篇文章更多讨论这些前沿技术 ([inductive relations](https://github.com/moonbit-community/inrel) / functional enumeration 等等)。
