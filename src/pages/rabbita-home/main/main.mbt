@@ -21,6 +21,28 @@ using @html {
 ///|
 using @rabbita {type Cmd, type Dispatch, type Html}
 
+// ─── i18n ─────────────────────────────────────────────────────────────────
+
+///|
+#cfg(target="js")
+extern "js" fn get_html_lang() -> String =
+  #| () => document.documentElement.lang || "en"
+
+///|
+#cfg(not(target="js"))
+fn get_html_lang() -> String {
+  "en"
+}
+
+///|
+fn[T] lang(zh~ : T, en~ : T) -> T {
+  if get_html_lang().has_prefix("zh") {
+    zh
+  } else {
+    en
+  }
+}
+
 // ─── Model & Messages ─────────────────────────────────────────────────────
 
 ///|
@@ -59,14 +81,6 @@ fn update(dispatch : Dispatch[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
     SelectCarousel(i) => (@rabbita.none, { ..model, carousel_idx: i })
   }
 }
-
-// ─── Links ────────────────────────────────────────────────────────────────
-
-///|
-let docs_url : String = "https://docs.moonbitlang.com"
-
-///|
-let ide_url : String = "https://tour.moonbitlang.com"
 
 // ─── Icons ────────────────────────────────────────────────────────────────
 
@@ -207,23 +221,22 @@ fn view_hero(dispatch : Dispatch[Msg], model : Model) -> Html {
   section(class="hero", [
     div(class="hero-inner", [
       div(class="hero-left", [
-        h1(class="hero-title", [
-          text("The Language and Toolchain "),
-          span(class="hero-accent", "for Agents at Scale"),
-        ]),
-        p(class="hero-desc", "Reliable, readable, and fast."),
+        { let (plain, accent) = hero_title()
+          h1(class="hero-title", [text(plain), span(class="hero-accent", accent)])
+        },
+        p(class="hero-desc", hero_desc()),
         div(class="hero-actions", [
           a(
             class="btn-primary btn-cta",
-            href=docs_url,
+            href=link_docs(),
             target=Blank,
-            "Get Started",
+            btn_get_started(),
           ),
           a(
             class="btn-secondary btn-icon btn-cta",
-            href=ide_url,
+            href=link_ide(),
             target=Blank,
-            [text("Try Online"), icon_arrow_right()],
+            [text(btn_try_online()), icon_arrow_right()],
           ),
         ]),
       ]),
@@ -738,7 +751,7 @@ fn view_feat_carousel(
 
 ///|
 fn view_features(dispatch : Dispatch[Msg], model : Model) -> Html {
-  let rows = feature_rows.mapi(fn(i, f) {
+  let rows = get_feature_rows().mapi(fn(i, f) {
     let cls = if i % 2 == 0 { "feat-row" } else { "feat-row feat-row-flip" }
     let visual = match f.visual {
       Img("") => div(class="feat-img-placeholder", [nothing])
@@ -765,7 +778,12 @@ fn view_features(dispatch : Dispatch[Msg], model : Model) -> Html {
   })
   rows.insert(
     0,
-    div(class="features-header", [h2(class="section-title", "Why MoonBit?")]),
+    div(class="features-header", [
+      h2(
+        class="section-title",
+        title_why_moonbit(),
+      ),
+    ]),
   )
   section(class="features", rows)
 }
@@ -781,7 +799,7 @@ fn comm_block(title : String, see_all_url : String, content : Html) -> Html {
         nothing
       } else {
         a(class="comm-see-all btn-icon", href=see_all_url, target=Blank, [
-          text("See all"),
+          text(btn_see_all()),
           icon_arrow_right(),
         ])
       },
@@ -839,6 +857,7 @@ fn voice_card(v : Voice, duplicate? : Bool = false) -> Html {
 
 ///|
 fn view_voices() -> Html {
+  let voices = get_voices()
   let n = voices.length()
   let card_w = 340
   let gap = 16
@@ -855,7 +874,12 @@ fn view_voices() -> Html {
   voices.each(fn(v) { duplicates.push(voice_card(v, duplicate=true)) })
   voices.each(fn(v) { duplicates.push(voice_card(v, duplicate=true)) })
   section(class="voices-section", [
-    div(class="voices-inner", [h2(class="section-title", "Community Voices")]),
+    div(class="voices-inner", [
+      h2(
+        class="section-title",
+        title_community_voices(),
+      ),
+    ]),
     div(class="comm-voices-outer", [
       div(class="comm-voices-track", style=track_style, originals + duplicates),
     ]),
@@ -865,7 +889,7 @@ fn view_voices() -> Html {
 ///|
 fn view_community() -> Html {
   // Build cards array
-  let cards : Array[Html] = projects.map(fn(proj) {
+  let cards : Array[Html] = get_projects().map(fn(proj) {
     a(class="comm-project-card", href=proj.url, target=Blank, [
       span(class="comm-project-name", proj.name),
       p(class="comm-project-desc", proj.desc),
@@ -900,18 +924,18 @@ fn view_community() -> Html {
   section(class="community", [
     div(class="community-inner", [
       div(class="community-header", [
-        h2(class="section-title", "Build with Brilliant Minds"),
-        p(
-          class="community-desc",
-          "MoonBit's open-source ecosystem is growing rapidly. Discover libraries, tools, and frameworks built by the community, or publish your own to mooncakes.io, the official MoonBit package registry.",
+        h2(
+          class="section-title",
+          title_community(),
         ),
+        p(class="community-desc", community_desc()),
       ]),
 
       // Projects: cycling batches + see more link
       div(class="comm-projs-block", [
         div(class="comm-proj-outer", batch_divs),
         div(class="comm-links-row", [
-          span(class="comm-links-label", "Explore more awesome projects in "),
+          span(class="comm-links-label", community_explore_label()),
           a(
             class="comm-link-btn btn-icon",
             href="https://github.com/moonbitlang",
@@ -925,7 +949,7 @@ fn view_community() -> Html {
             target=Blank,
             [icon_github(), text("moonbit-community")],
           ),
-          span(class="comm-links-sep", ", and "),
+          span(class="comm-links-sep", community_sep_and()),
           a(
             class="comm-link-btn",
             href="https://mooncakes.io",
@@ -962,34 +986,20 @@ fn view_community() -> Html {
 // ─── News + Roadmap ────────────────────────────────────────────────────────
 
 ///|
-fn rdm_badge(status : RoadmapStatus) -> Html {
-  match status {
-    Done => span(class="rdm-badge rdm-badge--done", "Done")
-    Active => span(class="rdm-badge rdm-badge--active", "In Progress")
-    Planned => span(class="rdm-badge rdm-badge--planned", "Planned")
-  }
-}
-
-///|
-fn rdm_status_class(status : RoadmapStatus) -> String {
-  match status {
-    Done => "done"
-    Active => "active"
-    Planned => "planned"
-  }
-}
-
-///|
 fn view_news_roadmap() -> Html {
   section(class="news-roadmap-section", [
     div(class="news-roadmap-inner", [
       // ── Roadmap: horizontal timeline ─────────────────────────────────────
       div(class="nr-block", [
-        div(class="nr-block-header", [h2(class="nr-block-title", "Roadmap")]),
+        div(class="nr-block-header", [
+          h2(
+            class="nr-block-title",
+            title_roadmap(),
+          ),
+        ]),
         div(
           class="rdm-track-h",
-          milestones.map(fn(m) {
-            ignore(m.status)
+          get_milestones().map(fn(m) {
             div(class="rdm-node-h", [
               div(class="rdm-node-h-top", [
                 div(class="rdm-h-line rdm-h-line--left", [nothing]),
@@ -1001,7 +1011,13 @@ fn view_news_roadmap() -> Html {
                 h3(class="rdm-title", m.title),
                 div(
                   class="rdm-items",
-                  m.items.map(fn(item) { div(class="rdm-item", item) }),
+                  m.items.map(fn(item) {
+                    match item {
+                      PlainText(s) => div(class="rdm-item", s)
+                      HyperLink(s, url) =>
+                        div(class="rdm-item", [a(href=url, s)])
+                    }
+                  }),
                 ),
               ]),
             ])
@@ -1011,18 +1027,17 @@ fn view_news_roadmap() -> Html {
       // ── News: 4-column horizontal grid ────────────────────────────────────
       div(class="nr-block", [
         div(class="nr-block-header", [
-          h2(class="nr-block-title", "News"),
+          h2(class="nr-block-title", title_news()),
           a(
             class="comm-see-all btn-icon",
-            href="https://www.moonbitlang.com/blog",
-            target=Blank,
-            [text("See all"), icon_arrow_right()],
+            href=link_blog(),
+            [text(btn_see_all()), icon_arrow_right()],
           ),
         ]),
         div(
           class="news-grid",
-          news_items.map(fn(n) {
-            a(class="news-card", href=n.url, target=Blank, [
+          get_news_items().map(fn(n) {
+            a(class="news-card", href=n.url, [
               if n.img == "" {
                 div(class="news-card-img", [nothing])
               } else {
@@ -1046,12 +1061,9 @@ fn view_news_roadmap() -> Html {
 fn view_quickstart() -> Html {
   section(class="quickstart", [
     div(class="quickstart-inner", [
-      h2(
-        class="quickstart-tagline",
-        "Experience MoonBit: Code Faster, Perform Better!",
-      ),
-      a(class="btn-primary btn-icon btn-cta", href=ide_url, target=Blank, [
-        text("Try Now"),
+      h2(class="quickstart-tagline", cta_tagline()),
+      a(class="btn-primary btn-icon btn-cta", href=link_ide(), target=Blank, [
+        text(btn_try_now()),
         icon_arrow_right(),
       ]),
     ]),
@@ -1084,8 +1096,6 @@ fn main {
   ignore(icon_check)
   ignore(view_platform_svg)
   ignore(comm_block)
-  ignore(rdm_badge)
-  ignore(rdm_status_class)
 
   let (dispatch, app) = @rabbita.cell_with_dispatch(
     model=init_model,
