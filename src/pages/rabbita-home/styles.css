@@ -1253,7 +1253,7 @@
 }
 
 #rabbita-home .news-roadmap-inner {
-  max-width: 1100px;
+  max-width: 1260px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -1306,7 +1306,7 @@
 
 #rabbita-home .news-card-img {
   width: 100%;
-  height: 130px;
+  height: 180px;
   object-fit: cover;
   background:
     repeating-linear-gradient(
@@ -1322,21 +1322,21 @@
 #rabbita-home .news-card-body {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 14px 16px;
+  gap: 8px;
+  padding: 16px 18px;
   flex: 1;
   min-width: 0;
 }
 
 #rabbita-home .news-card-title {
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 #rabbita-home .news-card-date {
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   color: var(--muted);
 }
 
@@ -1410,7 +1410,7 @@
 }
 
 #rabbita-home .rdm-period {
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--muted);
   text-transform: uppercase;
@@ -1418,10 +1418,10 @@
 }
 
 #rabbita-home .rdm-title {
-  font-size: 0.92rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--text);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 #rabbita-home .rdm-items {
@@ -1434,11 +1434,11 @@
 }
 
 #rabbita-home .rdm-item {
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   color: var(--muted);
   padding-left: 14px;
   position: relative;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 #rabbita-home .rdm-item::before {
@@ -1633,6 +1633,26 @@
     flex: 1;
     margin: 0 0 16px 0;
     width: auto;
+  }
+
+  #rabbita-home .news-card-title {
+    font-size: 1.05rem;
+  }
+
+  #rabbita-home .news-card-date {
+    font-size: 0.85rem;
+  }
+
+  #rabbita-home .rdm-period {
+    font-size: 0.85rem;
+  }
+
+  #rabbita-home .rdm-title {
+    font-size: 1.1rem;
+  }
+
+  #rabbita-home .rdm-item {
+    font-size: 0.95rem;
   }
 
   #rabbita-home .quickstart {
