@@ -352,7 +352,7 @@ fn get_feature_rows() -> Array[FeatureRow] {
     {
       heading: lang(
         en="Toolchain for Agents",
-        zh="AI原生",
+        zh="AI 原生",
       ),
       body: lang(
         en=(
