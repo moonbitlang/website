@@ -19,7 +19,16 @@
 
 .introBtn {
   margin-top: 1.5rem;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.introBtn :global(.button) {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
 }
 
 .note {
@@ -137,4 +146,46 @@
 
 .container a:global(.button):hover {
   text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.4rem 0.9rem 2rem;
+  }
+
+  .intro {
+    padding: 1.15rem;
+    border-radius: 14px;
+  }
+
+  .introBtn {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .introBtn :global(.button) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rewardTable {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .container section ul,
+  .container section ol {
+    padding-left: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-inline: 0.75rem;
+  }
+
+  .container section {
+    margin-bottom: 2rem;
+  }
 }
