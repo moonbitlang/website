@@ -158,7 +158,6 @@ export default async (): Promise<Config> => {
             } else if (
               entry.name.endsWith('.mbt') ||
               entry.name.endsWith('.mbti') ||
-              entry.name === 'moon.pkg' ||
               entry.name === 'moon.pkg.json' ||
               entry.name === 'moon.mod.json'
             ) {
@@ -233,116 +232,6 @@ export default async (): Promise<Config> => {
                         if (!document.getElementById('rabbita-home')) return;
                         try {
                           var r = await fetch('/rabbita-home/main.js', { method: 'HEAD', cache: 'no-store' });
-                          if (!r.ok) return;
-                          var tag = r.headers.get('etag') || r.headers.get('last-modified');
-                          if (known === null) { known = tag; return; }
-                          if (tag !== known) { known = tag; location.reload(); }
-                        } catch (e) {}
-                      }, 500);
-                    })();
-                  `,
-                },
-              ],
-            }
-          },
-        }
-      },
-      // In dev mode, watch showcase .mbt source files and run moon build on
-      // each change, then copy output to static/rabbita-2026-scc-showcase/
-      // for Docusaurus to serve.
-      function rabbitaShowcasePlugin() {
-        const showcaseDir = path.join(
-          process.cwd(),
-          'src',
-          'rabbita',
-          '2026-scc-showcase'
-        )
-        const staticDir = path.join(
-          process.cwd(),
-          'static',
-          'rabbita-2026-scc-showcase'
-        )
-        const stylesSrc = path.join(showcaseDir, 'styles.css')
-
-        function collectWatchFiles(dir: string, files: string[] = []): string[] {
-          const skip = new Set(['node_modules', '_build', 'target', '.git'])
-          for (const entry of readdirSync(dir, { withFileTypes: true })) {
-            if (skip.has(entry.name)) continue
-            const full = path.join(dir, entry.name)
-            if (entry.isDirectory()) {
-              collectWatchFiles(full, files)
-            } else if (
-              entry.name.endsWith('.mbt') ||
-              entry.name.endsWith('.mbti') ||
-              entry.name === 'moon.pkg' ||
-              entry.name === 'moon.pkg.json' ||
-              entry.name === 'moon.mod.json'
-            ) {
-              files.push(full)
-            }
-          }
-          return files
-        }
-
-        function findFirstJs(dir: string): string | null {
-          for (const entry of readdirSync(dir, { withFileTypes: true })) {
-            const full = path.join(dir, entry.name)
-            if (entry.isDirectory()) {
-              const found = findFirstJs(full)
-              if (found) return found
-            } else if (entry.name.endsWith('.js')) {
-              return full
-            }
-          }
-          return null
-        }
-
-        function buildAndCopy(): void {
-          const result = spawnSync('moon', ['build', '--target', 'js', '--debug'], {
-            cwd: showcaseDir,
-            stdio: 'inherit',
-          })
-          if (result.status !== 0) return
-          const buildDir = path.join(showcaseDir, '_build', 'js', 'debug', 'build')
-          if (!existsSync(buildDir)) return
-          const jsFile = findFirstJs(buildDir)
-          if (!jsFile) return
-          if (!existsSync(staticDir)) mkdirSync(staticDir, { recursive: true })
-          const code = readFileSync(jsFile, 'utf8')
-            .replace(/\n?\/\/[#@]\s*sourceMappingURL=.*$/m, '')
-            .replace(/\n?\/\*#\s*sourceMappingURL=.*?\*\//m, '')
-          writeFileSync(path.join(staticDir, 'main.js'), code)
-          if (existsSync(stylesSrc)) {
-            copyFileSync(stylesSrc, path.join(staticDir, 'styles.css'))
-          }
-        }
-
-        return {
-          name: 'rabbita-showcase',
-          getPathsToWatch() {
-            const files = collectWatchFiles(showcaseDir)
-            if (existsSync(stylesSrc)) files.push(stylesSrc)
-            return files
-          },
-          async loadContent() {
-            if (process.env.NODE_ENV === 'development') {
-              buildAndCopy()
-            }
-            return null
-          },
-          injectHtmlTags() {
-            if (process.env.NODE_ENV !== 'development') return {}
-            return {
-              headTags: [
-                {
-                  tagName: 'script',
-                  innerHTML: `
-                    (function () {
-                      var known = null;
-                      setInterval(async function () {
-                        if (!document.getElementById('rabbita-scc-showcase')) return;
-                        try {
-                          var r = await fetch('/rabbita-2026-scc-showcase/main.js', { method: 'HEAD', cache: 'no-store' });
                           if (!r.ok) return;
                           var tag = r.headers.get('etag') || r.headers.get('last-modified');
                           if (known === null) { known = tag; return; }

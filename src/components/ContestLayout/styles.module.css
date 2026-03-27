@@ -1,39 +1,11 @@
 .hero {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  isolation: isolate;
-  background-color: var(--hero-bg-color, black);
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: var(--hero-bg-image, none);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  filter: blur(22px) saturate(0.9);
-  transform: scale(1.08);
-  opacity: 0.88;
-  pointer-events: none;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(4, 8, 18, 0.08), rgba(4, 8, 18, 0.16));
-  pointer-events: none;
+  background-color: black;
 }
 
 .hero img {
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 1200px;
 }
@@ -47,11 +19,6 @@
 }
 
 @media (max-width: 996px) {
-  .hero::before {
-    filter: blur(14px) saturate(0.92);
-    transform: scale(1.04);
-  }
-
   .mobile-hero-img {
     display: block;
   }

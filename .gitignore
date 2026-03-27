@@ -25,7 +25,6 @@ static/moonc-worker.js
 
 # Generated files
 static/rabbita-home/
-static/rabbita-2026-scc-showcase/
 src/static/rabbita-home/
 .docusaurus
 .cache-loader

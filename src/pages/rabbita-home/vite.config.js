@@ -17,7 +17,6 @@ function findMbtFiles(dir, files = []) {
     } else if (
       entry.name.endsWith('.mbt') ||
       entry.name.endsWith('.mbti') ||
-      entry.name === 'moon.pkg' ||
       entry.name === 'moon.pkg.json' ||
       entry.name === 'moon.mod.json'
     ) {

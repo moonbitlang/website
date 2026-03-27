@@ -1,8 +1,0 @@
-import {
-  "moonbit-community/rabbita",
-  "moonbit-community/rabbita/html",
-}
-
-options(
-  "is-main": true,
-)
