@@ -9,7 +9,7 @@ fn link_docs() -> String {
 
 ///|
 fn link_ide() -> String {
-  lang(en="https://tour.moonbitlang.com", zh="https://tour.moonbitlang.cn")
+  lang(en="https://tour.moonbitlang.com", zh="https://tour.moonbitlang.com/zh")
 }
 
 ///|
