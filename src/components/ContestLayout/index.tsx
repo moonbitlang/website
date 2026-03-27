@@ -1,12 +1,10 @@
 import Layout from '@theme/Layout'
 import styles from './styles.module.css'
-import type { CSSProperties } from 'react'
 
 type HeroProps = {
   img: string
   mobileHeroImg: string
   bgColor?: string
-  backdropImg?: string
 }
 
 type LayoutProps = {
@@ -15,28 +13,14 @@ type LayoutProps = {
   qqGroupImg?: string
   qqGroupId?: string
   heroBgColor?: string
-  heroBackdropImg?: string
   children: React.ReactNode
 }
 
 export default function ContestLayout(props: LayoutProps) {
-  const {
-    heroImg,
-    mobileHeroImg,
-    children,
-    qqGroupId,
-    qqGroupImg,
-    heroBgColor,
-    heroBackdropImg
-  } = props
+  const { heroImg, mobileHeroImg, children, qqGroupId, qqGroupImg, heroBgColor } = props
   return (
     <Layout>
-      <Hero
-        img={heroImg}
-        mobileHeroImg={mobileHeroImg}
-        bgColor={heroBgColor}
-        backdropImg={heroBackdropImg}
-      />
+      <Hero img={heroImg} mobileHeroImg={mobileHeroImg} bgColor={heroBgColor} />
       <main>
         {qqGroupImg && (
           <div className={styles['qq-group']}>
@@ -57,14 +41,9 @@ export default function ContestLayout(props: LayoutProps) {
   )
 }
 
-function Hero({ img, mobileHeroImg, bgColor, backdropImg }: HeroProps) {
-  const style: CSSProperties & Record<'--hero-bg-image' | '--hero-bg-color', string> = {
-    '--hero-bg-color': bgColor || 'black',
-    '--hero-bg-image': backdropImg ? `url(${backdropImg})` : 'none'
-  }
-
+function Hero({ img, mobileHeroImg, bgColor }: HeroProps) {
   return (
-    <div className={styles['hero']} style={style}>
+    <div className={styles['hero']} style={bgColor ? { backgroundColor: bgColor } : undefined}>
       <img className={styles['hero-img']} src={img} alt='' />
       <img className={styles['mobile-hero-img']} src={mobileHeroImg} alt='' />
     </div>

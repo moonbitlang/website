@@ -1,5 +1,4 @@
 import ContestLayout from '@site/src/components/ContestLayout'
-import ContestNavbar, { items2026en } from '@site/src/components/ContestNavbar'
 import styles from './styles.module.css'
 
 export default function Page() {
@@ -7,11 +6,9 @@ export default function Page() {
     <ContestLayout
       heroImg='/img/2026-contest/kv-en.jpg'
       mobileHeroImg='/img/2026-contest/kv-en.jpg'
-      heroBgColor='#09184c'
-      heroBackdropImg='/img/2026-contest/kv-en.jpg'
+      heroBgColor='#051033'
     >
       <div className={styles.container}>
-        <ContestNavbar activeIndex={0} items={items2026en} qqGroup={false} />
         <EnglishContent />
       </div>
     </ContestLayout>
@@ -27,7 +24,6 @@ function EnglishContent() {
         <p>This challenge is for developers who want to actively shape the MoonBit ecosystem by leveraging AI for code generation, architectural reasoning, and collaborative engineering.</p>
         <div className={styles.introBtn}>
           <a href="https://forms.gle/VcgnUK8qTJVKrDkBA" target="_blank" className="button button--primary button--lg">Apply Now</a>
-          <a href="/2026-scc/showcase/" className="button button--primary button--lg">View Projects</a>
         </div>
       </section>
 
@@ -198,3 +194,4 @@ function EnglishContent() {
     </>
   )
 }
+

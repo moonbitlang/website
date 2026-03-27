@@ -70,13 +70,7 @@ export const items2025en: ContestNavbarItem[] = [
 ]
 
 export const items2026: ContestNavbarItem[] = [
-  { name: '赛事章程', href: '/2026-scc' },
-  { name: '作品展示墙', href: '/2026-scc/showcase' }
-]
-
-export const items2026en: ContestNavbarItem[] = [
-  { name: 'Regulations', href: '/2026-scc' },
-  { name: 'Showcase Wall', href: '/2026-scc/showcase' }
+  { name: '赛事章程', href: '/2026-scc' }
 ]
 
 export default function ContestNavbar({
