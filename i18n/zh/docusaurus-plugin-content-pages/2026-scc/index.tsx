@@ -1,4 +1,5 @@
 import ContestLayout from '@site/src/components/ContestLayout'
+import ContestNavbar, { items2026 } from '@site/src/components/ContestNavbar'
 import styles from '@site/src/pages/2026-scc/styles.module.css'
 
 export default function Page() {
@@ -7,9 +8,11 @@ export default function Page() {
       heroImg='/img/2026-contest/kv.jpg'
       mobileHeroImg='/img/2026-contest/kv.jpg'
       qqGroupImg='/img/2026-contest/qq-group.png'
-      heroBgColor='#051033'
+      heroBgColor='#09184c'
+      heroBackdropImg='/img/2026-contest/kv.jpg'
     >
       <div className={styles.container}>
+        <ContestNavbar activeIndex={0} items={items2026} qqGroup={false} />
         <ChineseContent />
       </div>
     </ContestLayout>
@@ -47,6 +50,9 @@ function ChineseContent() {
             className='button button--primary button--lg'
           >
             立即报名
+          </a>
+          <a href='/2026-scc/showcase/' className='button button--primary button--lg'>
+            查看作品
           </a>
         </div>
       </section>
