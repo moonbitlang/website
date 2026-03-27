@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useColorMode } from '@docusaurus/theme-common'
 import clsx from 'clsx'
-import styles from './wrapper.module.css'
+import styles from '@site/src/pages/2026-scc/showcase/wrapper.module.css'
 
 const mountId = 'rabbita-scc-showcase'
 const scriptId = 'rabbita-scc-showcase-script'

@@ -1,6 +1,6 @@
 import ContestLayout from '@site/src/components/ContestLayout'
 import ContestNavbar, { items2026en } from '@site/src/components/ContestNavbar'
-import RabbitaShowcaseMount from './RabbitaShowcaseMount'
+import RabbitaShowcaseMount from '@site/src/components/RabbitaShowcaseMount'
 import styles from './wrapper.module.css'
 
 export default function Page() {
