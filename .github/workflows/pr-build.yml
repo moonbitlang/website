@@ -1,0 +1,46 @@
+name: PR Build Check
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-build-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            src/pages/rabbita-home/pnpm-lock.yaml
+
+      - name: Setup MoonBit
+        uses: ./.github/actions/setup
+
+      - name: Install website dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check rabbita-home
+        working-directory: src/pages/rabbita-home
+        run: moon check
+
+      - name: Build website
+        run: pnpm build
