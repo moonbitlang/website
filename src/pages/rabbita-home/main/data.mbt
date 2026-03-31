@@ -469,14 +469,6 @@ fn get_projects() -> Array[Project] {
       url: "https://github.com/moonbit-community/wasip1",
     },
     {
-      name: "myfreess/piediff",
-      desc: lang(
-        en="A MoonBit implementation of Bram Cohen's patience diff algorithm.",
-        zh="Bram Cohen 的 patience diff 算法的 MoonBit 实现。",
-      ),
-      url: "https://github.com/moonbit-community/piediff",
-    },
-    {
       name: "moonbit-community/uv.mbt",
       desc: lang(
         en="MoonBit bindings to libuv for async I/O.",
