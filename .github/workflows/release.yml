@@ -42,4 +42,4 @@ jobs:
         run: |
           aliyun configure set --profile default --mode AK --access-key-id ${{secrets.ALIBABA_CLOUD_ACCESS_KEY_ID}} --access-key-secret ${{secrets.ALIBABA_CLOUD_ACCESS_KEY_SECRET}} --region ${{secrets.ALIBABA_REGION}}
           aliyun oss sync ./build ${{secrets.ALIYUN_OSS_BUCKET}} --exclude llms.txt --delete --force
-          aliyun cdn RefreshObjectCaches --ObjectPath https://www.moonbitlang.cn/ --ObjectType Directory
+          aliyun esa PurgeCaches --region cn-shenzhen --Content '{"CacheKeys":[{}],"Directories":["https://www.moonbitlang.cn/"]}' --Type directory --SiteId 1189399586245168
