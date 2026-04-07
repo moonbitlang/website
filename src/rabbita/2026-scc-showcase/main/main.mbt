@@ -108,8 +108,8 @@ fn hero_title() -> String {
 ///|
 fn hero_intro() -> String {
   lang(
-    zh="截至 2026 年 3 月 25 日，这一版集中展示当前已经正式启动、并且已经公开 GitHub 仓库的参赛项目。",
-    en="As of March 25, 2026, this edition focuses on projects that have officially kicked off and already expose a public GitHub repository.",
+    zh="截至 2026 年 4 月 7 日，这一版集中展示当前已经正式启动、并且已经公开 GitHub 仓库的参赛项目。",
+    en="As of April 7, 2026, this edition focuses on projects that have officially kicked off and already expose a public GitHub repository.",
   )
 }
 
@@ -163,7 +163,7 @@ fn card_badge() -> String {
 fn contest_signals() -> Array[Signal] {
   [
     {
-      value: lang(zh="11 个项目", en="11 Projects"),
+      value: lang(zh="19 个项目", en="19 Projects"),
       label: lang(zh="当前已正式启动并已收录展示", en="Officially started and already featured here"),
     },
     {
@@ -175,7 +175,7 @@ fn contest_signals() -> Array[Signal] {
       label: lang(zh="这些项目都已进入公开开发阶段", en="Each listed project is already being built in the open"),
     },
     {
-      value: lang(zh="2026 年 3 月 25 日", en="March 25, 2026"),
+      value: lang(zh="2026 年 4 月 7 日", en="April 7, 2026"),
       label: lang(zh="当前整理日期", en="Current curation date"),
     },
   ]
@@ -425,6 +425,159 @@ fn reference_cards() -> Array[Card] {
       links: [
         { label: lang(zh="GitHub 仓库", en="GitHub Repo"), url: "https://github.com/enimate/enimate", external: true },
         { label: lang(zh="官网", en="Official Site"), url: "https://enimate.art", external: true },
+      ],
+    },
+    {
+      badge: card_badge(),
+      stage: lang(zh="系统实验", en="Systems Lab"),
+      category: lang(zh="RISC-V 工具链", en="RISC-V Toolkit"),
+      title: "MoonRV Lab",
+      subtitle: lang(zh="MoonBit 编写的 RISC-V 二进制分析与执行实验平台", en="RISC-V binary analysis and execution lab built in MoonBit"),
+      desc: lang(zh="MoonRV Lab / rvkit 已经把静态分析、ELF 与 RAW 执行、离线 workbench 和在线 `/workbench` 工作台串成一条可演示、可回归的公开链路。", en="MoonRV Lab / rvkit already connects static analysis, ELF and RAW execution, offline workbench output, and an online `/workbench` into a public flow that is easy to demo and regression-test."),
+      fallback: "MoonRV Lab",
+      cover: "",
+      highlights: [
+        lang(zh="覆盖反汇编、CFG、callgraph、analyze 与 decompile 等静态分析入口", en="Covers disassembly, CFG, callgraph, analyze, and decompile entrypoints"),
+        lang(zh="默认 RV64，并显式支持 RV32 与 RAW 输入执行", en="Defaults to RV64 while explicitly supporting RV32 and RAW execution"),
+        lang(zh="同时提供离线 HTML workbench 与在线工作台", en="Provides both offline HTML workbench output and an online workbench"),
+      ],
+      tags: ["MoonBit", "RISC-V", lang(zh="二进制分析", en="Binary Analysis")],
+      links: [
+        { label: lang(zh="GitHub 仓库", en="GitHub Repo"), url: "https://github.com/wzzc-dev/moon_rv_lab", external: true },
+      ],
+    },
+    {
+      badge: card_badge(),
+      stage: lang(zh="原生 GUI", en="Native GUI"),
+      category: lang(zh="Qt 绑定", en="Qt Binding"),
+      title: "qt.mbt",
+      subtitle: lang(zh="面向 Qt Widgets 的 MoonBit 原生绑定", en="MoonBit native binding for Qt Widgets"),
+      desc: lang(zh="qt.mbt 以 Qt Widgets 为核心，目标是在 MoonBit 侧尽量保留 Qt 原本的对象模型与编程风格，当前已经给出可运行示例、C++ stub 和原生构建脚本。", en="qt.mbt centers on Qt Widgets and aims to preserve Qt's original object model and programming style on the MoonBit side. The repository already ships runnable examples, C++ stubs, and native build scripts."),
+      fallback: "qt.mbt",
+      cover: "",
+      highlights: [
+        lang(zh="尽量保留 Qt 原生子类型关系与调用习惯", en="Tries to preserve Qt's subtype relations and native coding style"),
+        lang(zh="仓库内附有计数器等可运行示例", en="Includes runnable examples such as a counter app"),
+        lang(zh="配有 AI_BINDING_GUIDE 与 prebuild 配置脚本", en="Includes an AI binding guide plus a prebuild configuration script"),
+      ],
+      tags: ["MoonBit", "Qt", "GUI"],
+      links: [
+        { label: lang(zh="GitHub 仓库", en="GitHub Repo"), url: "https://github.com/KeqingMoe/qt.mbt", external: true },
+      ],
+    },
+    {
+      badge: card_badge(),
+      stage: lang(zh="智能体基础设施", en="Agent Infrastructure"),
+      category: lang(zh="CLI 调度", en="CLI Orchestration"),
+      title: "ClawTeam",
+      subtitle: lang(zh="基于 MoonBit 的多智能体 CLI 调度层", en="MoonBit-based multi-agent CLI orchestration layer"),
+      desc: lang(zh="ClawTeam 把自己严格限定为纯调度层：通过聊天式交互统一编排 Claude Code、Codex、Gemini 等外部 CLI，负责消息路由、PTY 调用、任务触发与执行审计。", en="ClawTeam deliberately stays a pure orchestration layer: it coordinates external CLIs such as Claude Code, Codex, and Gemini through chat-style interaction, while owning message routing, PTY execution, job triggering, and audit trails."),
+      fallback: "ClawTeam",
+      cover: "",
+      highlights: [
+        lang(zh="强调“只做调度，不做业务逻辑”", en="Deliberately focuses on orchestration instead of business logic"),
+        lang(zh="围绕 PTY 调用、任务触发与多渠道接入设计", en="Built around PTY execution, job triggering, and multi-channel ingress"),
+        lang(zh="把执行审计与人工确认节点纳入主流程", en="Treats execution audit and human approval nodes as first-class workflow pieces"),
+      ],
+      tags: ["MoonBit", "CLI", "AI Agent"],
+      links: [
+        { label: lang(zh="GitHub 仓库", en="GitHub Repo"), url: "https://github.com/vicoproplus/clawteam", external: true },
+      ],
+    },
+    {
+      badge: card_badge(),
+      stage: lang(zh="增长工具", en="Growth Tooling"),
+      category: lang(zh="SEO 落地页", en="SEO Landing Pages"),
+      title: "MoonSEO",
+      subtitle: lang(zh="把品牌 brief 变成可审计 SEO 落地页的 MoonBit MVP", en="MoonBit MVP that turns a brand brief into an auditable SEO landing page"),
+      desc: lang(zh="MoonSEO 以 MoonBit 为核心，接收品牌名、关键词与事实约束，生成 SEO 落地页草稿，随后做确定性的规则审计，并导出静态 HTML 交付物。", en="MoonSEO puts MoonBit at the center: it takes a brand brief, keyword, and approved facts, generates an SEO landing-page draft, audits it with deterministic checks, and exports a static HTML deliverable."),
+      fallback: "MoonSEO",
+      cover: "",
+      highlights: [
+        lang(zh="在浏览器里完成草稿生成、审计与预览", en="Generates, audits, and previews the page directly in the browser"),
+        lang(zh="检查标题、meta、关键词覆盖、证据锚点与 claim safety", en="Audits title, meta, keyword coverage, evidence anchors, and claim safety"),
+        lang(zh="可导出独立静态 HTML 结果", en="Exports a standalone static HTML result"),
+      ],
+      tags: ["MoonBit", "SEO", "HTML"],
+      links: [
+        { label: lang(zh="GitHub 仓库", en="GitHub Repo"), url: "https://github.com/lauraraccoon/MoonSEO", external: true },
+      ],
+    },
+    {
+      badge: card_badge(),
+      stage: lang(zh="知识工具", en="Knowledge Tool"),
+      category: lang(zh="文档问答", en="Document QA"),
+      title: "moonbook",
+      subtitle: lang(zh="浏览器本地运行的文档智能问答系统", en="Local-in-browser document intelligence and QA system"),
+      desc: lang(zh="moonbook 参考 NotebookLM 路线，强调零部署、本地优先和隐私友好，计划让 MoonBit 在浏览器里承担文档解析、语义分块、BM25 检索与状态编排等核心职责。", en="moonbook follows a NotebookLM-style direction with a zero-deploy, local-first, privacy-friendly architecture. MoonBit is expected to own the browser-side core such as parsing, semantic chunking, BM25 retrieval, and state orchestration."),
+      fallback: "moonbook",
+      cover: "",
+      highlights: [
+        lang(zh="核心路径定位为纯浏览器、本地优先架构", en="Targets a browser-only, local-first core workflow"),
+        lang(zh="支持带来源引用的 RAG 问答与知识卡片", en="Plans source-grounded RAG answers plus study cards"),
+        lang(zh="强调用 MoonBit 承担浏览器端核心引擎", en="Emphasizes MoonBit as the browser-side core engine"),
+      ],
+      tags: ["MoonBit", "RAG", lang(zh="知识库", en="Knowledge Base")],
+      links: [
+        { label: lang(zh="GitHub 仓库", en="GitHub Repo"), url: "https://github.com/feishiheng/moonbook", external: true },
+      ],
+    },
+    {
+      badge: card_badge(),
+      stage: lang(zh="金融工程", en="Fintech"),
+      category: lang(zh="量化回测", en="Quant Backtesting"),
+      title: "alpha",
+      subtitle: lang(zh="类型安全的 MoonBit 量化交易回测框架", en="Type-safe quantitative trading backtesting framework in MoonBit"),
+      desc: lang(zh="alpha 面向量化交易回测场景，已经公开 CLI 入口、文档索引与测试覆盖率信息，围绕类型安全与可验证工程路径组织仓库结构。", en="alpha targets quantitative trading backtesting and already exposes a CLI entrypoint, documentation index, and visible test-coverage status, with the repository organized around a type-safe and verifiable engineering path."),
+      fallback: "alpha",
+      cover: "",
+      highlights: [
+        lang(zh="强调类型安全的量化回测核心", en="Builds around a type-safe backtesting core"),
+        lang(zh="README 中已整理快速上手与文档入口", en="README already points to quickstart and documentation entrypoints"),
+        lang(zh="公开展示当前测试覆盖率与项目状态", en="Publicly exposes test coverage and project status"),
+      ],
+      tags: ["MoonBit", "Quant", "Backtest"],
+      links: [
+        { label: lang(zh="GitHub 仓库", en="GitHub Repo"), url: "https://github.com/retfings/alpha", external: true },
+      ],
+    },
+    {
+      badge: card_badge(),
+      stage: lang(zh="智能体平台", en="Agent Platform"),
+      category: lang(zh="工作流编排", en="Workflow Orchestration"),
+      title: "moonflow",
+      subtitle: lang(zh="类似 Dify / Coze 的 MoonBit AI Agent 工作流编排平台", en="MoonBit AI agent workflow orchestration platform in the Dify / Coze vein"),
+      desc: lang(zh="moonflow 把 Web Studio、Workflow DSL、执行运行时与组件市场组织成一个完整平台，希望用 MoonBit 提供高并发调度、安全隔离与自然语言到工作流代码的转换链路。", en="moonflow combines a Web Studio, workflow DSL, execution runtime, and component marketplace into a single platform, aiming to use MoonBit for high-concurrency scheduling, security isolation, and natural-language-to-workflow code generation."),
+      fallback: "moonflow",
+      cover: "",
+      highlights: [
+        lang(zh="包含可视化 DAG 编排与实时预览", en="Includes visual DAG orchestration and live preview"),
+        lang(zh="把运行时调度、隔离和状态存储作为核心能力", en="Treats runtime scheduling, isolation, and state storage as core capabilities"),
+        lang(zh="同时考虑本地模式与服务端部署", en="Considers both standalone local mode and server deployment"),
+      ],
+      tags: ["MoonBit", "AI Agent", "Workflow"],
+      links: [
+        { label: lang(zh="GitHub 仓库", en="GitHub Repo"), url: "https://github.com/shee333/moonflow", external: true },
+      ],
+    },
+    {
+      badge: card_badge(),
+      stage: lang(zh="3D 引擎", en="3D Engine"),
+      category: lang(zh="体素叙事", en="Voxel Narrative"),
+      title: "MoonPalace",
+      subtitle: lang(zh="面向 Aetheria3D / VoxStory 的 MoonBit 3D 引擎与工具链", en="MoonBit 3D engine and toolchain for Aetheria3D / VoxStory"),
+      desc: lang(zh="MoonPalace 当前公开的 `windows-build-setup` 分支把重点放在 Aetheria3D 的 Windows 原生构建、Raylib FFI 外壳与后续体素化、状态机、渲染管线规划上。", en="MoonPalace's current public `windows-build-setup` branch focuses on Windows-native builds for Aetheria3D, the Raylib FFI shell, and the next steps for voxel processing, state machines, and rendering pipelines."),
+      fallback: "MoonPalace",
+      cover: "",
+      highlights: [
+        lang(zh="已经给出 Raylib FFI 外壳与 Windows 原生构建路径", en="Already provides a Raylib FFI shell and a Windows-native build path"),
+        lang(zh="同时预留 Wasm 预览路线", en="Also keeps a Wasm preview path in view"),
+        lang(zh="公开了 Aetheria3D 的分阶段开发计划", en="Publishes a staged development plan for Aetheria3D"),
+      ],
+      tags: ["MoonBit", "3D", "Raylib"],
+      links: [
+        { label: lang(zh="GitHub 仓库", en="GitHub Repo"), url: "https://github.com/MrsFlower/MoonPalace", external: true },
+        { label: lang(zh="公开分支", en="Public Branch"), url: "https://github.com/MrsFlower/MoonPalace/tree/windows-build-setup", external: true },
       ],
     },
   ]
