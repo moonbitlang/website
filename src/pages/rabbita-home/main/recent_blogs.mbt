@@ -31,6 +31,12 @@ fn get_news_items() -> Array[NewsItem] {
     ],
     zh=[
     {
+      title: "MoonBit 0.9 发布：AI 自动生成可证明的代码",
+      date: "2026-04-08",
+      url: "https://www.moonbitlang.cn/blog/moonbit-0-9-release",
+      img: "/img/blogs/zh/2026-04-08-moonbit-0-9-release/cover.png",
+    },
+    {
       title: "MoonBit 0.8.0发布",
       date: "2026-02-09",
       url: "https://www.moonbitlang.cn/blog/moonbit-0-8-0-release",
@@ -47,12 +53,6 @@ fn get_news_items() -> Array[NewsItem] {
       date: "2025-10-31",
       url: "https://www.moonbitlang.cn/blog/llvm-debug",
       img: "/img/blogs/zh/2025-10-31-llvm-debug/cover.png",
-    },
-    {
-      title: "安装Wasm版的MoonBit工具链",
-      date: "2025-10-10",
-      url: "https://www.moonbitlang.cn/blog/moonbit-wasm-toolchain",
-      img: "/img/blogs/zh/2025-10-10-moonbit-wasm-toolchain/cover.png",
     },
     ],
   )
