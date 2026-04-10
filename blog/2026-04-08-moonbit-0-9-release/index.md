@@ -94,4 +94,4 @@ With AI further reducing the cost of writing proofs, MoonBit is trying to solve 
 
 In this context, the meaning of formal verification is also changing. It is no longer just a specialized technique reserved for a tiny number of safety-critical systems. It is becoming a practical path toward more trustworthy software. Through language design, AI assistance, and toolchain integration, MoonBit aims to keep lowering the barrier to verification, making it more natural for expressing constraints, generating proofs, and checking results to become part of everyday development workflows. We hope that, as this capability matures, "proving code correct" can become as routine as writing tests and running builds.
 
-Beyond formal verification, the 0.9 release also includes a range of other important updates. See [MoonBit v0.9 Release](/updates/2026-04-07) for the full release notes.
+Beyond formal verification, the 0.9 release also includes a range of other important updates. See [MoonBit v0.9 Release](/updates/2026/04/07/index) for the full release notes.
