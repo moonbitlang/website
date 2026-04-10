@@ -6,15 +6,9 @@ image: /img/blogs/2026-04-08-moonbit-0-9-release/cover.png
 tags: [MoonBit, AI]
 ---
 
-# MoonBit 0.9 Released: AI Can Now Generate Provable Code
+# MoonBit 0.9: Introducing First-Class Formal Verification
 
 ![](./cover.png)
-
-Over the past four months, the MoonBit ecosystem has entered a phase of exponential growth. New ecosystem output is now nearly three times the total added over the previous three years combined: the number of libraries has grown from around 2,500 to more than 7,500, and cumulative downloads have reached 3.2 million. MoonBit is steadily becoming one of the most globally influential foundational software projects in China's intelligent manufacturing stack.
-
-Behind this growth is one key shift: MoonBit has now completed a successful [cold start with large language models](https://swe-agi.com). Although MoonBit is still a young language without a large historical corpus, its AI-native design and agent-friendly tooling have already enabled LLMs to generate large volumes of high-quality MoonBit code with minimal human intervention, including an entire C compiler produced in one shot.
-
-Related article: [/blog/moonbit-c-compiler](/blog/moonbit-c-compiler)
 
 As code generation accelerates, the central problem in software engineering becomes harder to ignore: how do we ensure that AI can generate large amounts of code while still keeping that code reliable and constrained by the properties it is supposed to satisfy?
 
