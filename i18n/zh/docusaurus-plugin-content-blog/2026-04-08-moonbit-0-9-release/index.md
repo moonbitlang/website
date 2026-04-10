@@ -87,8 +87,6 @@ MoonBit 的差异化在于**垂直整合**：合约、谓词、循环不变量�
 
 再加上 AI 辅助降低了证明编写的门槛，MoonBit 试图**同时解决“不好用”和“门槛高”**这两个历史性难题，不仅让验证更强大，也让它对普通开发者真正可用。
 
-![](./formal-verification-three-paths.png)
-
 ![](./moonbit-vertical-integration.png)
 
 ## 展望
