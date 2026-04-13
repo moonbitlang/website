@@ -5,6 +5,12 @@ fn get_news_items() -> Array[NewsItem] {
   lang(
     en=[
     {
+      title: "MoonBit 0.9: Introducing First-Class Formal Verification",
+      date: "2026-04-08",
+      url: "https://www.moonbitlang.com/blog/moonbit-0-9-release",
+      img: "/img/blogs/2026-04-08-moonbit-0-9-release/cover.png",
+    },
+    {
       title: "MoonBit 0.8.0 Released",
       date: "2026-02-09",
       url: "https://www.moonbitlang.com/blog/moonbit-0-8-0-release",
@@ -21,12 +27,6 @@ fn get_news_items() -> Array[NewsItem] {
       date: "2026-01-28",
       url: "https://www.moonbitlang.com/blog/crdt-algorithms-moonbit",
       img: "/img/blogs/2026-01-28-crdt-algorithms-moonbit/cover.jpg",
-    },
-    {
-      title: "Static Analysis with MoonBit: From Simple Language Analysis to MCIL",
-      date: "2026-01-15",
-      url: "https://www.moonbitlang.com/blog/moonbit-static-analysis",
-      img: "/img/blogs/2026-01-15-static-analysis-mcil/cover.png",
     },
     ],
     zh=[
