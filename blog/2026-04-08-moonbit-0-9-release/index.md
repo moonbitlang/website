@@ -1,5 +1,4 @@
 ---
-unlisted: true
 description: "MoonBit 0.9 introduces formal verification for AI-native workflows, enabling AI systems to generate code that is not just functional, but provably correct."
 slug: moonbit-0-9-release
 image: /img/blogs/2026-04-08-moonbit-0-9-release/cover.png
