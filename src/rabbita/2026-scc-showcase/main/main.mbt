@@ -736,7 +736,7 @@ fn reference_cards() -> Array[Card] {
     backfill_card("mengxi", "https://github.com/MaoDingA/mengxi"),
     backfill_card("MetaEditor", "https://github.com/ch3coohlink/MetaEditor"),
     backfill_card("cogna", "https://github.com/cogna-dev/cogna"),
-    backfill_card("AstrClaw", "https://github.com/EinoPlasma/AstrClaw/blob/master/README.md"),
+    backfill_card("AstrClaw", "https://github.com/EinoPlasma/AstrClaw"),
   ]
 }
 
