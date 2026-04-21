@@ -171,8 +171,8 @@ fn label_finalists() -> String {
 ///|
 fn title_finalists() -> String {
   lang(
-    zh="以下 10 个项目按赛事海报公布顺序整理，作为本次大型软件合成挑战赛当前正式公布的初赛入围名单。完整展示墙仍保留全部公开参赛项目。",
-    en="The 10 projects below follow the organizer's published finalist poster order and represent the currently announced preliminary-round finalists. The full showcase below still keeps the broader public project roster.",
+    zh="以下 10 个项目按赛事海报公布顺序整理，作为本次大型软件合成挑战赛当前正式公布的初赛入围名单。",
+    en="The 10 projects below follow the organizer's published finalist poster order and represent the currently announced preliminary-round finalists.",
   )
 }
 
