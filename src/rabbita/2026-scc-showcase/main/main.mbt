@@ -286,7 +286,7 @@ fn finalist_projects() -> Array[FinalistProject] {
     },
     {
       rank: "7",
-      title: "markitdown",
+      title: "MoonBitMark",
       repo_text: "github.com/hnlyxiaobing/MoonBitMark",
       repo_url: "https://github.com/hnlyxiaobing/MoonBitMark",
       desc: lang(
