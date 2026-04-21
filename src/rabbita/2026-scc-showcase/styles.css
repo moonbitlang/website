@@ -49,6 +49,21 @@
     0 20px 40px rgba(4, 10, 28, 0.18);
   --rsc-signal-label: rgba(247, 251, 255, 0.84);
   --rsc-gridline: rgba(255, 255, 255, 0.045);
+  --rsc-finalist-surface:
+    radial-gradient(circle at top right, rgba(209, 40, 143, 0.14), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(101, 79, 240, 0.12), transparent 24%),
+    linear-gradient(180deg, rgba(10, 20, 49, 0.98), rgba(6, 13, 34, 0.98));
+  --rsc-finalist-border: rgba(128, 151, 220, 0.18);
+  --rsc-finalist-rule: rgba(216, 227, 255, 0.12);
+  --rsc-finalist-title: #f7fbff;
+  --rsc-finalist-text: rgba(239, 245, 255, 0.92);
+  --rsc-finalist-muted: rgba(219, 230, 247, 0.72);
+  --rsc-finalist-rank-text: #fff7df;
+  --rsc-finalist-rank-bg: linear-gradient(135deg, rgba(209, 40, 143, 0.9), rgba(135, 53, 186, 0.86));
+  --rsc-finalist-link: #f9c7e4;
+  --rsc-finalist-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 24px 54px rgba(6, 12, 31, 0.24);
   --rsc-guide-surface:
     radial-gradient(circle at top right, rgba(96, 165, 250, 0.12), transparent 32%),
     radial-gradient(circle at bottom left, rgba(209, 40, 143, 0.1), transparent 24%),
@@ -247,6 +262,101 @@
 #rabbita-scc-showcase .rsc-section-title--subtle {
   font-size: clamp(0.98rem, 1.4vw, 1.08rem);
   line-height: 1.68;
+}
+
+#rabbita-scc-showcase .rsc-finalist-board {
+  overflow: hidden;
+  padding: 1rem 1.2rem 0.3rem;
+  border: 1px solid var(--rsc-finalist-border);
+  border-radius: 30px;
+  background: var(--rsc-finalist-surface);
+  box-shadow: var(--rsc-finalist-shadow);
+}
+
+#rabbita-scc-showcase .rsc-finalist-head,
+#rabbita-scc-showcase .rsc-finalist-row {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.78fr) minmax(0, 1.22fr);
+  gap: 1rem;
+}
+
+#rabbita-scc-showcase .rsc-finalist-head {
+  padding: 0 0.2rem 0.9rem;
+  border-bottom: 1px solid var(--rsc-finalist-rule);
+}
+
+#rabbita-scc-showcase .rsc-finalist-head-cell {
+  color: var(--rsc-finalist-muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#rabbita-scc-showcase .rsc-finalist-list {
+  display: grid;
+}
+
+#rabbita-scc-showcase .rsc-finalist-row {
+  align-items: start;
+  padding: 1rem 0.2rem;
+  border-bottom: 1px solid var(--rsc-finalist-rule);
+  transition: background 0.2s ease;
+}
+
+#rabbita-scc-showcase .rsc-finalist-row:last-child {
+  border-bottom: 0;
+}
+
+#rabbita-scc-showcase .rsc-finalist-project {
+  display: grid;
+  gap: 0.45rem;
+}
+
+#rabbita-scc-showcase .rsc-finalist-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+#rabbita-scc-showcase .rsc-finalist-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  color: var(--rsc-finalist-rank-text);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1;
+  background: var(--rsc-finalist-rank-bg);
+  box-shadow: 0 10px 24px rgba(209, 40, 143, 0.22);
+}
+
+#rabbita-scc-showcase .rsc-finalist-title {
+  margin: 0.08rem 0 0;
+  color: var(--rsc-finalist-title);
+  font-size: 1.18rem;
+  line-height: 1.38;
+}
+
+#rabbita-scc-showcase .rsc-finalist-repo {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  color: var(--rsc-finalist-link);
+  font-size: 0.96rem;
+  line-height: 1.6;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+#rabbita-scc-showcase .rsc-finalist-desc {
+  margin: 0;
+  color: var(--rsc-finalist-text);
+  line-height: 1.8;
 }
 
 #rabbita-scc-showcase .rsc-grid {
@@ -579,6 +689,21 @@
     0 18px 38px rgba(0, 0, 0, 0.34);
   --rsc-signal-label: rgba(221, 229, 241, 0.78);
   --rsc-gridline: rgba(255, 255, 255, 0.02);
+  --rsc-finalist-surface:
+    radial-gradient(circle at top right, rgba(209, 40, 143, 0.16), transparent 26%),
+    radial-gradient(circle at bottom left, rgba(101, 79, 240, 0.12), transparent 26%),
+    linear-gradient(180deg, rgba(12, 17, 29, 0.99), rgba(7, 10, 18, 1));
+  --rsc-finalist-border: rgba(120, 136, 168, 0.18);
+  --rsc-finalist-rule: rgba(217, 228, 244, 0.1);
+  --rsc-finalist-title: #f6f8fd;
+  --rsc-finalist-text: rgba(229, 236, 246, 0.9);
+  --rsc-finalist-muted: rgba(183, 196, 218, 0.66);
+  --rsc-finalist-rank-text: #fff2d4;
+  --rsc-finalist-rank-bg: linear-gradient(135deg, rgba(224, 64, 176, 0.92), rgba(129, 76, 222, 0.86));
+  --rsc-finalist-link: #f3b7da;
+  --rsc-finalist-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 24px 56px rgba(0, 0, 0, 0.34);
   --rsc-guide-surface:
     radial-gradient(circle at top right, rgba(209, 40, 143, 0.14), transparent 24%),
     linear-gradient(180deg, rgba(14, 19, 30, 0.98), rgba(9, 13, 21, 1));
@@ -636,6 +761,10 @@
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
 }
 
+[data-theme="dark"] #rabbita-scc-showcase .rsc-finalist-row:hover {
+  background: rgba(255, 255, 255, 0.015);
+}
+
 [data-theme="dark"] #rabbita-scc-showcase .rsc-section:last-of-type,
 [data-theme="dark"] #rabbita-scc-showcase .rsc-check-panel {
   backdrop-filter: blur(14px);
@@ -645,6 +774,11 @@
   #rabbita-scc-showcase .rsc-hero,
   #rabbita-scc-showcase .rsc-steps-grid {
     grid-template-columns: 1fr;
+  }
+
+  #rabbita-scc-showcase .rsc-finalist-head,
+  #rabbita-scc-showcase .rsc-finalist-row {
+    grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.1fr);
   }
 }
 
@@ -689,6 +823,25 @@
     grid-template-columns: 1fr;
   }
 
+  #rabbita-scc-showcase .rsc-finalist-board {
+    padding: 0.95rem 1rem 0.2rem;
+    border-radius: 24px;
+  }
+
+  #rabbita-scc-showcase .rsc-finalist-head {
+    display: none;
+  }
+
+  #rabbita-scc-showcase .rsc-finalist-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.95rem 0;
+  }
+
+  #rabbita-scc-showcase .rsc-finalist-title {
+    font-size: 1.08rem;
+  }
+
   #rabbita-scc-showcase .rsc-card-body,
   #rabbita-scc-showcase .rsc-step-card,
   #rabbita-scc-showcase .rsc-check-panel {
@@ -711,6 +864,21 @@
     border-radius: 20px;
   }
 
+  #rabbita-scc-showcase .rsc-finalist-board {
+    padding: 0.85rem 0.9rem 0.15rem;
+    border-radius: 20px;
+  }
+
+  #rabbita-scc-showcase .rsc-finalist-title-row {
+    gap: 0.6rem;
+  }
+
+  #rabbita-scc-showcase .rsc-finalist-rank {
+    min-width: 1.8rem;
+    min-height: 1.8rem;
+    font-size: 0.86rem;
+  }
+
   #rabbita-scc-showcase .rsc-hero-title {
     font-size: 1.9rem;
   }
@@ -731,6 +899,7 @@
   #rabbita-scc-showcase .rsc-section-title,
   #rabbita-scc-showcase .rsc-step-desc,
   #rabbita-scc-showcase .rsc-card-desc,
+  #rabbita-scc-showcase .rsc-finalist-desc,
   #rabbita-scc-showcase .rsc-highlight,
   #rabbita-scc-showcase .rsc-check-item {
     line-height: 1.62;

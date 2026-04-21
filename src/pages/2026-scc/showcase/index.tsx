@@ -14,9 +14,14 @@ export default function Page() {
       <div className={styles.shell}>
         <ContestNavbar activeIndex={1} items={items2026en} qqGroup={false} />
         <RabbitaShowcaseMount
+          localeToggleLabel='Language'
+          themeToggleLabel='Theme'
+          localeOptions={[
+            { label: '中文', href: '/zh/2026-scc/showcase/', isActive: false },
+            { label: 'English', href: '/2026-scc/showcase/', isActive: true }
+          ]}
           lightModeLabel='Light Mode'
           darkModeLabel='Dark Mode'
-          toggleLabel='Showcase theme switch'
         />
       </div>
     </ContestLayout>

@@ -81,7 +81,7 @@ export const items2026en: ContestNavbarItem[] = [
 
 export default function ContestNavbar({
   activeIndex,
-  items,
+  items = [],
   qqGroup = false,
   buttons
 }: {

@@ -83,6 +83,15 @@ struct Card {
 }
 
 ///|
+struct FinalistProject {
+  rank : String
+  title : String
+  repo_text : String
+  repo_url : String
+  desc : String
+}
+
+///|
 struct Step {
   title : String
   desc : String
@@ -155,6 +164,29 @@ fn label_checklist() -> String {
 }
 
 ///|
+fn label_finalists() -> String {
+  lang(zh="初赛入围项目", en="Preliminary Finalists")
+}
+
+///|
+fn title_finalists() -> String {
+  lang(
+    zh="以下 10 个项目按赛事海报公布顺序整理，作为本次大型软件合成挑战赛当前正式公布的初赛入围名单。完整展示墙仍保留全部公开参赛项目。",
+    en="The 10 projects below follow the organizer's published finalist poster order and represent the currently announced preliminary-round finalists. The full showcase below still keeps the broader public project roster.",
+  )
+}
+
+///|
+fn finalist_project_label() -> String {
+  lang(zh="项目名", en="Project")
+}
+
+///|
+fn finalist_desc_label() -> String {
+  lang(zh="项目介绍", en="Project Summary")
+}
+
+///|
 fn card_badge() -> String {
   lang(zh="已正式启动", en="Officially Started")
 }
@@ -185,6 +217,112 @@ fn contest_signals() -> Array[Signal] {
     {
       value: lang(zh="2026 年 4 月 21 日", en="April 21, 2026"),
       label: lang(zh="当前整理日期", en="Current curation date"),
+    },
+  ]
+}
+
+///|
+fn finalist_projects() -> Array[FinalistProject] {
+  [
+    {
+      rank: "1",
+      title: "Moon Lottie",
+      repo_text: "github.com/cg-zhou/moon-lottie",
+      repo_url: "https://github.com/cg-zhou/moon-lottie",
+      desc: lang(
+        zh="基于 MoonBit 的 Lottie 动画播放与集成项目，可结合 npm 分发、React 使用，具备完整构建流程。",
+        en="A MoonBit-based Lottie playback and integration project designed to work with npm distribution and React usage, with a complete build pipeline already in place.",
+      ),
+    },
+    {
+      rank: "2",
+      title: lang(zh="定理证明器移植", en="Theorem Prover Port"),
+      repo_text: "github.com/Luna-Flow/QED",
+      repo_url: "https://github.com/Luna-Flow/QED",
+      desc: lang(
+        zh="将定理证明器移植到 MoonBit，包含较完整的 kernel、logic、parser、tactics、prover 与命令行工具链。",
+        en="Ports a theorem prover to MoonBit, covering a relatively complete kernel, logic, parser, tactics, prover, and command-line toolchain.",
+      ),
+    },
+    {
+      rank: "3",
+      title: "moon-bash",
+      repo_text: "github.com/Haoxincode/MoonBash",
+      repo_url: "https://github.com/Haoxincode/MoonBash",
+      desc: lang(
+        zh="用 MoonBit 实现的 Bash / 类 Shell 项目，提供浏览器演示，覆盖解析、执行与前端展示。",
+        en="A Bash-like shell project implemented in MoonBit, with a browser demo that already covers parsing, execution, and frontend presentation.",
+      ),
+    },
+    {
+      rank: "4",
+      title: "MoonMarkMind",
+      repo_text: "github.com/Xiao-li-He/MoonMarkMind",
+      repo_url: "https://github.com/Xiao-li-He/MoonMarkMind",
+      desc: lang(
+        zh="基于 MoonBit 的 Markdown 脑图可视化编辑工具，支持图形化交互与网页展示。",
+        en="A MoonBit Markdown mind-map visualization editor that supports graphical interaction and web presentation.",
+      ),
+    },
+    {
+      rank: "5",
+      title: "morm",
+      repo_text: "github.com/oboard/morm",
+      repo_url: "https://github.com/oboard/morm",
+      desc: lang(
+        zh="面向数据库访问场景的轻量 ORM 与 SQL 生成工具，侧重 schema 建模与查询生成。",
+        en="A lightweight ORM and SQL generation tool for database access scenarios, focused on schema modeling and query generation.",
+      ),
+    },
+    {
+      rank: "6",
+      title: "MoonParse",
+      repo_text: "github.com/caiklonghuan/MoonParse",
+      repo_url: "https://github.com/caiklonghuan/MoonParse",
+      desc: lang(
+        zh="用 MoonBit 实现的解析工具 / 解析框架，包含 grammar、runtime 与相关解析能力。",
+        en="A parser toolchain and parsing framework built in MoonBit, including grammar, runtime, and related parsing capabilities.",
+      ),
+    },
+    {
+      rank: "7",
+      title: "markitdown",
+      repo_text: "github.com/hnlyxiaobing/MoonBitMark",
+      repo_url: "https://github.com/hnlyxiaobing/MoonBitMark",
+      desc: lang(
+        zh="基于 MoonBit 的 Markdown 处理工具，支持一定的文档转换与 MCP 相关能力。",
+        en="A MoonBit-based Markdown processing tool with document conversion support and MCP-related capabilities.",
+      ),
+    },
+    {
+      rank: "8",
+      title: lang(zh="视觉小说引擎项目", en="Visual Novel Engine"),
+      repo_text: "github.com/zvmsbackend/reisen",
+      repo_url: "https://github.com/zvmsbackend/reisen",
+      desc: lang(
+        zh="基于 MoonBit 的视觉小说引擎，提供网页预览与模板，可用于构建互动叙事内容。",
+        en="A MoonBit visual novel engine with web preview and templates, suitable for building interactive narrative content.",
+      ),
+    },
+    {
+      rank: "9",
+      title: lang(zh="Quiver 移植", en="Quiver Port"),
+      repo_text: "github.com/kokic/kwiver",
+      repo_url: "https://github.com/kokic/kwiver",
+      desc: lang(
+        zh="将 Quiver 类工具移植到 MoonBit，包含可运行的构建、测试与浏览器端界面。",
+        en="Ports a Quiver-style tool to MoonBit, including runnable build scripts, tests, and a browser-side interface.",
+      ),
+    },
+    {
+      rank: "10",
+      title: "MoonECAT",
+      repo_text: "github.com/Afate2023/MoonECAT",
+      repo_url: "https://github.com/Afate2023/MoonECAT",
+      desc: lang(
+        zh="基于 MoonBit 的 EtherCAT 相关项目，面向工业通信场景，包含场景分析与 trace 分析能力。",
+        en="A MoonBit EtherCAT project aimed at industrial communication scenarios, including scene analysis and trace analysis capabilities.",
+      ),
     },
   ]
 }
@@ -672,6 +810,25 @@ fn view_signal(signal : Signal) -> Html {
 }
 
 ///|
+fn view_finalist(finalist : FinalistProject) -> Html {
+  div(class="rsc-finalist-row", [
+    div(class="rsc-finalist-project", [
+      div(class="rsc-finalist-title-row", [
+        span(class="rsc-finalist-rank", finalist.rank),
+        h3(class="rsc-finalist-title", finalist.title),
+      ]),
+      a(
+        class="rsc-finalist-repo",
+        href=finalist.repo_url,
+        target=Blank,
+        finalist.repo_text,
+      ),
+    ]),
+    p(class="rsc-finalist-desc", finalist.desc),
+  ])
+}
+
+///|
 fn view_card(card : Card) -> Html {
   ignore(card.badge)
   ignore(card.cover)
@@ -756,6 +913,26 @@ fn view_section(label : String, title : String, cards : Array[Card]) -> Html {
 }
 
 ///|
+fn view_finalists() -> Html {
+  section(class="rsc-section", [
+    div(class="rsc-section-head", [
+      p(class="rsc-section-label", label_finalists()),
+      h2(class="rsc-section-title rsc-section-title--subtle", title_finalists()),
+    ]),
+    div(class="rsc-finalist-board", [
+      div(class="rsc-finalist-head", [
+        span(class="rsc-finalist-head-cell", finalist_project_label()),
+        span(class="rsc-finalist-head-cell", finalist_desc_label()),
+      ]),
+      div(
+        class="rsc-finalist-list",
+        finalist_projects().map(fn(finalist) { view_finalist(finalist) }),
+      ),
+    ]),
+  ])
+}
+
+///|
 fn view_hero() -> Html {
   section(class="rsc-hero", [
     div(class="rsc-hero-copy", [
@@ -790,6 +967,7 @@ fn view(dispatch : Dispatch[Msg], model : Model) -> Html {
   let approved_cards = contest_cards() + reference_cards()
   div(class="rsc-page", [
     view_hero(),
+    view_finalists(),
     view_section(label_slots(), title_slots(), approved_cards),
     view_steps(),
   ])

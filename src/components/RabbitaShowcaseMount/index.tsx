@@ -10,15 +10,23 @@ const scriptSrc = '/rabbita-2026-scc-showcase/main.js'
 const styleHref = '/rabbita-2026-scc-showcase/styles.css'
 
 type Props = {
+  localeToggleLabel: string
+  themeToggleLabel: string
+  localeOptions: Array<{
+    label: string
+    href: string
+    isActive: boolean
+  }>
   lightModeLabel: string
   darkModeLabel: string
-  toggleLabel: string
 }
 
 export default function RabbitaShowcaseMount({
-  lightModeLabel,
-  darkModeLabel,
-  toggleLabel
+  localeToggleLabel = 'Language',
+  themeToggleLabel = 'Theme',
+  localeOptions = [],
+  lightModeLabel = 'Light',
+  darkModeLabel = 'Dark'
 }: Props) {
   const { colorMode, setColorMode } = useColorMode()
 
@@ -63,29 +71,53 @@ export default function RabbitaShowcaseMount({
   return (
     <>
       <div className={styles.toolbar}>
-        <div className={styles.modeSwitch} role='group' aria-label={toggleLabel}>
-          <button
-            type='button'
-            className={clsx(
-              styles.modeButton,
-              colorMode !== 'dark' && styles.modeButtonActive
-            )}
-            onClick={() => setColorMode('light')}
-            aria-pressed={colorMode !== 'dark'}
-          >
-            {lightModeLabel}
-          </button>
-          <button
-            type='button'
-            className={clsx(
-              styles.modeButton,
-              colorMode === 'dark' && styles.modeButtonActive
-            )}
-            onClick={() => setColorMode('dark')}
-            aria-pressed={colorMode === 'dark'}
-          >
-            {darkModeLabel}
-          </button>
+        <div className={styles.switchCluster}>
+          <div className={styles.switchGroup}>
+            <div className={styles.switchLabel}>{localeToggleLabel}</div>
+            <div className={styles.localeSwitch} role='group' aria-label={localeToggleLabel}>
+              {localeOptions.map((option) => (
+                <a
+                  key={option.href}
+                  href={option.href}
+                  className={clsx(
+                    styles.modeButton,
+                    styles.localeButton,
+                    option.isActive && styles.modeButtonActive
+                  )}
+                  aria-current={option.isActive ? 'page' : undefined}
+                >
+                  {option.label}
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className={styles.switchGroup}>
+            <div className={styles.switchLabel}>{themeToggleLabel}</div>
+            <div className={styles.modeSwitch} role='group' aria-label={themeToggleLabel}>
+              <button
+                type='button'
+                className={clsx(
+                  styles.modeButton,
+                  colorMode !== 'dark' && styles.modeButtonActive
+                )}
+                onClick={() => setColorMode('light')}
+                aria-pressed={colorMode !== 'dark'}
+              >
+                {lightModeLabel}
+              </button>
+              <button
+                type='button'
+                className={clsx(
+                  styles.modeButton,
+                  colorMode === 'dark' && styles.modeButtonActive
+                )}
+                onClick={() => setColorMode('dark')}
+                aria-pressed={colorMode === 'dark'}
+              >
+                {darkModeLabel}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div id={mountId} />
