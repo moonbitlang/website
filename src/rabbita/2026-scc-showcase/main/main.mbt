@@ -108,8 +108,8 @@ fn hero_title() -> String {
 ///|
 fn hero_intro() -> String {
   lang(
-    zh="截至 2026 年 4 月 7 日，这一版集中展示当前已经正式启动、并且已经公开 GitHub 仓库的参赛项目。",
-    en="As of April 7, 2026, this edition focuses on projects that have officially kicked off and already expose a public GitHub repository.",
+    zh="截至 2026 年 4 月 21 日，这一版集中展示当前已经正式启动、并且已经公开 GitHub 仓库的 \{featured_project_count()} 个参赛项目。",
+    en="As of April 21, 2026, this edition focuses on \{featured_project_count()} projects that have officially kicked off and already expose a public GitHub repository.",
   )
 }
 
@@ -160,10 +160,18 @@ fn card_badge() -> String {
 }
 
 ///|
+fn featured_project_count() -> Int {
+  contest_cards().length() + reference_cards().length()
+}
+
+///|
 fn contest_signals() -> Array[Signal] {
   [
     {
-      value: lang(zh="19 个项目", en="19 Projects"),
+      value: lang(
+        zh="\{featured_project_count()} 个项目",
+        en="\{featured_project_count()} Projects",
+      ),
       label: lang(zh="当前已正式启动并已收录展示", en="Officially started and already featured here"),
     },
     {
@@ -175,7 +183,7 @@ fn contest_signals() -> Array[Signal] {
       label: lang(zh="这些项目都已进入公开开发阶段", en="Each listed project is already being built in the open"),
     },
     {
-      value: lang(zh="2026 年 4 月 7 日", en="April 7, 2026"),
+      value: lang(zh="2026 年 4 月 21 日", en="April 21, 2026"),
       label: lang(zh="当前整理日期", en="Current curation date"),
     },
   ]
@@ -580,7 +588,41 @@ fn reference_cards() -> Array[Card] {
         { label: lang(zh="公开分支", en="Public Branch"), url: "https://github.com/MrsFlower/MoonPalace/tree/windows-build-setup", external: true },
       ],
     },
+    backfill_card("MoonMarkMind", "https://github.com/Xiao-li-He/MoonMarkMind"),
+    backfill_card("MoonParse", "https://github.com/caiklonghuan/MoonParse"),
+    backfill_card("yuecharts", "https://github.com/OverflowCat/yuecharts"),
+    backfill_card("FlowLabLite", "https://github.com/YuFenfen-ai/FlowLabLite"),
+    backfill_card("MoonForge", "https://github.com/helloLeila/MoonForge"),
+    backfill_card("moonink", "https://github.com/Kozmosa/moonink"),
+    backfill_card("magpiedb", "https://github.com/codeworm96/magpiedb"),
+    backfill_card("mengxi", "https://github.com/MaoDingA/mengxi"),
+    backfill_card("MetaEditor", "https://github.com/ch3coohlink/MetaEditor"),
+    backfill_card("cogna", "https://github.com/cogna-dev/cogna"),
+    backfill_card("AstrClaw", "https://github.com/EinoPlasma/AstrClaw/blob/master/README.md"),
   ]
+}
+
+///|
+fn backfill_card(title : String, url : String) -> Card {
+  {
+    badge: card_badge(),
+    stage: lang(zh="公开仓库", en="Public Repo"),
+    category: lang(zh="待补简介", en="Profile Pending"),
+    title,
+    subtitle: lang(zh="已补充到展示墙的参赛项目仓库", en="Contest repository added to the showcase"),
+    desc: lang(zh="该项目链接已补充到展示页，后续可以继续补充更完整的项目介绍、亮点和演示信息。", en="This project link has been added to the showcase. A fuller project profile, highlights, and demo links can be added later."),
+    fallback: title,
+    cover: "",
+    highlights: [
+      lang(zh="公开 GitHub 页面已接入展示墙", en="Public GitHub page is now linked from the showcase"),
+      lang(zh="可直接查看 README、源码与提交记录", en="Open README, source code, and commit history directly"),
+      lang(zh="后续可继续补充 Demo 与项目说明", en="Demo links and project details can be added later"),
+    ],
+    tags: ["MoonBit", "GitHub", lang(zh="公开项目", en="Open Project")],
+    links: [
+      { label: lang(zh="GitHub 页面", en="GitHub Page"), url, external: true },
+    ],
+  }
 }
 
 ///|
