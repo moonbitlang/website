@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useColorMode } from '@docusaurus/theme-common'
 import clsx from 'clsx'
-import styles from '@site/src/pages/2026-scc/showcase/wrapper.module.css'
+import styles from './wrapper.module.css'
 
 const mountId = 'rabbita-scc-showcase'
 const scriptId = 'rabbita-scc-showcase-script'
@@ -41,7 +41,7 @@ function getShowcaseLocaleHref(locale: 'en' | 'zh', isActive: boolean) {
     : 'https://www.moonbitlang.com/2026-scc/showcase/'
 }
 
-export default function RabbitaShowcaseMount({
+export default function ShowcaseMount({
   localeToggleLabel = 'Language',
   themeToggleLabel = 'Theme',
   localeOptions = [],

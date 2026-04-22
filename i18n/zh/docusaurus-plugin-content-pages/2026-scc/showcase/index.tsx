@@ -1,6 +1,6 @@
 import ContestLayout from '@site/src/components/ContestLayout'
 import ContestNavbar, { items2026 } from '@site/src/components/ContestNavbar'
-import RabbitaShowcaseMount from '@site/src/components/RabbitaShowcaseMount'
+import ShowcaseMount from '@site/src/pages/2026-scc/showcase/ShowcaseMount'
 import styles from '@site/src/pages/2026-scc/showcase/wrapper.module.css'
 
 export default function Page() {
@@ -14,7 +14,7 @@ export default function Page() {
     >
       <div className={styles.shell}>
         <ContestNavbar activeIndex={1} items={items2026} qqGroup={false} />
-        <RabbitaShowcaseMount
+        <ShowcaseMount
           localeToggleLabel='语言'
           themeToggleLabel='主题'
           localeOptions={[
