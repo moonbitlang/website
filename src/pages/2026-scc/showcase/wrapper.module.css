@@ -1,7 +1,22 @@
 .shell {
+  position: relative;
+  isolation: isolate;
   width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 2rem 0 3rem;
+}
+
+:global([data-theme='dark']) .shell::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  bottom: -3rem;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: #09184c;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .toolbar {

@@ -16,7 +16,6 @@ type LayoutProps = {
   qqGroupId?: string
   heroBgColor?: string
   heroBackdropImg?: string
-  contentBgColor?: string
   children: React.ReactNode
 }
 
@@ -28,47 +27,32 @@ export default function ContestLayout(props: LayoutProps) {
     qqGroupId,
     qqGroupImg,
     heroBgColor,
-    heroBackdropImg,
-    contentBgColor
+    heroBackdropImg
   } = props
-
-  const pageStyle = contentBgColor
-    ? ({
-        '--contest-content-bg-color': contentBgColor
-      } as CSSProperties)
-    : undefined
-
   return (
     <Layout>
-      <div className={styles.page} style={pageStyle}>
-        <Hero
-          img={heroImg}
-          mobileHeroImg={mobileHeroImg}
-          bgColor={heroBgColor}
-          backdropImg={heroBackdropImg}
-        />
-        <main className={styles.main}>
-          {qqGroupImg && (
-            <div className={styles['qq-group']}>
-              <div className={styles['qq-group__card']}>
-                <img src={qqGroupImg} alt='' />
-                <div className={styles['qq-group__text']}>
-                  大赛官方QQ群
-                  {qqGroupId && (
-                    <>
-                      <br />
-                      {qqGroupId}
-                    </>
-                  )}
-                </div>
+      <Hero
+        img={heroImg}
+        mobileHeroImg={mobileHeroImg}
+        bgColor={heroBgColor}
+        backdropImg={heroBackdropImg}
+      />
+      <main>
+        {qqGroupImg && (
+          <div className={styles['qq-group']}>
+            <div className={styles['qq-group__card']}>
+              <img src={qqGroupImg} alt='' />
+              <div className={styles['qq-group__text']}>
+                大赛官方QQ群
+                {qqGroupId && <><br />{qqGroupId}</>}
               </div>
             </div>
-          )}
-          <article className='container container--fluid margin-vert--lg'>
-            {children}
-          </article>
-        </main>
-      </div>
+          </div>
+        )}
+        <article className='container container--fluid margin-vert--lg'>
+          {children}
+        </article>
+      </main>
     </Layout>
   )
 }

@@ -399,35 +399,14 @@ export default async (): Promise<Config> => {
       [
         '@docusaurus/plugin-client-redirects',
         {
-          redirects: isZh
-            ? []
-            : [
-                {
-                  from: '/zh/2026-scc',
-                  to: 'https://www.moonbitlang.cn/2026-scc/'
-                },
-                {
-                  from: '/zh/2026-scc/showcase',
-                  to: 'https://www.moonbitlang.cn/2026-scc/showcase/'
-                }
-              ],
           createRedirects(existingPath) {
-            const redirects: string[] = []
-
             if (
               existingPath === '/updates' ||
               existingPath.startsWith('/updates/')
             ) {
-              redirects.push(existingPath.replace('/updates', '/weekly-updates'))
+              return existingPath.replace('/updates', '/weekly-updates')
             }
-
-            // The Chinese site is deployed at the domain root, but some stale
-            // locale links still target `/zh/...`. Keep those URLs working.
-            if (isZh && !existingPath.startsWith('/zh/')) {
-              redirects.push(existingPath === '/' ? '/zh' : `/zh${existingPath}`)
-            }
-
-            return redirects.length > 0 ? redirects : undefined
+            return undefined
           }
         } satisfies RedirectOptions
       ]

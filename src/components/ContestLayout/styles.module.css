@@ -1,12 +1,3 @@
-.page {
-  --contest-content-bg-color: transparent;
-}
-
-:global([data-theme='dark']) .page {
-  background:
-    linear-gradient(180deg, var(--contest-content-bg-color), var(--contest-content-bg-color));
-}
-
 .hero {
   position: relative;
   display: flex;
@@ -68,18 +59,6 @@
   .hero-img {
     display: none;
   }
-}
-
-main.main {
-  position: relative;
-}
-
-:global([data-theme='dark']) main.main {
-  background: var(--contest-content-bg-color);
-}
-
-main.main > :global(article) {
-  margin: 0 auto;
 }
 
 main:has(.qq-group) {

@@ -9,7 +9,6 @@ export default function Page() {
       mobileHeroImg='/img/2026-contest/kv-en.jpg'
       heroBgColor='#09184c'
       heroBackdropImg='/img/2026-contest/kv-en.jpg'
-      contentBgColor='#09184c'
     >
       <div className={styles.container}>
         <ContestNavbar activeIndex={0} items={items2026en} qqGroup={false} />

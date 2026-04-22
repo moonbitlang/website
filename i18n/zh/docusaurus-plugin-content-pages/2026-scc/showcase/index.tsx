@@ -11,7 +11,6 @@ export default function Page() {
       qqGroupImg='/img/2026-contest/qq-group.png'
       heroBgColor='#09184c'
       heroBackdropImg='/img/2026-contest/kv.jpg'
-      contentBgColor='#09184c'
     >
       <div className={styles.shell}>
         <ContestNavbar activeIndex={1} items={items2026} qqGroup={false} />
