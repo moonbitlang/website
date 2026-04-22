@@ -11,6 +11,7 @@ export default function Page() {
       qqGroupImg='/img/2026-contest/qq-group.png'
       heroBgColor='#09184c'
       heroBackdropImg='/img/2026-contest/kv.jpg'
+      contentBgColor='#09184c'
     >
       <div className={styles.shell}>
         <ContestNavbar activeIndex={1} items={items2026} qqGroup={false} />
@@ -18,8 +19,8 @@ export default function Page() {
           localeToggleLabel='语言'
           themeToggleLabel='主题'
           localeOptions={[
-            { label: '中文', href: '/zh/2026-scc/showcase/', isActive: true },
-            { label: 'English', href: '/2026-scc/showcase/', isActive: false }
+            { label: '中文', locale: 'zh', isActive: true },
+            { label: 'English', locale: 'en', isActive: false }
           ]}
           lightModeLabel='白天模式'
           darkModeLabel='夜间模式'

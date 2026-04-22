@@ -14,11 +14,31 @@ type Props = {
   themeToggleLabel: string
   localeOptions: Array<{
     label: string
-    href: string
+    locale: 'en' | 'zh'
     isActive: boolean
   }>
   lightModeLabel: string
   darkModeLabel: string
+}
+
+function getShowcaseLocaleHref(locale: 'en' | 'zh', isActive: boolean) {
+  if (typeof window !== 'undefined') {
+    const { protocol, hostname, pathname, search, hash } = window.location
+    const suffix = `${search}${hash}`
+
+    if (isActive) {
+      return `${pathname}${suffix}`
+    }
+
+    if (hostname === '127.0.0.1' || hostname === 'localhost') {
+      const previewPort = locale === 'zh' ? '3004' : '3002'
+      return `${protocol}//${hostname}:${previewPort}/2026-scc/showcase/${suffix}`
+    }
+  }
+
+  return locale === 'zh'
+    ? 'https://www.moonbitlang.cn/2026-scc/showcase/'
+    : 'https://www.moonbitlang.com/2026-scc/showcase/'
 }
 
 export default function RabbitaShowcaseMount({
@@ -76,18 +96,33 @@ export default function RabbitaShowcaseMount({
             <div className={styles.switchLabel}>{localeToggleLabel}</div>
             <div className={styles.localeSwitch} role='group' aria-label={localeToggleLabel}>
               {localeOptions.map((option) => (
-                <a
-                  key={option.href}
-                  href={option.href}
-                  className={clsx(
-                    styles.modeButton,
-                    styles.localeButton,
-                    option.isActive && styles.modeButtonActive
-                  )}
-                  aria-current={option.isActive ? 'page' : undefined}
-                >
-                  {option.label}
-                </a>
+                option.isActive ? (
+                  <button
+                    key={option.locale}
+                    type='button'
+                    className={clsx(
+                      styles.modeButton,
+                      styles.localeButton,
+                      styles.modeButtonActive
+                    )}
+                    aria-current='page'
+                    aria-pressed='true'
+                    disabled
+                  >
+                    {option.label}
+                  </button>
+                ) : (
+                  <button
+                    key={option.locale}
+                    type='button'
+                    className={clsx(styles.modeButton, styles.localeButton)}
+                    onClick={() => {
+                      window.location.href = getShowcaseLocaleHref(option.locale, false)
+                    }}
+                  >
+                    {option.label}
+                  </button>
+                )
               ))}
             </div>
           </div>

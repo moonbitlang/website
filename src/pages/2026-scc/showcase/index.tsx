@@ -10,6 +10,7 @@ export default function Page() {
       mobileHeroImg='/img/2026-contest/kv-en.jpg'
       heroBgColor='#09184c'
       heroBackdropImg='/img/2026-contest/kv-en.jpg'
+      contentBgColor='#09184c'
     >
       <div className={styles.shell}>
         <ContestNavbar activeIndex={1} items={items2026en} qqGroup={false} />
@@ -17,8 +18,8 @@ export default function Page() {
           localeToggleLabel='Language'
           themeToggleLabel='Theme'
           localeOptions={[
-            { label: '中文', href: '/zh/2026-scc/showcase/', isActive: false },
-            { label: 'English', href: '/2026-scc/showcase/', isActive: true }
+            { label: '中文', locale: 'zh', isActive: false },
+            { label: 'English', locale: 'en', isActive: true }
           ]}
           lightModeLabel='Light Mode'
           darkModeLabel='Dark Mode'
