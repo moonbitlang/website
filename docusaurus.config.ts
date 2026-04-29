@@ -27,7 +27,7 @@ import {
   existsSync,
   copyFileSync,
   mkdirSync,
-  writeFileSync,
+  writeFileSync
 } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import path from 'node:path'
@@ -148,7 +148,10 @@ export default async (): Promise<Config> => {
         const staticDir = path.join(process.cwd(), 'static', 'rabbita-home')
         const stylesSrc = path.join(rabbitaHomeDir, 'styles.css')
 
-        function collectWatchFiles(dir: string, files: string[] = []): string[] {
+        function collectWatchFiles(
+          dir: string,
+          files: string[] = []
+        ): string[] {
           const skip = new Set(['node_modules', '_build', 'target', '.git'])
           for (const entry of readdirSync(dir, { withFileTypes: true })) {
             if (skip.has(entry.name)) continue
@@ -182,10 +185,14 @@ export default async (): Promise<Config> => {
         }
 
         function buildAndCopy(): void {
-          const result = spawnSync('moon', ['build', '--target', 'js', '--debug'], {
-            cwd: rabbitaHomeDir,
-            stdio: 'inherit',
-          })
+          const result = spawnSync(
+            'moon',
+            ['build', '--target', 'js', '--debug'],
+            {
+              cwd: rabbitaHomeDir,
+              stdio: 'inherit'
+            }
+          )
           if (result.status !== 0) return
           const buildDir = path.join(
             rabbitaHomeDir,
@@ -240,11 +247,11 @@ export default async (): Promise<Config> => {
                         } catch (e) {}
                       }, 500);
                     })();
-                  `,
-                },
-              ],
+                  `
+                }
+              ]
             }
-          },
+          }
         }
       },
       // In dev mode, watch showcase .mbt source files and run moon build on
@@ -264,7 +271,10 @@ export default async (): Promise<Config> => {
         )
         const stylesSrc = path.join(showcaseDir, 'styles.css')
 
-        function collectWatchFiles(dir: string, files: string[] = []): string[] {
+        function collectWatchFiles(
+          dir: string,
+          files: string[] = []
+        ): string[] {
           const skip = new Set(['node_modules', '_build', 'target', '.git'])
           for (const entry of readdirSync(dir, { withFileTypes: true })) {
             if (skip.has(entry.name)) continue
@@ -298,12 +308,22 @@ export default async (): Promise<Config> => {
         }
 
         function buildAndCopy(): void {
-          const result = spawnSync('moon', ['build', '--target', 'js', '--debug'], {
-            cwd: showcaseDir,
-            stdio: 'inherit',
-          })
+          const result = spawnSync(
+            'moon',
+            ['build', '--target', 'js', '--debug'],
+            {
+              cwd: showcaseDir,
+              stdio: 'inherit'
+            }
+          )
           if (result.status !== 0) return
-          const buildDir = path.join(showcaseDir, '_build', 'js', 'debug', 'build')
+          const buildDir = path.join(
+            showcaseDir,
+            '_build',
+            'js',
+            'debug',
+            'build'
+          )
           if (!existsSync(buildDir)) return
           const jsFile = findFirstJs(buildDir)
           if (!jsFile) return
@@ -350,11 +370,11 @@ export default async (): Promise<Config> => {
                         } catch (e) {}
                       }, 500);
                     })();
-                  `,
-                },
-              ],
+                  `
+                }
+              ]
             }
-          },
+          }
         }
       },
       [
@@ -415,7 +435,7 @@ export default async (): Promise<Config> => {
     themeConfig: {
       announcementBar: isZh
         ? {
-            content: `🚀 <b><a href="/2026-scc">2026 MoonBit 大型软件合成挑战赛</a></b> 火热报名中！总奖金池 15 万元 🎉`,
+            content: `🚀 <b><a href="https://aka.moonbitlang.com/osc-2026">2026 MoonBit国产基础软件开源大赛</a></b> 火热报名中！总奖金池 15 万元 🎉`,
             isCloseable: false
           }
         : {
