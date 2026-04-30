@@ -607,6 +607,10 @@ export default async (): Promise<Config> => {
               {
                 href: '/2026-scc',
                 label: '2026 MoonBit 软件合成挑战赛'
+              },
+              {
+                href: 'https://aka.moonbitlang.com/osc-2026',
+                label: '2026 MoonBit 国产基础软件开源大赛'
               }
             ]
           },
