@@ -5,6 +5,12 @@ fn get_news_items() -> Array[NewsItem] {
   lang(
     en=[
     {
+      title: "One Language, Multiple Targets: A Full-Stack Workflow with MoonBit",
+      date: "2026-05-12",
+      url: "https://www.moonbitlang.com/blog/moonbit-multiple-targets",
+      img: "/img/blogs/2026-05-12-moonbit-multiple-targets/cover.png",
+    },
+    {
       title: "MoonBit 0.9: Introducing First-Class Formal Verification",
       date: "2026-04-08",
       url: "https://www.moonbitlang.com/blog/moonbit-0-9-release",
@@ -21,12 +27,6 @@ fn get_news_items() -> Array[NewsItem] {
       date: "2026-02-06",
       url: "https://www.moonbitlang.com/blog/fastcc-ai-driven-development",
       img: "/img/blogs/2026-02-06-fastcc-ai-driven-development/cover.jpg",
-    },
-    {
-      title: "Implementing CRDT Algorithms with MoonBit and Building Real-time Collaborative Applications",
-      date: "2026-01-28",
-      url: "https://www.moonbitlang.com/blog/crdt-algorithms-moonbit",
-      img: "/img/blogs/2026-01-28-crdt-algorithms-moonbit/cover.jpg",
     },
     ],
     zh=[

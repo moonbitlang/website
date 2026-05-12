@@ -84,10 +84,6 @@ In the example below, we will select some of these libraries to build a simple T
 
 We start with a minimal project. To support both the frontend and backend while sharing as much code as possible, the project is split into three modules:
 
-## A Full-Stack Example
-
-In [isomorphic-template](https://github.com/moonbit-community/isomorphic-template), we prepared a minimal full-stack project template. Its overall structure looks like this:
-
 ```Bash
 isomorphic-template
   ├── backend
