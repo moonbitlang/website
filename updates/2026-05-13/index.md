@@ -254,7 +254,7 @@
 
 2. **`moonbitlang/async` is now at version v0.19.0.** The main new features and API changes since the last monthly report (v0.17.0) are as follows:
 
-    - Added the `moonbitlang/core/gzip` package, which can apply gzip decompression/compression transformations to any reader/writer
+    - Added the `moonbitlang/async/gzip` package, which can apply gzip decompression/compression transformations to any reader/writer
 
     - The `moonbitlang/async/tls` package added the following features:
 

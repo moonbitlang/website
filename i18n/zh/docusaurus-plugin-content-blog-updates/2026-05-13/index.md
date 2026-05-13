@@ -258,7 +258,7 @@
 
 2. `moonbitlang/async` 目前的最新版本为 v0.19.0，自上次月报（v0.17.0）以来的主要新增功能和 API 变动如下：
     
-    - 新增了 `moonbitlang/core/gzip` 包，可以对任何 reader/writer 进行 gzip 解压缩/压缩变换
+    - 新增了 `moonbitlang/async/gzip` 包，可以对任何 reader/writer 进行 gzip 解压缩/压缩变换
         
     - `moonbitlang/async/tls` 包新增了下列功能：
         
