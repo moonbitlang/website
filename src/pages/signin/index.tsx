@@ -72,6 +72,7 @@ function SignInForm() {
             }
             if (!isValidate) return
             try {
+              setSignInEnable(false)
               const params = new URLSearchParams()
               params.set('username', username)
               params.set('password', password)
@@ -91,8 +92,16 @@ function SignInForm() {
                 throw new Error(`${res.status} ${res.statusText}`)
               }
               const json = (await res.json()) as { access_token: string }
-              localStorage.setItem('mooncakes-access-token', json.access_token)
+              localStorage.setItem(
+                'access_token_with_time',
+                JSON.stringify({
+                  access_token: json.access_token,
+                  time: Date.now()
+                })
+              )
+              localStorage.removeItem('mooncakes-access-token')
               localStorage.setItem('mooncakes-username', username)
+              window.location.assign('/mooncakes')
             } catch (e) {
               if (e instanceof LoginError) {
                 setPasswordError(e.detail)

@@ -24,7 +24,67 @@ import { jwtDecode } from 'jwt-decode'
 type UserInfo = {
   accessToken: string
   username: string
-  gh_avatar: string
+  gh_avatar?: string
+}
+
+type AccessTokenWithTime = {
+  access_token: string
+  time: number
+}
+
+const ACCESS_TOKEN_WITH_TIME_KEY = 'access_token_with_time'
+const LEGACY_ACCESS_TOKEN_KEY = 'mooncakes-access-token'
+const USERNAME_KEY = 'mooncakes-username'
+const ACCESS_TOKEN_MAX_AGE = 90 * 24 * 60 * 60 * 1000
+
+function isAccessTokenWithTime(value: unknown): value is AccessTokenWithTime {
+  if (value === null || typeof value !== 'object') return false
+  const data = value as Partial<AccessTokenWithTime>
+  return (
+    typeof data.access_token === 'string' &&
+    data.access_token !== '' &&
+    typeof data.time === 'number' &&
+    Number.isFinite(data.time)
+  )
+}
+
+function readAccessTokenWithTime(): AccessTokenWithTime | null {
+  const accessTokenWithTime = localStorage.getItem(ACCESS_TOKEN_WITH_TIME_KEY)
+  if (accessTokenWithTime !== null) {
+    try {
+      const data = JSON.parse(accessTokenWithTime) as unknown
+      if (isAccessTokenWithTime(data)) return data
+    } catch {
+      // Ignore malformed stored auth state and fall back to legacy storage.
+    }
+  }
+
+  const legacyAccessToken = localStorage.getItem(LEGACY_ACCESS_TOKEN_KEY)
+  if (!legacyAccessToken) return null
+
+  const migratedAccessToken = {
+    access_token: legacyAccessToken,
+    time: Date.now()
+  }
+  localStorage.setItem(
+    ACCESS_TOKEN_WITH_TIME_KEY,
+    JSON.stringify(migratedAccessToken)
+  )
+  localStorage.removeItem(LEGACY_ACCESS_TOKEN_KEY)
+  return migratedAccessToken
+}
+
+function readUserInfo(accessToken: string): UserInfo | null {
+  const fallbackUsername = localStorage.getItem(USERNAME_KEY)
+  try {
+    const data = jwtDecode<Partial<UserInfo>>(accessToken)
+    const username = data.username ?? fallbackUsername
+    if (!username) return null
+    return { ...data, username, accessToken }
+  } catch {
+    if (!fallbackUsername) return null
+    return { accessToken, username: fallbackUsername }
+  }
 }
 
 function User(props: UserInfo): React.JSX.Element {
@@ -108,16 +168,14 @@ export default function Mooncakes(): React.JSX.Element {
   const clientId = customFields?.GITHUB_OAUTH_CLIENT_ID as string
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('access_token_with_time')
-    const accessTokenWithTime = accessToken
-      ? (JSON.parse(accessToken) as { access_token: string; time: number })
-      : null
+    const accessTokenWithTime = readAccessTokenWithTime()
     if (accessTokenWithTime === null) return
-    if (Date.now() - accessTokenWithTime.time > 90 * 24 * 60 * 60 * 1000) return
+    if (Date.now() - accessTokenWithTime.time > ACCESS_TOKEN_MAX_AGE) return
     // if (Date.now() - accessTokenWithTime.time > 1000) return
+    const data = readUserInfo(accessTokenWithTime.access_token)
+    if (data === null) return
     setIsLogin(true)
-    const data = jwtDecode<UserInfo>(accessTokenWithTime.access_token)
-    setUserData({ ...data, accessToken: accessTokenWithTime.access_token })
+    setUserData(data)
   }, [])
   return (
     <Layout wrapperClassName={styles['main-wrapper']}>
