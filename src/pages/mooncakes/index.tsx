@@ -32,8 +32,9 @@ type AccessTokenWithTime = {
   time: number
 }
 
-const ACCESS_TOKEN_WITH_TIME_KEY = 'access_token_with_time'
-const LEGACY_ACCESS_TOKEN_KEY = 'mooncakes-access-token'
+const GITHUB_ACCESS_TOKEN_WITH_TIME_KEY = 'access_token_with_time'
+const PASSWORD_ACCESS_TOKEN_WITH_TIME_KEY = 'mooncakes-access-token-with-time'
+const LEGACY_PASSWORD_ACCESS_TOKEN_KEY = 'mooncakes-access-token'
 const USERNAME_KEY = 'mooncakes-username'
 const ACCESS_TOKEN_MAX_AGE = 90 * 24 * 60 * 60 * 1000
 
@@ -48,8 +49,10 @@ function isAccessTokenWithTime(value: unknown): value is AccessTokenWithTime {
   )
 }
 
-function readAccessTokenWithTime(): AccessTokenWithTime | null {
-  const accessTokenWithTime = localStorage.getItem(ACCESS_TOKEN_WITH_TIME_KEY)
+function readStoredAccessTokenWithTime(
+  key: string
+): AccessTokenWithTime | null {
+  const accessTokenWithTime = localStorage.getItem(key)
   if (accessTokenWithTime !== null) {
     try {
       const data = JSON.parse(accessTokenWithTime) as unknown
@@ -58,8 +61,27 @@ function readAccessTokenWithTime(): AccessTokenWithTime | null {
       // Ignore malformed stored auth state and fall back to legacy storage.
     }
   }
+  return null
+}
 
-  const legacyAccessToken = localStorage.getItem(LEGACY_ACCESS_TOKEN_KEY)
+function readAccessTokenWithTime(): AccessTokenWithTime | null {
+  const passwordAccessTokenWithTime = readStoredAccessTokenWithTime(
+    PASSWORD_ACCESS_TOKEN_WITH_TIME_KEY
+  )
+  if (passwordAccessTokenWithTime !== null) {
+    return passwordAccessTokenWithTime
+  }
+
+  const githubAccessTokenWithTime = readStoredAccessTokenWithTime(
+    GITHUB_ACCESS_TOKEN_WITH_TIME_KEY
+  )
+  if (githubAccessTokenWithTime !== null) {
+    return githubAccessTokenWithTime
+  }
+
+  const legacyAccessToken = localStorage.getItem(
+    LEGACY_PASSWORD_ACCESS_TOKEN_KEY
+  )
   if (!legacyAccessToken) return null
 
   const migratedAccessToken = {
@@ -67,10 +89,10 @@ function readAccessTokenWithTime(): AccessTokenWithTime | null {
     time: Date.now()
   }
   localStorage.setItem(
-    ACCESS_TOKEN_WITH_TIME_KEY,
+    PASSWORD_ACCESS_TOKEN_WITH_TIME_KEY,
     JSON.stringify(migratedAccessToken)
   )
-  localStorage.removeItem(LEGACY_ACCESS_TOKEN_KEY)
+  localStorage.removeItem(LEGACY_PASSWORD_ACCESS_TOKEN_KEY)
   return migratedAccessToken
 }
 
