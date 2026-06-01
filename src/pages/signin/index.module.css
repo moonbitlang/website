@@ -7,3 +7,10 @@
   flex-direction: column;
   gap: 1em;
 }
+
+.form-error {
+  font-weight: var(--ifm-font-weight-bold);
+  color: var(--ifm-color-danger-dark);
+  margin: 0;
+  font-size: 0.8em;
+}

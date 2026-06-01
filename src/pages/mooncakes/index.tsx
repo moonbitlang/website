@@ -19,12 +19,13 @@ import Layout from '@theme/Layout'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import styles from './index.module.css'
-import { jwtDecode } from 'jwt-decode'
+import { readMooncakesUserSession } from '@site/src/lib/mooncakesAuth'
 
 type UserInfo = {
   accessToken: string
   username: string
-  gh_avatar: string
+  gh_avatar?: string | null
+  gh_name?: string | null
 }
 
 function User(props: UserInfo): React.JSX.Element {
@@ -108,16 +109,15 @@ export default function Mooncakes(): React.JSX.Element {
   const clientId = customFields?.GITHUB_OAUTH_CLIENT_ID as string
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('access_token_with_time')
-    const accessTokenWithTime = accessToken
-      ? (JSON.parse(accessToken) as { access_token: string; time: number })
-      : null
-    if (accessTokenWithTime === null) return
-    if (Date.now() - accessTokenWithTime.time > 90 * 24 * 60 * 60 * 1000) return
-    // if (Date.now() - accessTokenWithTime.time > 1000) return
+    const session = readMooncakesUserSession()
+    if (session === null) return
     setIsLogin(true)
-    const data = jwtDecode<UserInfo>(accessTokenWithTime.access_token)
-    setUserData({ ...data, accessToken: accessTokenWithTime.access_token })
+    setUserData({
+      accessToken: session.access_token,
+      username: session.username,
+      gh_avatar: session.gh_avatar,
+      gh_name: session.gh_name
+    })
   }, [])
   return (
     <Layout wrapperClassName={styles['main-wrapper']}>

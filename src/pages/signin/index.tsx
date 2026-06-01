@@ -24,13 +24,41 @@ import FormInput, {
 } from '@site/src/components/FormInput'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Link from '@docusaurus/Link'
+import {
+  getSafeRedirectPath,
+  saveMooncakesSession
+} from '@site/src/lib/mooncakesAuth'
 
 class LoginError extends Error {
-  detail: string
   constructor(detail: string) {
-    super()
-    this.detail = detail
+    super(detail)
   }
+}
+
+type LoginResponse = {
+  access_token: string
+}
+
+function isLoginResponse(value: unknown): value is LoginResponse {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'access_token' in value &&
+    typeof value.access_token === 'string' &&
+    value.access_token !== ''
+  )
+}
+
+async function getLoginErrorMessage(res: Response): Promise<string> {
+  try {
+    const json = (await res.json()) as { detail?: unknown }
+    if (typeof json.detail === 'string' && json.detail !== '') {
+      return json.detail
+    }
+  } catch {
+    // Fall through to the generic status message.
+  }
+  return `${res.status} ${res.statusText}`
 }
 
 function SignInForm() {
@@ -42,8 +70,9 @@ function SignInForm() {
   const [passwordError, setPasswordError] = useState<string | undefined>(
     undefined
   )
+  const [formError, setFormError] = useState<string | undefined>(undefined)
   const [signInEnable, setSignInEnable] = useState(true)
-  const signInMessage = 'Sign in'
+  const signInMessage = signInEnable ? 'Sign in' : 'Signing in...'
   const {
     siteConfig: { customFields }
   } = useDocusaurusContext()
@@ -61,6 +90,7 @@ function SignInForm() {
           onSubmit={async (e) => {
             e.preventDefault()
             if (!signInEnable) return
+            setFormError(undefined)
             let isValidate = true
             if (username === '') {
               setUsernameError('Required')
@@ -72,6 +102,7 @@ function SignInForm() {
             }
             if (!isValidate) return
             try {
+              setSignInEnable(false)
               const params = new URLSearchParams()
               params.set('username', username)
               params.set('password', password)
@@ -84,18 +115,23 @@ function SignInForm() {
                 body: params.toString()
               })
               if (!res.ok) {
-                if (res.status >= 400 && res.status < 500) {
-                  const json = (await res.json()) as { detail: string }
-                  throw new LoginError(json.detail)
-                }
-                throw new Error(`${res.status} ${res.statusText}`)
+                throw new LoginError(await getLoginErrorMessage(res))
               }
-              const json = (await res.json()) as { access_token: string }
-              localStorage.setItem('mooncakes-access-token', json.access_token)
-              localStorage.setItem('mooncakes-username', username)
+              const json = (await res.json()) as unknown
+              if (!isLoginResponse(json)) {
+                throw new LoginError('Sign in failed: missing access token')
+              }
+              saveMooncakesSession(json.access_token)
+              window.location.assign(
+                getSafeRedirectPath(window.location.search)
+              )
             } catch (e) {
               if (e instanceof LoginError) {
-                setPasswordError(e.detail)
+                setPasswordError(e.message)
+              } else if (e instanceof Error) {
+                setFormError(e.message)
+              } else {
+                setFormError('Failed to sign in')
               }
             } finally {
               setSignInEnable(true)
@@ -121,8 +157,12 @@ function SignInForm() {
             error={passwordError}
             setError={setPasswordError}
           />
+          {formError !== undefined && (
+            <p className={styles['form-error']}>{formError}</p>
+          )}
           <input
             type='submit'
+            disabled={!signInEnable}
             className={`button button--primary ${
               !signInEnable ? 'disabled' : ''
             }`}

@@ -17,8 +17,13 @@
 import styles from './index.module.css'
 import { useEffect, useState } from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-import { jwtDecode } from 'jwt-decode'
 import BrowserOnly from '@docusaurus/BrowserOnly'
+import {
+  decodeMooncakesToken,
+  MOONCAKES_SESSION_STORAGE_KEY,
+  readMooncakesSession,
+  type MooncakesTokenPayload
+} from '@site/src/lib/mooncakesAuth'
 
 type SignState =
   | {
@@ -182,26 +187,51 @@ function ClientSignCla({ repo }: { repo: string }) {
   const [sign, setSign] = useState<SignState>({ signed: false })
   const mooncakesApi = customFields?.MOONCAKES_API as string
   const clientId = customFields?.GITHUB_OAUTH_CLIENT_ID as string
-  const accessToken = window.localStorage.getItem('access_token_with_time')
-  const accessTokenWithTime = accessToken
-    ? (JSON.parse(accessToken) as { access_token?: string; time: number })
-    : null
-  const signFailed =
-    accessTokenWithTime !== null && !accessTokenWithTime.access_token
-  const isSign =
-    accessTokenWithTime === null ||
-    signFailed ||
-    Date.now() - accessTokenWithTime.time > 90 * 24 * 60 * 60 * 1000
-  // Date.now() - accessTokenWithTime.time > 1000
+  const storedAccessToken = window.localStorage.getItem(
+    MOONCAKES_SESSION_STORAGE_KEY
+  )
+  const session = readMooncakesSession()
+  const payload =
+    session === null
+      ? null
+      : decodeMooncakesToken<MooncakesTokenPayload>(session.access_token)
+  const username =
+    payload !== null && typeof payload.username === 'string'
+      ? payload.username
+      : undefined
+  const githubUsername =
+    username !== undefined && typeof payload?.gh_avatar === 'string'
+      ? username
+      : undefined
+  const signFailed = storedAccessToken !== null && session === null
+  const isSign = session === null || githubUsername === undefined
   const redirectUrl = new URL(customFields?.HOST as string)
   redirectUrl.pathname = '/mooncakes/callback/github/cla'
   redirectUrl.searchParams.set('repo', repo)
 
-  if (isSign) {
+  useEffect(() => {
+    if (githubUsername === undefined) return
+    const checkIsSigned = async () => {
+      const params = new URLSearchParams()
+      params.set('gh_username', githubUsername)
+      params.set('repo', repo)
+      const res = await fetch(`${mooncakesApi}/cla/check_with_repo?${params}`, {
+        method: 'GET',
+        headers: {
+          accept: 'application/json'
+        }
+      })
+      const json = (await res.json()) as SignState
+      setSign(json)
+    }
+    checkIsSigned()
+  }, [githubUsername, mooncakesApi, repo])
+
+  if (isSign || session === null || githubUsername === undefined) {
     return (
       <div>
         {signFailed && <p>Sign in failed. Please try again.</p>}
-        <p>You must sign in to MoonBit to accept the CLA.</p>
+        <p>You must sign in with Github to accept the CLA.</p>
 
         <div className={styles['button-wrapper']}>
           <a
@@ -216,42 +246,17 @@ function ClientSignCla({ repo }: { repo: string }) {
       </div>
     )
   } else {
-    const { username } = jwtDecode<{ username: string }>(
-      accessTokenWithTime.access_token!
-    )
-    useEffect(() => {
-      const checkIsSigned = async () => {
-        const params = new URLSearchParams()
-        params.set('gh_username', username)
-        params.set('repo', repo)
-        const res = await fetch(
-          `${mooncakesApi}/cla/check_with_repo?${params}`,
-          {
-            method: 'GET',
-            headers: {
-              accept: 'application/json'
-            }
-          }
-        )
-        const json = (await res.json()) as SignState
-        setSign(json)
-      }
-      checkIsSigned()
-    }, [])
     return (
       <div>
         <p>
           Sign in as
-          <a href={`https://github.com/${username}`}>
+          <a href={`https://github.com/${githubUsername}`}>
             {' '}
-            <code>{username}</code>@github
+            <code>{githubUsername}</code>@github
           </a>
         </p>
         {!sign.signed ? (
-          <SignForm
-            accessToken={accessTokenWithTime.access_token}
-            repo={repo}
-          />
+          <SignForm accessToken={session.access_token} repo={repo} />
         ) : (
           <div>You have already signed at {sign.signed_time}</div>
         )}
