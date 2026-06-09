@@ -186,6 +186,8 @@ _This update is for MoonBit 0.10, an important step before the official 1.0 rele
 
 10. **Deprecated the `try?` syntax.** The compiler now provides migration suggestions during checking.
 
+11. **Added the experimental built-in `V128` type.** It currently compiles to the `v128` type on the wasm/wasm-gc backends. On the native backend that generates C code, it compiles to `uint8x16_t` on Arm architectures with NEON support and to `__m128i` on x86 architectures with SSE2 support. In other cases, it is simulated with two `uint64` values. None of these details are ABI guarantees; efficient `V128` operations will be provided through the standard library in the future.
+
 ## Toolchain Updates
 
 1. The new MoonBit native backend has been released and can be tried with the `MOONBIT_NEW_NATIVE=1` environment variable. It currently supports macOS on Apple Silicon only; Linux and Windows support will be rolled out gradually.
@@ -197,6 +199,10 @@ _This update is for MoonBit 0.10, an important step before the official 1.0 rele
 4. The Wasm backend's `println` implementation has been replaced with a WASI-based implementation.
 
 5. Added the experimental `moon runwasm` command and SKILL marketplace. Use `moon runwasm Yoorkin/cowsay -- hello` to directly run packages published on mooncakes.io that support the Wasm target. mooncakes.io automatically builds wasm-opt-optimized `*.wasm` files for packages that support Wasm compilation targets and displays any `SKILL.md` in the same directory on the [mooncakes.io/skills](https://mooncakes.io/skills) page.
+
+   ![mooncakes.io skills page](mooncakes-skills.png)
+
+   ![moon runwasm example](./moon-runwasm.png)
 
 6. Use `moon.mod` instead of `moon.mod.json` by default. `moon.mod` now supports top-level fields such as `supported_targets`, `preferred_target`, `readme`, `license`, `keywords`, `repository`, and `description`. `moon fmt` enables migration from `moon.mod.json` to `moon.mod` by default. If issues occur, set `NEW_MOON_MOD=0` to disable it.
 

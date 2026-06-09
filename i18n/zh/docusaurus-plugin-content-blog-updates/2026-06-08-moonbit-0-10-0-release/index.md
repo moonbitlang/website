@@ -201,6 +201,10 @@ _需要说明的是，本次月报介绍的是 MoonBit 0.10 版本。它可以�
 
     编译器检查时会给出迁移建议。
 
+11. 添加实验性内置 `V128` 类型
+
+    目前它在 wasm/wasm-gc 后端会编译成 `v128` 类型；在生成 C 代码的 native 后端中，会在支持 NEON 的 Arm 架构上编译为 `uint8x16_t`，在支持 SSE2 的 x86 架构上编译为 `__m128i`。其他情况下会使用两个 `uint64` 进行模拟。以上内容不作 ABI 承诺，后续会通过标准库提供高效的 `V128` 操作。
+
 ## 工具链更新
 
 1. 新的 MoonBit native 后端已经发布，并可通过 `MOONBIT_NEW_NATIVE=1` 环境变量试用，仅支持 macOS Apple Silicon；Linux 和 Windows 的支持将会逐步推出。
