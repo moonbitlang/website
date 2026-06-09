@@ -513,12 +513,6 @@ export default async (): Promise<Config> => {
             locale: ['en']
           },
           {
-            to: 'https://docs.moonbitlang.com/zh-cn/latest/pilot/moonbit-pilot/getting-started.html',
-            label: 'AI原生',
-            position: 'left',
-            locale: ['zh']
-          },
-          {
             type: 'dropdown',
             label: 'Resource',
             position: 'left',
