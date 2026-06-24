@@ -5,6 +5,12 @@ fn get_news_items() -> Array[NewsItem] {
   lang(
     en=[
     {
+      title: "Local Inference with DeepSeek V4 Flash Using MoonBit",
+      date: "2026-06-24",
+      url: "https://www.moonbitlang.com/blog/local-inference-deepseek-v4-flash",
+      img: "/img/blogs/2026-06-24-local-inference-deepseek-v4-flash/cover.png",
+    },
+    {
       title: "One Language, Multiple Targets: A Full-Stack Workflow with MoonBit",
       date: "2026-05-12",
       url: "https://www.moonbitlang.com/blog/moonbit-multiple-targets",
@@ -21,12 +27,6 @@ fn get_news_items() -> Array[NewsItem] {
       date: "2026-02-09",
       url: "https://www.moonbitlang.com/blog/moonbit-0-8-0-release",
       img: "/img/blogs/2026-02-09-moonbit-0-8-0-release/cover.jpg",
-    },
-    {
-      title: "Building a C Compiler from Scratch with AI-Driven Development",
-      date: "2026-02-06",
-      url: "https://www.moonbitlang.com/blog/fastcc-ai-driven-development",
-      img: "/img/blogs/2026-02-06-fastcc-ai-driven-development/cover.jpg",
     },
     ],
     zh=[
