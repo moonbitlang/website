@@ -265,5 +265,3 @@ After various optimizations such as operator fusion, moonxi-net's training speed
 ## Summary
 
 moonxi-net is a deep learning training framework based on the MoonBit language, using a tagless-final architecture and referencing the PyTorch style. It has both type safety and flexible extensibility, and separates model definitions from multi-backend implementations. After operator fusion optimization, its GPU performance surpasses PyTorch. The first version of moonxi-net was completed in one month, proving the potential of the MoonBit programming language for implementing large system frameworks, while also validating that domestic models plus an open-source harness framework already have sufficient system-code development capability.
-
-Tags in the original article: MoonBit, GLM-5.1, PyTorch.
