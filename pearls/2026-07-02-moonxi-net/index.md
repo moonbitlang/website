@@ -16,7 +16,7 @@ Based on good system architecture design, MoonBit + domestic large language mode
 ## Links
 
 - [moonxi-net GitHub repository](https://github.com/moonxi-net/moonxi-net)
-- [Mooncake](https://mooncake.io)
+- [Mooncakes](https://mooncakes.io)
 - [chnlkw/moonxi-net](https://mooncakes.io/docs/chnlkw/moonxi-net)
 - [chnlkw/moonxi-net-gpu](https://mooncakes.io/docs/chnlkw/moonxi-net-gpu)
 
