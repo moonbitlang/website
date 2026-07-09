@@ -11,7 +11,7 @@ image: cover.png
 
 Original author: mizchi
 
-Published on 2026/07/09
+Published on 2026/07/02
 
 It's great when a programming language gets faster. That's why I'm optimizing MoonBit.
 
