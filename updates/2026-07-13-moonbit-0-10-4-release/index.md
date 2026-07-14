@@ -228,7 +228,6 @@
      The Wasm1 support in `moonbitlang/async` is currently experimental. In the **future**, we will guarantee backward compatibility of `.wasm` binaries: `.wasm` files built with older versions of `moonbitlang/async` will still run on the latest `moonrun`
 
      The Wasm1 backend of `moonbitlang/async` does not yet support the following features:
-     - `@process` and `@signal`
      - `@websocket`
      - `@fs.Watcher` and `@fs.realpath`
 
