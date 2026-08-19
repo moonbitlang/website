@@ -35,7 +35,6 @@ import rehypeShiki, { RehypeShikiOptions } from '@shikijs/rehype'
 import * as shiki from 'shiki'
 import { bundledLanguages, type BundledLanguage } from 'shiki'
 import moonbit from './plugins/rehype-moonbit-markdown/packages/moonbit-tmlanguage/moonbit.tmLanguage.json'
-import rehypeMoonbitMarkdown from './plugins/rehype-moonbit-markdown/packages/rehype-moonbit-markdown'
 import type * as Preset from '@docusaurus/preset-classic'
 
 let highlighter: shiki.Highlighter | undefined
@@ -413,7 +412,7 @@ export default async (): Promise<Config> => {
           blogSidebarTitle: 'All posts',
           onUntruncatedBlogPosts: 'ignore',
           remarkPlugins: [math],
-          rehypePlugins: [katex, rehypeMoonbitMarkdown]
+          rehypePlugins: [katex, rehypeShikiPlugin]
         } satisfies BlogOptions
       ],
       [
