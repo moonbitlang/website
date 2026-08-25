@@ -40,3 +40,6 @@ src/static/rabbita-home/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.agents
+.codex/lark-auth

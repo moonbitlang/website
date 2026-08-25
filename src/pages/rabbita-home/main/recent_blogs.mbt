@@ -5,6 +5,12 @@ fn get_news_items() -> Array[NewsItem] {
   lang(
     en=[
     {
+      title: "From Example Enumeration to Mechanized Falsification: Property-Based Testing in MoonBit",
+      date: "2026-08-25",
+      url: "https://www.moonbitlang.com/blog/property-based-testing-moonbit",
+      img: "/img/blogs/2026-08-25-property-based-testing-moonbit/cover.png",
+    },
+    {
       title: "Local Inference with DeepSeek V4 Flash Using MoonBit",
       date: "2026-06-24",
       url: "https://www.moonbitlang.com/blog/local-inference-deepseek-v4-flash",
@@ -21,12 +27,6 @@ fn get_news_items() -> Array[NewsItem] {
       date: "2026-04-08",
       url: "https://www.moonbitlang.com/blog/moonbit-0-9-release",
       img: "/img/blogs/2026-04-08-moonbit-0-9-release/cover.png",
-    },
-    {
-      title: "MoonBit 0.8.0 Released",
-      date: "2026-02-09",
-      url: "https://www.moonbitlang.com/blog/moonbit-0-8-0-release",
-      img: "/img/blogs/2026-02-09-moonbit-0-8-0-release/cover.jpg",
     },
     ],
     zh=[
