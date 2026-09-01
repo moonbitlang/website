@@ -5,6 +5,12 @@ fn get_news_items() -> Array[NewsItem] {
   lang(
     en=[
     {
+      title: "SeekMoon: From IDE to ADE",
+      date: "2026-09-01",
+      url: "https://www.moonbitlang.com/blog/seekmoon-from-ide-to-ade",
+      img: "/img/blogs/2026-09-01-seekmoon-from-ide-to-ade/cover.png",
+    },
+    {
       title: "From Example Enumeration to Mechanized Falsification: Property-Based Testing in MoonBit",
       date: "2026-08-25",
       url: "https://www.moonbitlang.com/blog/property-based-testing-moonbit",
@@ -21,12 +27,6 @@ fn get_news_items() -> Array[NewsItem] {
       date: "2026-05-12",
       url: "https://www.moonbitlang.com/blog/moonbit-multiple-targets",
       img: "/img/blogs/2026-05-12-moonbit-multiple-targets/cover.png",
-    },
-    {
-      title: "MoonBit 0.9: Introducing First-Class Formal Verification",
-      date: "2026-04-08",
-      url: "https://www.moonbitlang.com/blog/moonbit-0-9-release",
-      img: "/img/blogs/2026-04-08-moonbit-0-9-release/cover.png",
     },
     ],
     zh=[
