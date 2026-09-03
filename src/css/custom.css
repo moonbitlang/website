@@ -33,6 +33,21 @@
   font-size: 2.75rem;
 }
 
+.navbar-dropdown-section {
+  margin: 0.35rem 0.75rem 0.15rem;
+  padding: 0.6rem 0.25rem 0.2rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+
+.navbar-dropdown-section span {
+  display: block;
+}
+
 /* Prevent layout collapse while the rabbita-home script loads. */
 #rabbita-home {
   min-height: calc(100vh - 60px);

@@ -561,6 +561,11 @@ export default async (): Promise<Config> => {
                 label: 'Package Manager'
               },
               {
+                type: 'html',
+                value: '<span>Events</span>',
+                className: 'navbar-dropdown-section'
+              },
+              {
                 href: '/2025-mgpic',
                 label: '2025 MGPIC'
               },
@@ -569,7 +574,7 @@ export default async (): Promise<Config> => {
                 label: '2026 Software Synthesis Challenge'
               },
               {
-                href: 'https://moonbit-software-synthesis-2026.zongen.chatgpt.site/',
+                href: 'https://moonbit-hackathon-2026.zongen.chatgpt.site/',
                 label: '2026 MoonBit September Hackathon'
               }
             ],
@@ -594,6 +599,11 @@ export default async (): Promise<Config> => {
                 label: '活动'
               },
               {
+                type: 'html',
+                value: '<span>赛事</span>',
+                className: 'navbar-dropdown-section'
+              },
+              {
                 href: '/2024-mgpic',
                 label: '2024 MoonBit 编程挑战赛'
               },
@@ -610,7 +620,7 @@ export default async (): Promise<Config> => {
                 label: '2026 MoonBit 国产基础软件开源大赛'
               },
               {
-                href: 'https://moonbit-software-synthesis-2026.zongen.chatgpt.site/',
+                href: 'https://moonbit-hackathon-2026.zongen.chatgpt.site/',
                 label: '2026 MoonBit 9 月黑客松'
               }
             ]
