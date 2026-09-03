@@ -567,6 +567,10 @@ export default async (): Promise<Config> => {
               {
                 href: '/2026-scc',
                 label: '2026 Software Synthesis Challenge'
+              },
+              {
+                href: 'https://moonbit-software-synthesis-2026.zongen.chatgpt.site/',
+                label: '2026 MoonBit September Hackathon'
               }
             ],
             locale: ['en']
@@ -604,6 +608,10 @@ export default async (): Promise<Config> => {
               {
                 href: 'https://aka.moonbitlang.com/osc-2026',
                 label: '2026 MoonBit 国产基础软件开源大赛'
+              },
+              {
+                href: 'https://moonbit-software-synthesis-2026.zongen.chatgpt.site/',
+                label: '2026 MoonBit 9 月黑客松'
               }
             ]
           },
