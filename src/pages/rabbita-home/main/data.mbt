@@ -337,7 +337,7 @@ fn get_feature_rows() -> Array[FeatureRow] {
           #|  match path {
           #|    "/" | "/home" => render_home()
           #|    [.."/user/", ..id] =>
-          #|      try @strconv.parse_int(id) catch {
+          #|      try @string.parse_int(id) catch {
           #|        error => render_not_found(error~)
           #|      } noraise {
           #|        number => render_user(number)
