@@ -2,7 +2,7 @@
   "name": "user/app",
   "version": "0.2.0",
   "deps": {
-    "moonbit-community/rabbita": "0.11.5",
+    "moonbit-community/rabbita": "0.11.6",
     "moonbitlang/async": "0.16.6",
     "Yoorkin/shiki": "0.1.1"
   },
