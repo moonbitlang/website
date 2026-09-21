@@ -152,6 +152,20 @@ fn main {
 
 Future versions will change the ABI of MoonBit `Array` on the JavaScript backend, so it will no longer be guaranteed to be equivalent to JavaScript's `Array`. Using `Array` at FFI boundaries is therefore deprecated. Use `FixedArray` instead.
 
+### Warning for implicit promotion of `impl` to methods is now enabled by default
+
+Previously, an `impl` defined in the same package as its type was implicitly promoted to methods, allowing calls through dot syntax. We plan to deprecate this behavior in favor of explicit `extend Type with Trait::{f, g}` declarations. The compiler provides a migration warning for every `pub impl` that is implicitly promoted to methods under the current semantics. To migrate:
+
+- To preserve a method, add an `extend` declaration.
+
+- To deprecate a method, still add an `extend` declaration, but mark it with `#deprecated`.
+
+This warning was previously disabled by default. It is now enabled by default, and all users should migrate to explicit `extend` declarations. See the [2026/07/13 release note](../2026-07-13-moonbit-0-10-4-release/index.md) for more details.
+
+### Warning for implicit imports in blackbox tests is now enabled by default
+
+In MoonBit, blackbox tests (`_test.mbt` files) test a package's public API and are compiled as a separate package. References to APIs from the tested package should therefore use explicit `@pkg.xxx` syntax. To simplify writing tests, the compiler previously imported all definitions from the tested package implicitly, unless a name was shadowed by a local definition in the test files. We no longer encourage relying on this implicit behavior. The compiler provides the `test_unqualified_package` warning wherever implicitly imported definitions are used. This warning was previously disabled by default and is now enabled by default.
+
 ## Toolchain Updates
 
 ### Moon and Runtime
