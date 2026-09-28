@@ -450,7 +450,7 @@ fn get_projects() -> Array[Project] {
         en="Fine-grained reactive UI library for MoonBit/JS.",
         zh="MoonBit/JS 细粒度响应式 UI 库。",
       ),
-      url: "https://github.com/mizchi/luna",
+      url: "https://github.com/mizchi/luna.mbt",
     },
     {
       name: "moonbit-community/selene",
