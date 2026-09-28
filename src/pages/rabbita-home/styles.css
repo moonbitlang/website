@@ -907,9 +907,9 @@
    Duration and delay are set inline by view_community() in main.mbt.
    If N changes, recompute: visible_end = 95 - (N-1)*(100/N). */
 @keyframes comm-proj-cycle {
-  0%, 29% { opacity: 1; }
-  33%, 90% { opacity: 0; }
-  100%     { opacity: 1; }
+  0%, 29% { opacity: 1; pointer-events: auto; }
+  33%, 90% { opacity: 0; pointer-events: none; }
+  100%     { opacity: 1; pointer-events: auto; }
 }
 
 #rabbita-home .comm-proj-outer {
@@ -921,6 +921,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+  pointer-events: none;
 }
 
 #rabbita-home .comm-project-card {
