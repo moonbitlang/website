@@ -31,6 +31,12 @@ fn get_news_items() -> Array[NewsItem] {
     ],
     zh=[
     {
+      title: "构建智能体，有 MoonBit 就够了",
+      date: "2026-10-10",
+      url: "https://www.moonbitlang.cn/blog/building-agents-moonbit",
+      img: "/img/blogs/zh/2026-10-10-building-agents-moonbit/cover.png",
+    },
+    {
       title: "MoonBit 0.9 发布：AI 自动生成可证明的代码",
       date: "2026-04-08",
       url: "https://www.moonbitlang.cn/blog/moonbit-0-9-release",
@@ -47,12 +53,6 @@ fn get_news_items() -> Array[NewsItem] {
       date: "2025-12-03",
       url: "https://www.moonbitlang.cn/blog/moonbit-async-code-agent",
       img: "/img/blogs/zh/2025-12-03-moonbit-async-code-agent/cover.png",
-    },
-    {
-      title: "MoonBit 推出 LLVM Debugger，核心用户数破十万",
-      date: "2025-10-31",
-      url: "https://www.moonbitlang.cn/blog/llvm-debug",
-      img: "/img/blogs/zh/2025-10-31-llvm-debug/cover.png",
     },
     ],
   )
