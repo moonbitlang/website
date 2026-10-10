@@ -5,6 +5,12 @@ fn get_news_items() -> Array[NewsItem] {
   lang(
     en=[
     {
+      title: "Building Agents, MoonBit is all you need",
+      date: "2026-10-10",
+      url: "https://www.moonbitlang.com/blog/building-agents-moonbit",
+      img: "/img/blogs/2026-10-10-building-agents-moonbit/cover.png",
+    },
+    {
       title: "SeekMoon: From IDE to ADE",
       date: "2026-09-01",
       url: "https://www.moonbitlang.com/blog/seekmoon-from-ide-to-ade",
@@ -21,12 +27,6 @@ fn get_news_items() -> Array[NewsItem] {
       date: "2026-06-24",
       url: "https://www.moonbitlang.com/blog/local-inference-deepseek-v4-flash",
       img: "/img/blogs/2026-06-24-local-inference-deepseek-v4-flash/cover.png",
-    },
-    {
-      title: "One Language, Multiple Targets: A Full-Stack Workflow with MoonBit",
-      date: "2026-05-12",
-      url: "https://www.moonbitlang.com/blog/moonbit-multiple-targets",
-      img: "/img/blogs/2026-05-12-moonbit-multiple-targets/cover.png",
     },
     ],
     zh=[
