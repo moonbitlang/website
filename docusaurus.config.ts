@@ -434,11 +434,11 @@ export default async (): Promise<Config> => {
     themeConfig: {
       announcementBar: isZh
         ? {
-            content: `🚀 <b><a href="https://moonbitlang.github.io/Hackathon2026/">2026 MoonBit 9 月黑客松</a></b> 火热报名中！季度奖金池最高 6.3 万元 🎉`,
+            content: `🚀 <b><a href="https://moonbitlang.github.io/Hackathon2026/">2026 MoonBit 10 月黑客松</a></b> 火热报名中！个人最高奖金 7.2 万元 🎉`,
             isCloseable: false
           }
         : {
-            content: `🚀 <b><a href="https://moonbitlang.github.io/Hackathon2026/">2026 MoonBit September Hackathon</a></b> is now open! Quarterly prize pool up to RMB 63,000 🎉`,
+            content: `🚀 <b><a href="https://moonbitlang.github.io/Hackathon2026/">2026 MoonBit October Hackathon</a></b> is now open! Top individual prize of RMB 72,000 🎉`,
             isCloseable: false
           },
       navbar: {
@@ -575,7 +575,7 @@ export default async (): Promise<Config> => {
               },
               {
                 href: 'https://moonbitlang.github.io/Hackathon2026/',
-                label: '2026 MoonBit September Hackathon'
+                label: '2026 MoonBit Annual Hackathon'
               }
             ],
             locale: ['en']
@@ -621,7 +621,7 @@ export default async (): Promise<Config> => {
               },
               {
                 href: 'https://moonbitlang.github.io/Hackathon2026/',
-                label: '2026 MoonBit 9 月黑客松'
+                label: '2026 MoonBit 年度黑客松'
               }
             ]
           },
