@@ -658,16 +658,29 @@
 
 /* ─── Shiki themed block (dual-theme via CSS vars) ────────── */
 
-/* code_to_html_themes wraps shiki output in a <code>; display:contents
-   makes it a transparent layout container so the inner <pre> is direct child */
+/* Keep legacy code wrappers transparent to the surrounding layout. */
 #rabbita-home .code-themed>code {
   display: contents;
 }
 
 #rabbita-home .code-themed {
+  /* Shiki renders into a shadow root; pass typography through its public variables. */
+  --yoorkin-shiki-padding: 14px 18px;
+  --yoorkin-shiki-font-size: 0.82rem;
+  --yoorkin-shiki-line-height: 1.55;
+  color-scheme: light;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
+}
+
+[data-theme="dark"] #rabbita-home .code-themed {
+  color-scheme: dark;
+}
+
+#rabbita-home .code-themed yoorkin-shiki-code {
+  display: block;
+  overflow-x: auto;
 }
 
 #rabbita-home .code-themed pre {
@@ -732,6 +745,13 @@
   font-size: 0.83rem;
   line-height: 1.55;
   padding: 20px 24px 4px;
+  height: 360px;
+  overflow-y: auto;
+}
+
+#rabbita-home .hero-code yoorkin-shiki-code {
+  --yoorkin-shiki-font-size: 0.83rem;
+  --yoorkin-shiki-padding: 20px 24px 4px;
   height: 360px;
   overflow-y: auto;
 }
@@ -1735,4 +1755,9 @@
   line-height: 1.6;
   font-family: Menlo, Consolas, Monaco, monospace;
   overflow-x: auto;
+}
+
+#rabbita-home .feat-term yoorkin-shiki-code {
+  --yoorkin-shiki-padding: 20px 24px;
+  --yoorkin-shiki-line-height: 1.6;
 }

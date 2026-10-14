@@ -45,7 +45,7 @@
     "@docusaurus/theme-common": "^3.8.1",
     "@docusaurus/tsconfig": "^3.8.1",
     "@docusaurus/types": "^3.8.1",
-    "@rabbita/vite": "^0.1.0",
+    "@rabbita/vite": "^0.2.0",
     "@shikijs/rehype": "^3.6.0",
     "@types/node": "^18.19.2",
     "@types/react": "^18.2.42",

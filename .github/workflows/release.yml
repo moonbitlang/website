@@ -2,9 +2,21 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      locale:
+        description: Language to publish
+        type: choice
+        options: [all, en, zh]
+        default: all
+      target:
+        description: Chinese deployment destination
+        type: choice
+        options: [aws, both, aliyun]
+        default: aws
 
 jobs:
   en-publish:
+    if: inputs.locale != 'zh'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,20 +38,39 @@ jobs:
           aws cloudfront create-invalidation --distribution-id ${{secrets.AWS_CLOUDFRONT_HOMEPAGE_DISTRIBUTION_ID}} --paths "/*"
 
   zh-publish:
+    if: inputs.locale != 'en'
+    concurrency:
+      group: publish-website-cn
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
       - name: install
         uses: ./.github/actions/setup
-      - env:
+      - id: build
+        env:
           GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
         run: |
           pnpm i
           pnpm build -l zh
       - uses: aliyun/setup-aliyun-cli-action@v1
+        if: inputs.target == 'aliyun' || inputs.target == 'both'
       - name: upload
+        if: inputs.target == 'aliyun' || inputs.target == 'both'
         run: |
           aliyun configure set --profile default --mode AK --access-key-id ${{secrets.ALIBABA_CLOUD_ACCESS_KEY_ID}} --access-key-secret ${{secrets.ALIBABA_CLOUD_ACCESS_KEY_SECRET}} --region ${{secrets.ALIBABA_REGION}}
           aliyun oss sync ./build ${{secrets.ALIYUN_OSS_BUCKET}} --exclude llms.txt --delete --force
           aliyun esa PurgeCaches --region cn-shenzhen --Content '{"CacheKeys":[{}],"Directories":["https://www.moonbitlang.cn/"]}' --Type directory --SiteId 1189399586245168
+      - name: Upload Chinese website to AWS
+        if: ${{ !cancelled() && steps.build.outcome == 'success' && inputs.target != 'aliyun' }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-west-2
+          BUCKET: ${{ vars.AWS_CN_HOMEPAGE_BUCKET }}
+          DISTRIBUTION_ID: ${{ vars.AWS_CN_HOMEPAGE_DISTRIBUTION_ID }}
+        run: |
+          test -n "$BUCKET" && test -n "$DISTRIBUTION_ID"
+          aws s3 sync ./build "s3://$BUCKET" --exclude llms.txt --delete --only-show-errors
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"
