@@ -2,9 +2,10 @@ name: "Setup MoonBit"
 description: "Setup MoonBit CLI in your GitHub Actions workflow"
 inputs:
   version:
-    description: "The version of MoonBit CLI to install (default: latest). Other option: nightly"
+    description: "MoonBit CLI version; defaults to the last verified website release toolchain"
     required: false
-    default: "latest"
+    # The website and its dependencies still use moon.mod.json, unsupported by 0.10.15.
+    default: "0.10.14+7d59c7ec9"
 runs:
   using: "composite"
   steps:
