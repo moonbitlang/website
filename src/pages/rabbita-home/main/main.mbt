@@ -19,7 +19,7 @@ using @html {
 }
 
 ///|
-using @rabbita {type Cmd, type Dispatch, type Html}
+using @rabbita {type Cmd, type Emit, type Html}
 
 // ─── i18n ─────────────────────────────────────────────────────────────────
 
@@ -50,35 +50,35 @@ struct Model {
   hero_tab : Int
   hero_anim : Bool
   copied_step : Int?
-  highlighter : @shiki.Highlighter?
+  highlighter_ready : Bool
   carousel_idx : Int
-}
+} derive(Eq)
 
 ///|
 let init_model : Model = {
   hero_tab: 0,
   hero_anim: false,
   copied_step: None,
-  highlighter: None,
+  highlighter_ready: false,
   carousel_idx: 0,
 }
 
 ///|
 enum Msg {
   SelectTab(Int)
-  LoadResult(Result[@shiki.Highlighter, Error])
+  LoadResult(Result[Unit, Error])
   SelectCarousel(Int)
 }
 
 ///|
-fn update(dispatch : Dispatch[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
+fn update(model : Model, msg : Msg, dispatch : Emit[Msg]) -> (Model, Cmd) {
   ignore(dispatch)
   match msg {
     SelectTab(t) =>
-      (@rabbita.none, { ..model, hero_tab: t, hero_anim: not(model.hero_anim) })
-    LoadResult(Ok(hl)) => (@rabbita.none, { ..model, highlighter: Some(hl) })
-    LoadResult(Err(_)) => (@rabbita.none, model)
-    SelectCarousel(i) => (@rabbita.none, { ..model, carousel_idx: i })
+      ({ ..model, hero_tab: t, hero_anim: !model.hero_anim }, @rabbita.none)
+    LoadResult(Ok(_)) => ({ ..model, highlighter_ready: true }, @rabbita.none)
+    LoadResult(Err(_)) => (model, @rabbita.none)
+    SelectCarousel(i) => ({ ..model, carousel_idx: i }, @rabbita.none)
   }
 }
 
@@ -100,13 +100,7 @@ fn img_with_fallback(
       width~,
       height~,
       loading~,
-      attrs=@html.Attrs::build().handler("error", fn(e, _) {
-        match (e : @dom.Event).target().to_html_image_element() {
-          Some(el) => el.get_style().set_property("display", "none")
-          None => ()
-        }
-      }),
-      nothing,
+      attrs=@html.Attrs::build().data_set("hide-on-error", ""),
     ),
   ])
 }
@@ -200,23 +194,24 @@ fn icon_check() -> Html {
 // ─── Hero ─────────────────────────────────────────────────────────────────
 
 ///|
-fn themed_block(hl : @shiki.Highlighter, src : String, lang : String) -> Html {
+fn themed_block(src : String, lang : String) -> Html {
   div(class="code-themed", [
-    hl.code_to_html_dual_themes(
+    @shiki.static_code(
       src,
       lang~,
-      light="min-light",
-      dark="github-dark-default",
+      light_theme="min-light",
+      dark_theme="github-dark-default",
     ),
   ])
 }
 
 ///|
-fn view_hero(dispatch : Dispatch[Msg], model : Model) -> Html {
+fn view_hero(dispatch : Emit[Msg], model : Model) -> Html {
   let src = code_tabs[model.hero_tab].src
-  let code_block = match model.highlighter {
-    Some(hl) => themed_block(hl, src, "moonbit")
-    None => pre(class="code-block", [code(src)])
+  let code_block = if model.highlighter_ready {
+    themed_block(src, "moonbit")
+  } else {
+    pre(class="code-block", [code(src)])
   }
   section(class="hero", [
     div(class="hero-inner", [
@@ -702,25 +697,25 @@ fn view_platform_svg() -> Html {
 }
 
 ///|
-fn view_feat_term(snippet : TermSnippet, hl : @shiki.Highlighter?) -> Html {
-  let code_html = match hl {
-    Some(h) => themed_block(h, snippet.src, snippet.lang)
-    None =>
-      pre(class="code-block", [code(snippet.plain.unwrap_or(snippet.src))])
+fn view_feat_term(snippet : TermSnippet, highlighter_ready : Bool) -> Html {
+  let code_html = if highlighter_ready {
+    themed_block(snippet.src, snippet.lang)
+  } else {
+    pre(class="code-block", [code(snippet.plain.unwrap_or(snippet.src))])
   }
   div(class="feat-term", [code_html])
 }
 
 ///|
 fn view_feat_carousel(
-  dispatch : Dispatch[Msg],
+  dispatch : Emit[Msg],
   model : Model,
   slides : Array[FeatureVisual],
 ) -> Html {
   let idx = model.carousel_idx % slides.length()
   let content = match slides[idx] {
     Img("") => div(class="feat-img-placeholder", [nothing])
-    Img(url) => img(class="feat-carousel-img", src=url, alt="", nothing)
+    Img(url) => img(class="feat-carousel-img", src=url, alt="")
     Video(url) =>
       video(
         class="feat-video",
@@ -730,7 +725,7 @@ fn view_feat_carousel(
         attrs=@html.Attrs::build().playsinline(true),
         [source(src=url, type_="video/mp4")],
       )
-    Term(snippet) => view_feat_term(snippet, model.highlighter)
+    Term(snippet) => view_feat_term(snippet, model.highlighter_ready)
     Carousel(_) => nothing
   }
   div(class="feat-carousel-outer", [
@@ -750,12 +745,12 @@ fn view_feat_carousel(
 }
 
 ///|
-fn view_features(dispatch : Dispatch[Msg], model : Model) -> Html {
+fn view_features(dispatch : Emit[Msg], model : Model) -> Html {
   let rows = get_feature_rows().mapi(fn(i, f) {
     let cls = if i % 2 == 0 { "feat-row" } else { "feat-row feat-row-flip" }
     let visual = match f.visual {
       Img("") => div(class="feat-img-placeholder", [nothing])
-      Img(url) => img(class="feat-img", src=url, alt=f.heading, nothing)
+      Img(url) => img(class="feat-img", src=url, alt=f.heading)
       Video(url) =>
         video(
           class="feat-video",
@@ -765,7 +760,7 @@ fn view_features(dispatch : Dispatch[Msg], model : Model) -> Html {
           attrs=@html.Attrs::build().playsinline(true),
           [source(src=url, type_="video/mp4")],
         )
-      Term(snippet) => view_feat_term(snippet, model.highlighter)
+      Term(snippet) => view_feat_term(snippet, model.highlighter_ready)
       Carousel(slides) => view_feat_carousel(dispatch, model, slides)
     }
     div(class=cls, [
@@ -1041,7 +1036,7 @@ fn view_news_roadmap() -> Html {
               if n.img == "" {
                 div(class="news-card-img", [nothing])
               } else {
-                img(class="news-card-img", src=n.img, alt=n.title, nothing)
+                img(class="news-card-img", src=n.img, alt=n.title)
               },
               div(class="news-card-body", [
                 span(class="news-card-date", n.date),
@@ -1073,7 +1068,7 @@ fn view_quickstart() -> Html {
 // ─── Root View ────────────────────────────────────────────────────────────
 
 ///|
-fn view(dispatch : Dispatch[Msg], model : Model) -> Html {
+fn view(model : Model, dispatch : Emit[Msg]) -> Html {
   ignore(model.copied_step)
   div(class="site", [
     view_hero(dispatch, model),
@@ -1097,18 +1092,32 @@ fn main {
   ignore(view_platform_svg)
   ignore(comm_block)
 
-  let (dispatch, app) = @rabbita.cell_with_dispatch(
-    model=init_model,
-    update~,
-    view~,
-  )
-  @rabbita.new(app)
-  ..with_init(
-    @shiki.load(
-      ["moonbit", "typescript"],
-      ["min-light", "github-dark-default"],
-      x => dispatch(LoadResult(x)),
-    ),
-  )
-  .mount("rabbita-home")
+  @rabbita.new(() => {
+    let (model, emit) = @rabbita.create_state_with_init(
+      init=emit => (
+        init_model,
+        @rabbita.attempt(result => emit(LoadResult(result)), async fn() {
+          @shiki.initialize_static(
+            langs=["moonbit", "typescript"],
+            themes=["min-light", "github-dark-default"],
+          )
+        }),
+      ),
+      update~,
+    )
+    model.view(model => view(model, emit))
+  }).mount("rabbita-home")
+  install_image_fallback()
 }
+
+///|
+/// Image error events do not bubble; capture them at the application root.
+extern "js" fn install_image_fallback() -> Unit =
+  #| () => {
+  #|   document.getElementById('rabbita-home').addEventListener('error', event => {
+  #|     const image = event.target;
+  #|     if (image instanceof HTMLImageElement && image.hasAttribute('data-hide-on-error')) {
+  #|       image.style.display = 'none';
+  #|     }
+  #|   }, true);
+  #| }

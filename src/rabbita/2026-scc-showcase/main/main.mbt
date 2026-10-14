@@ -12,7 +12,7 @@ using @html {
 }
 
 ///|
-using @rabbita {type Cmd, type Dispatch, type Html}
+using @rabbita {type Cmd, type Emit, type Html}
 
 ///|
 #cfg(target="js")
@@ -37,7 +37,7 @@ fn[T] lang(zh~ : T, en~ : T) -> T {
 ///|
 struct Model {
   mounted : Bool
-}
+} derive(Eq)
 
 ///|
 let init_model : Model = { mounted: true }
@@ -48,10 +48,10 @@ enum Msg {
 }
 
 ///|
-fn update(dispatch : Dispatch[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
+fn update(model : Model, msg : Msg, dispatch : Emit[Msg]) -> (Model, Cmd) {
   ignore(dispatch)
   ignore(msg)
-  (@rabbita.none, model)
+  (model, @rabbita.none)
 }
 
 ///|
@@ -961,7 +961,7 @@ fn view_steps() -> Html {
 }
 
 ///|
-fn view(dispatch : Dispatch[Msg], model : Model) -> Html {
+fn view(model : Model, dispatch : Emit[Msg]) -> Html {
   ignore(dispatch)
   ignore(model.mounted)
   let approved_cards = contest_cards() + reference_cards()
@@ -977,10 +977,5 @@ fn view(dispatch : Dispatch[Msg], model : Model) -> Html {
 #warnings("-alert_unstable")
 fn main {
   ignore(Noop)
-  let (_, app) = @rabbita.cell_with_dispatch(
-    model=init_model,
-    update~,
-    view~,
-  )
-  @rabbita.new(app).mount("rabbita-scc-showcase")
+  @rabbita.elmish(model=init_model, update~, view~).mount("rabbita-scc-showcase")
 }

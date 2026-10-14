@@ -19,6 +19,7 @@ function findMbtFiles(dir, files = []) {
       entry.name.endsWith('.mbti') ||
       entry.name === 'moon.pkg' ||
       entry.name === 'moon.pkg.json' ||
+      entry.name === 'moon.mod' ||
       entry.name === 'moon.mod.json'
     ) {
       files.push(full)
