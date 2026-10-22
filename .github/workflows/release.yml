@@ -13,6 +13,15 @@ on:
         type: choice
         options: [aws, both, aliyun]
         default: aws
+      aws_account:
+        description: AWS account to publish (both keeps the rollback copy current)
+        type: choice
+        options: [legacy, moonbit, both]
+        default: legacy
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   en-publish:
@@ -23,12 +32,14 @@ jobs:
       - uses: pnpm/action-setup@v4
       - name: install
         uses: ./.github/actions/setup
-      - env:
+      - id: build
+        env:
           GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
         run: |
           pnpm i
           pnpm build -l en
-      - name: upload
+      - name: Upload English website to legacy AWS
+        if: inputs.aws_account != 'moonbit'
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
@@ -36,6 +47,24 @@ jobs:
         run: |
           aws s3 sync ./build s3://www.moonbitlang.com --exclude llms.txt --delete
           aws cloudfront create-invalidation --distribution-id ${{secrets.AWS_CLOUDFRONT_HOMEPAGE_DISTRIBUTION_ID}} --paths "/*"
+      - name: Authenticate to MoonBit AWS
+        id: moonbit-credentials
+        if: ${{ !cancelled() && steps.build.outcome == 'success' && (inputs.aws_account == 'moonbit' || inputs.aws_account == 'both') }}
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_MOONBIT_ROLE_ARN }}
+          aws-region: us-west-2
+          allowed-account-ids: ${{ secrets.AWS_MOONBIT_ACCOUNT_ID }}
+          mask-aws-account-id: true
+      - name: Upload English website to MoonBit AWS
+        if: ${{ !cancelled() && steps.moonbit-credentials.outcome == 'success' }}
+        env:
+          BUCKET: ${{ secrets.AWS_MOONBIT_EN_BUCKET }}
+          DISTRIBUTION_ID: ${{ secrets.AWS_MOONBIT_EN_DISTRIBUTION_ID }}
+        run: |
+          test -n "$BUCKET" && test -n "$DISTRIBUTION_ID"
+          aws s3 sync ./build "s3://$BUCKET" --exclude llms.txt --delete --only-show-errors
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*" --query 'Invalidation.Status' --output text
 
   zh-publish:
     if: inputs.locale != 'en'
@@ -63,7 +92,7 @@ jobs:
           aliyun oss sync ./build ${{secrets.ALIYUN_OSS_BUCKET}} --exclude llms.txt --delete --force
           aliyun esa PurgeCaches --region cn-shenzhen --Content '{"CacheKeys":[{}],"Directories":["https://www.moonbitlang.cn/"]}' --Type directory --SiteId 1189399586245168
       - name: Upload Chinese website to AWS
-        if: ${{ !cancelled() && steps.build.outcome == 'success' && inputs.target != 'aliyun' }}
+        if: ${{ !cancelled() && steps.build.outcome == 'success' && inputs.target != 'aliyun' && inputs.aws_account != 'moonbit' }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -74,3 +103,21 @@ jobs:
           test -n "$BUCKET" && test -n "$DISTRIBUTION_ID"
           aws s3 sync ./build "s3://$BUCKET" --exclude llms.txt --delete --only-show-errors
           aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"
+      - name: Authenticate to MoonBit AWS
+        id: moonbit-credentials
+        if: ${{ !cancelled() && steps.build.outcome == 'success' && (inputs.aws_account == 'moonbit' || inputs.aws_account == 'both') && inputs.target != 'aliyun' }}
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_MOONBIT_ROLE_ARN }}
+          aws-region: us-west-2
+          allowed-account-ids: ${{ secrets.AWS_MOONBIT_ACCOUNT_ID }}
+          mask-aws-account-id: true
+      - name: Upload Chinese website to MoonBit AWS
+        if: ${{ !cancelled() && steps.moonbit-credentials.outcome == 'success' }}
+        env:
+          BUCKET: ${{ secrets.AWS_MOONBIT_CN_BUCKET }}
+          DISTRIBUTION_ID: ${{ secrets.AWS_MOONBIT_CN_DISTRIBUTION_ID }}
+        run: |
+          test -n "$BUCKET" && test -n "$DISTRIBUTION_ID"
+          aws s3 sync ./build "s3://$BUCKET" --exclude llms.txt --delete --only-show-errors
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*" --query 'Invalidation.Status' --output text
