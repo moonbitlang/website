@@ -30,12 +30,13 @@ jobs:
           pnpm build -l en
       - name: upload
         env:
-          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_MOONBIT_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_MOONBIT_SECRET_ACCESS_KEY}}
           AWS_DEFAULT_REGION: ${{secrets.AWS_DEFAULT_REGION}}
+          BUCKET: ${{ secrets.AWS_MOONBIT_EN_BUCKET }}
         run: |
-          aws s3 sync ./build s3://www.moonbitlang.com --exclude llms.txt --delete
-          aws cloudfront create-invalidation --distribution-id ${{secrets.AWS_CLOUDFRONT_HOMEPAGE_DISTRIBUTION_ID}} --paths "/*"
+          aws s3 sync ./build "s3://$BUCKET" --exclude llms.txt --delete --only-show-errors
+          aws cloudfront create-invalidation --distribution-id ${{secrets.AWS_MOONBIT_EN_DISTRIBUTION_ID}} --paths "/*" --query 'Invalidation.Status' --output text
 
   zh-publish:
     if: inputs.locale != 'en'
@@ -65,12 +66,12 @@ jobs:
       - name: Upload Chinese website to AWS
         if: ${{ !cancelled() && steps.build.outcome == 'success' && inputs.target != 'aliyun' }}
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_MOONBIT_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_MOONBIT_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-west-2
-          BUCKET: ${{ vars.AWS_CN_HOMEPAGE_BUCKET }}
-          DISTRIBUTION_ID: ${{ vars.AWS_CN_HOMEPAGE_DISTRIBUTION_ID }}
+          BUCKET: ${{ secrets.AWS_MOONBIT_CN_BUCKET }}
+          DISTRIBUTION_ID: ${{ secrets.AWS_MOONBIT_CN_DISTRIBUTION_ID }}
         run: |
           test -n "$BUCKET" && test -n "$DISTRIBUTION_ID"
           aws s3 sync ./build "s3://$BUCKET" --exclude llms.txt --delete --only-show-errors
-          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*" --query 'Invalidation.Status' --output text
