@@ -273,7 +273,7 @@ fn main raise {
 
 ### SeekMoon
 
-- Added a Conversations page, allowing OpenSeek to be used without attaching a workspace.
+- Added a Conversations page, allowing SeekMoon to be used without attaching a workspace.
 - Added cloud agents. Sign in, then create a conversation on the Conversations page to use them.
 - Added image support. Paste images directly into the input box, or let the agent read images through a tool.
 - Added scheduled tasks, which can be created from the sidebar.
