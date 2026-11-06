@@ -1,6 +1,6 @@
 # 20261105 MoonBit v0.10.19 Release
 
-**moonc version:** `v0.10.19`
+moonc version: `v0.10.19`
 
 ## Language Updates
 
