@@ -137,6 +137,76 @@ add(40, 2) = 44
   }
   ```
 
+  ```text
+  .
+  ├── fixture
+  │   └── data.json
+  └── script.mbtx
+  ```
+
+  **Permission declarations provide fine-grained control over file reads and writes, process creation, and environment variable access, keeping AI-generated scripts within the permitted scope.**
+
+  The following `read.mbtx` script declares `permission()` to grant minimal permissions:
+
+  ```moonbit
+  ---
+  import {
+    "moonbitlang/core/env",
+    "moonbitlang/async@0.22.7",
+    "moonbitlang/async@0.22.7/fs",
+    "moonbitlang/async@0.22.7/process",
+  }
+  // An explicit empty policy denies host access, including further spawning.
+  permission()
+  ---
+
+  async fn main {
+    let text = @fs.read_file("data.json").text()
+    println(text)
+    let (code, stdout, stderr) = @process.collect_output("moonx", ["cli/cat", "data.json"])
+    println("code: \{code}, \{stdout.text()}, \{stderr.text()}")
+  }
+
+  // $ moon run read.mbtx
+  // Sandbox policy blocked file read: "data.json"
+  // OSError("@fs.open(): \"data.json\": Permission denied")
+  ```
+
+  The script attempts to read and print `data.json` using `@async/fs`, but running it produces a `Permission denied` error. An attempt to bypass the restrictions by invoking `moonx cli/cat` would also be blocked by the runtime because the script has no permission to create processes.
+
+  Another script, `read_with_permission.mbtx`, grants permission to read `data.json` and create a `moonx` process. The runtime allows it to read and print `data.json` successfully:
+
+  ```moonbit
+  ---
+  import {
+    "moonbitlang/core/env",
+    "moonbitlang/async@0.22.7",
+    "moonbitlang/async@0.22.7/fs",
+    "moonbitlang/async@0.22.7/process",
+  }
+  // Allow reading data.json and spawning moonx with the specified environment.
+  permission(
+    env: {
+      "from_host": ["PATH"],
+      "set": { "MBTX_PROBE_TOKEN": "parent-only" },
+    },
+    fs: { "read": ["data.json"], "write": [] },
+    process: { "allow": [{ "program": "moonx" }] },
+  )
+  ---
+
+  async fn main {
+    let text = @fs.read_file("data.json").text()
+    println(text)
+    let (code, stdout, stderr) = @process.collect_output("moonx", ["cli/cat", "data.json"])
+    println("code: \{code}, \{stdout.text()}, \{stderr.text()}")
+  }
+
+  // $ moon run read_with_permission.mbtx
+  // { "user": "peter", "items": [ "potato", "tudou" ] }
+  // code: 0, { "user": "peter", "items": [ "potato", "tudou" ] },
+  ```
+
 - **Generate `.mbti` files automatically with `moon check`.** After a successful check, `moon check` updates `pkg.generated.mbti` for the checked local packages whose preferred backend is included in the check. The file summarizes public types, functions, and traits, making API changes visible alongside source changes in code review. Run `moon check --no-mbti` to perform type checking without updating these files.
 - **Documentation test improvements.**`moon test` already supported extracting and testing code blocks inside `///` doc comments. We have improved extraction and parsing performance to make the coding-and-testing loop more efficient for agents using MoonBit. Test blocks no longer inherit the function's `#cfg` attribute. If a function supports only certain backends, add the appropriate `#cfg` marker to the test block itself.
 
