@@ -73,7 +73,7 @@ jobs:
           test -n "$BUCKET" && test -n "$ESA_SITE_ID"
           aliyun configure set --profile default --mode AK --access-key-id "$ALIBABA_CLOUD_ACCESS_KEY_ID" --access-key-secret "$ALIBABA_CLOUD_ACCESS_KEY_SECRET" --region cn-hangzhou
           ossutil config --endpoint oss-cn-shenzhen.aliyuncs.com --access-key-id "$ALIBABA_CLOUD_ACCESS_KEY_ID" --access-key-secret "$ALIBABA_CLOUD_ACCESS_KEY_SECRET"
-          ossutil sync ./build "$BUCKET" --exclude llms.txt --delete --force
+          ossutil sync ./build "$BUCKET" --exclude llms.txt --delete --force --jobs 20 --parallel 5 --bigfile-threshold 10485760
           aliyun esa PurgeCaches --region cn-hangzhou --Content '{"Directories":["https://www.moonbitlang.cn/","https://moonbitlang.cn/"]}' --Type directory --SiteId "$ESA_SITE_ID"
       - name: Upload Chinese website to AWS
         if: ${{ !cancelled() && steps.build.outcome == 'success' && inputs.target != 'aliyun' }}
