@@ -33,7 +33,7 @@ export default function FooterCopyright({ copyright }: Props): JSX.Element {
             href='https://beian.miit.gov.cn/'
             style={{ color: 'var(--ifm-footer-color)' }}
           >
-            粤ICP备2020119212号
+            粤ICP备2026176002号-1
           </a>
           <a
             className={styles['beian']}
