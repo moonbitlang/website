@@ -12,7 +12,7 @@ on:
         description: Chinese deployment destination
         type: choice
         options: [aws, both, aliyun]
-        default: aws
+        default: aliyun
 
 jobs:
   en-publish:
@@ -57,12 +57,24 @@ jobs:
           pnpm build -l zh
       - uses: aliyun/setup-aliyun-cli-action@v1
         if: inputs.target == 'aliyun' || inputs.target == 'both'
-      - name: upload
+      - name: Install OSS upload tool
         if: inputs.target == 'aliyun' || inputs.target == 'both'
         run: |
-          aliyun configure set --profile default --mode AK --access-key-id ${{secrets.ALIBABA_CLOUD_ACCESS_KEY_ID}} --access-key-secret ${{secrets.ALIBABA_CLOUD_ACCESS_KEY_SECRET}} --region ${{secrets.ALIBABA_REGION}}
-          aliyun oss sync ./build ${{secrets.ALIYUN_OSS_BUCKET}} --exclude llms.txt --delete --force
-          aliyun esa PurgeCaches --region cn-shenzhen --Content '{"CacheKeys":[{}],"Directories":["https://www.moonbitlang.cn/"]}' --Type directory --SiteId 1189399586245168
+          curl -fsSL https://gosspublic.alicdn.com/ossutil/install.sh -o /tmp/install-ossutil.sh
+          sudo bash /tmp/install-ossutil.sh
+      - name: Upload Chinese website to OSS and refresh ESA
+        if: inputs.target == 'aliyun' || inputs.target == 'both'
+        env:
+          ALIBABA_CLOUD_ACCESS_KEY_ID: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_ID }}
+          ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_SECRET }}
+          BUCKET: ${{ secrets.ALIYUN_OSS_BUCKET }}
+          ESA_SITE_ID: ${{ vars.ALIYUN_ESA_SITE_ID }}
+        run: |
+          test -n "$BUCKET" && test -n "$ESA_SITE_ID"
+          aliyun configure set --profile default --mode AK --access-key-id "$ALIBABA_CLOUD_ACCESS_KEY_ID" --access-key-secret "$ALIBABA_CLOUD_ACCESS_KEY_SECRET" --region cn-hangzhou
+          ossutil config --endpoint oss-cn-shenzhen.aliyuncs.com --access-key-id "$ALIBABA_CLOUD_ACCESS_KEY_ID" --access-key-secret "$ALIBABA_CLOUD_ACCESS_KEY_SECRET"
+          ossutil sync ./build "$BUCKET" --exclude llms.txt --delete --force
+          aliyun esa PurgeCaches --region cn-hangzhou --Content '{"Directories":["https://www.moonbitlang.cn/","https://moonbitlang.cn/"]}' --Type directory --SiteId "$ESA_SITE_ID"
       - name: Upload Chinese website to AWS
         if: ${{ !cancelled() && steps.build.outcome == 'success' && inputs.target != 'aliyun' }}
         env:
