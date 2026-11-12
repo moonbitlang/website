@@ -8,11 +8,6 @@ on:
         type: choice
         options: [all, en, zh]
         default: all
-      target:
-        description: Chinese deployment destination
-        type: choice
-        options: [aws, both, aliyun]
-        default: aliyun
 
 jobs:
   en-publish:
@@ -56,14 +51,11 @@ jobs:
           pnpm i
           pnpm build -l zh
       - uses: aliyun/setup-aliyun-cli-action@v1
-        if: inputs.target == 'aliyun' || inputs.target == 'both'
       - name: Install OSS upload tool
-        if: inputs.target == 'aliyun' || inputs.target == 'both'
         run: |
           curl -fsSL https://gosspublic.alicdn.com/ossutil/install.sh -o /tmp/install-ossutil.sh
           sudo bash /tmp/install-ossutil.sh
       - name: Upload Chinese website to OSS and refresh ESA
-        if: inputs.target == 'aliyun' || inputs.target == 'both'
         env:
           ALIBABA_CLOUD_ACCESS_KEY_ID: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_ID }}
           ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_SECRET }}
@@ -75,15 +67,3 @@ jobs:
           ossutil config --endpoint oss-cn-shenzhen.aliyuncs.com --access-key-id "$ALIBABA_CLOUD_ACCESS_KEY_ID" --access-key-secret "$ALIBABA_CLOUD_ACCESS_KEY_SECRET"
           ossutil sync ./build "$BUCKET" --exclude llms.txt --delete --force --jobs 20 --parallel 5 --bigfile-threshold 10485760
           aliyun esa PurgeCaches --region cn-hangzhou --Content '{"Directories":["https://www.moonbitlang.cn/","https://moonbitlang.cn/"]}' --Type directory --SiteId "$ESA_SITE_ID"
-      - name: Upload Chinese website to AWS
-        if: ${{ !cancelled() && steps.build.outcome == 'success' && inputs.target != 'aliyun' }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_MOONBIT_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_MOONBIT_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: us-west-2
-          BUCKET: ${{ secrets.AWS_MOONBIT_CN_BUCKET }}
-          DISTRIBUTION_ID: ${{ secrets.AWS_MOONBIT_CN_DISTRIBUTION_ID }}
-        run: |
-          test -n "$BUCKET" && test -n "$DISTRIBUTION_ID"
-          aws s3 sync ./build "s3://$BUCKET" --exclude llms.txt --delete --only-show-errors
-          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*" --query 'Invalidation.Status' --output text
