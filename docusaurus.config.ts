@@ -503,10 +503,6 @@ export default async (): Promise<Config> => {
               {
                 href: 'https://tour.moonbitlang.com',
                 label: 'Tour'
-              },
-              {
-                href: 'https://oj.moonbitlang.com',
-                label: 'Online Judge'
               }
             ],
             locale: ['en']
@@ -539,10 +535,6 @@ export default async (): Promise<Config> => {
               {
                 href: 'https://tour.moonbitlang.com',
                 label: '导览'
-              },
-              {
-                href: 'https://oj.moonbitlang.com',
-                label: '在线评测'
               }
             ],
             locale: ['zh']
@@ -679,11 +671,6 @@ export default async (): Promise<Config> => {
                 locale: ['en']
               },
               {
-                label: 'Online Judge',
-                href: 'https://oj.moonbitlang.com',
-                locale: ['en']
-              },
-              {
                 label: '文档',
                 href: 'https://docs.moonbitlang.cn',
                 locale: ['zh']
@@ -712,22 +699,12 @@ export default async (): Promise<Config> => {
                 label: '导览',
                 href: 'https://tour.moonbitlang.com',
                 locale: ['zh']
-              },
-              {
-                label: '在线评测',
-                href: 'https://oj.moonbitlang.com',
-                locale: ['zh']
               }
             ]
           },
           {
             title: 'Toolchain',
             items: [
-              {
-                label: 'Cloud IDE',
-                href: 'https://try.moonbitlang.com',
-                locale: ['en']
-              },
               {
                 label: 'Build System',
                 href: 'https://moonbitlang.github.io/moon/',
@@ -737,11 +714,6 @@ export default async (): Promise<Config> => {
                 label: 'Package Manager',
                 href: 'https://mooncakes.io/',
                 locale: ['en']
-              },
-              {
-                label: '云IDE',
-                href: 'https://try.moonbitlang.cn',
-                locale: ['zh']
               },
               {
                 label: '构建系统',

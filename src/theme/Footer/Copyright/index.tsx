@@ -28,25 +28,12 @@ export default function FooterCopyright({ copyright }: Props): JSX.Element {
     <div className={clsx('footer__copyright', styles['copyright-wrapper'])}>
       {copyright}
       {location.pathname === '/' && i18n.currentLocale === 'zh' && (
-        <>
-          <a
-            href='https://beian.miit.gov.cn/'
-            style={{ color: 'var(--ifm-footer-color)' }}
-          >
-            粤ICP备2026176002号-1
-          </a>
-          <a
-            className={styles['beian']}
-            href='https://beian.mps.gov.cn/#/query/webSearch?code=44030002004653'
-            rel='noreferrer'
-            target='_blank'
-          >
-            <div>
-              <img src='/img/index/beian.png' alt='' />
-            </div>
-            粤公网安备44030002004653
-          </a>
-        </>
+        <a
+          href='https://beian.miit.gov.cn/'
+          style={{ color: 'var(--ifm-footer-color)' }}
+        >
+          粤ICP备2026176002号-1
+        </a>
       )}
     </div>
   )

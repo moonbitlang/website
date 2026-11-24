@@ -67,38 +67,11 @@ export default function FooterLayout({
       <div className='container container-fluid'>
         <div className='row margin-bottom--lg' style={{ gap: '2rem' }}>
           <div className='col margin-bottom--lg'>
-            <div className={clsx(styles['logo'], 'margin-bottom--sm')}>
+            <div className={clsx(styles['logo'], 'margin-bottom--md')}>
               <div className={styles['logo__image']}>
                 <MoonBitLogo />
               </div>
               <div className={styles['logo__title']}>MoonBit</div>
-            </div>
-            <div className={clsx(styles['about-us'], 'margin-bottom--sm')}>
-              {isZh ? (
-                <>
-                  粤港澳大湾区数字经济研究院（International Digital Economy
-                  Academy，简称IDEA研究院）致力于人工智能和数字经济领域的前沿研究与产业落地，是一家国际化创新型机构。MoonBit是编程语言以及开发者平台，专注于AI原生通用程序语言的设计、编译器、运行时、IDE以及构建系统的开发。
-                  <br />
-                  地址：中国深圳市福田区市花路5号长富金茂大厦1号楼20层
-                  <br />
-                  办公电话：<a href='tel:+8675561610106'>86-755-61610106</a>
-                  （39F）
-                </>
-              ) : (
-                <>
-                  IDEA (International Digital Economy Academy) is an innovative
-                  institution dedicated to cutting-edge research and industrial
-                  implementation in the fields of artificial intelligence and
-                  the digital economy. MoonBit focuses on the development of an
-                  AI-native general-purpose programming language, including
-                  language design, compiler, runtime, IDE, and build system.
-                  <br />
-                  Address: 20F, No. 5 Shihua Road, Futian District, Shenzhen,
-                  Guangdong Province, China
-                  <br />
-                  Tel: <a href='tel:+8675561610106'>86-755-61610106</a>(39F)
-                </>
-              )}
             </div>
             <div className={styles['social-medias']}>
               {isZh ? (
