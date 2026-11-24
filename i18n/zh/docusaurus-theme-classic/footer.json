@@ -43,10 +43,6 @@
     "message": "样例",
     "description": "The label of footer link with label=样例 linking to /gallery/"
   },
-  "link.item.label.Cloud IDE": {
-    "message": "Cloud IDE",
-    "description": "The label of footer link with label=Cloud IDE linking to https://try.moonbitlang.com"
-  },
   "link.item.label.Build System": {
     "message": "Build System",
     "description": "The label of footer link with label=Build System linking to https://moonbitlang.github.io/moon/"
@@ -54,10 +50,6 @@
   "link.item.label.Package Manager": {
     "message": "Package Manager",
     "description": "The label of footer link with label=Package Manager linking to https://mooncakes.io/"
-  },
-  "link.item.label.云IDE": {
-    "message": "云IDE",
-    "description": "The label of footer link with label=云IDE linking to https://try.moonbitlang.cn"
   },
   "link.item.label.构建系统": {
     "message": "构建系统",
@@ -90,13 +82,5 @@
   "link.item.label.动态": {
     "message": "动态",
     "description": "The label of footer link with label=动态 linking to /updates/"
-  },
-  "link.item.label.Online Judge": {
-    "message": "Online Judge",
-    "description": "The label of footer link with label=Online Judge linking to https://oj.moonbitlang.com"
-  },
-  "link.item.label.在线评测": {
-    "message": "在线评测",
-    "description": "The label of footer link with label=在线评测 linking to https://oj.moonbitlang.com"
   }
 }

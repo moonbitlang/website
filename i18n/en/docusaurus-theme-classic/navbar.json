@@ -95,14 +95,6 @@
     "message": "Updates",
     "description": "Navbar item with label Updates"
   },
-  "item.label.Online Judge": {
-    "message": "Online Judge",
-    "description": "Navbar item with label Online Judge"
-  },
-  "item.label.在线评测": {
-    "message": "在线评测",
-    "description": "Navbar item with label 在线评测"
-  },
   "item.label.MGPIC 2024": {
     "message": "MGPIC 2024",
     "description": "Navbar item with label MGPIC 2024"
