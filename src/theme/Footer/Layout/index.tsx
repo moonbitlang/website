@@ -67,7 +67,7 @@ export default function FooterLayout({
       <div className='container container-fluid'>
         <div className='row margin-bottom--lg' style={{ gap: '2rem' }}>
           <div className='col margin-bottom--lg'>
-            <div className={clsx(styles['logo'], 'margin-bottom--sm')}>
+            <div className={clsx(styles['logo'], 'margin-bottom--md')}>
               <div className={styles['logo__image']}>
                 <MoonBitLogo />
               </div>
