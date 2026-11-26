@@ -1,5 +1,5 @@
 ---
-description: "MoonBit 1.0 Beta stabilizes the compiler and sets a target date for the full 1.0 release."
+description: "MoonBit 1.0 release candidate stabilizes the compiler and sets a target date for the full 1.0 release."
 slug: moonbit-1-0-beta
 image: /img/blogs/2026-11-26-moonbit-1-0-beta/cover.png
 tags: [MoonBit]
@@ -7,15 +7,15 @@ tags: [MoonBit]
 
 # The MoonBit 1.0 Compiler Is Stable
 
-![MoonBit 1.0 Beta. The compiler is stable.](./cover.png)
+![MoonBit 1.0. The compiler is stable.](./cover.png)
 
-Today we’re releasing MoonBit 1.0 Beta. The compiler is stable and will receive only bug fixes through the full 1.0 release. We’re targeting **February 18, 2027** for that release, including the stable core library. Experimental features such as `moon prove` are outside this guarantee and may still change.
+Today we’re releasing MoonBit 1.0 release candidate. The compiler is stable and will receive only bug fixes through the full 1.0 release. We’re targeting **February 18, 2027** for that release, including the stable core library.
 
 The core library packages are already stable except for the recently introduced `moonbitlang/core/async` and `moonbitlang/core/archive` packages. Those two packages may still receive minor API refinements alongside bug fixes.
 
 <!--truncate-->
 
-If you maintain a MoonBit package, try the beta against your test suite. When updating your package, `moon fix` is your friend. It can apply fixes suggested by the compiler. A small example that reproduces a compiler regression or shows where a core API is awkward to use will help us prepare the final release. [Installation guide](https://www.moonbitlang.com/download/) · [Report a problem](https://github.com/moonbitlang/moonbit-docs/issues) · [Discuss a core API](https://github.com/moonbitlang/core/issues)
+If you maintain a MoonBit package, try the 1.0 release candidate against your test suite. When updating your package, `moon fix` is your friend. It can apply fixes suggested by the compiler. A small example that reproduces a compiler regression or shows where a core API is awkward to use will help us prepare the final release. [Installation guide](https://www.moonbitlang.com/download/) · [Report a problem](https://github.com/moonbitlang/moonbit-docs/issues) · [Discuss a core API](https://github.com/moonbitlang/core/issues)
 
 MoonBit draws inspiration from OCaml, Rust, Swift, and ReScript. The team contributed to OCaml and created ReScript. MoonBit has two tier-1 backends (Native and Wasm) and a JS backend optimized for browsers and user interfaces.
 

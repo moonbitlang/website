@@ -9,11 +9,11 @@ tags: [MoonBit]
 
 ![](./cover.png)
 
-11 月 26 日，MoonBit 1.0 编译器现已稳定，在 1.0 正式版发布前只修复缺陷。我们计划于 **2027 年 2 月 18 日**发布 1.0 正式版，核心库的稳定版也将同步推出。`moon prove` 等实验性功能不在这一稳定性承诺范围内，后续仍可能调整。
+11 月 26 日，MoonBit 1.0 编译器现已稳定，在 1.0 正式版发布前只修复缺陷。我们计划于 **2027 年 2 月 18 日**发布 1.0 正式版，核心库的稳定版也将同步推出。
 
 核心库中，只有近期新增的 `moonbitlang/core/async` 和 `moonbitlang/core/archive` 仍可能有小幅 API 调整，也会继续修复缺陷。其余包均已稳定。
 
-如果你维护着 MoonBit 软件包，欢迎先用 Beta 版跑一遍现有测试。更新软件包时，可以用 `moon fix` 应用编译器建议的修复。如果发现编译器出现回归，或某个核心库 API 用起来不顺手，欢迎附上一个尽量精简的示例，方便我们在正式发布前排查。 [安装指南](https://www.moonbitlang.com/download/) · [报告问题](https://github.com/moonbitlang/moonbit-docs/issues) · [讨论核心库 API](https://github.com/moonbitlang/core/issues)
+如果你维护着 MoonBit 软件包，欢迎先用 1.0 release candidate 跑一遍现有测试。更新软件包时，可以用 `moon fix` 应用编译器建议的修复。如果发现编译器出现回归，或某个核心库 API 用起来不顺手，欢迎附上一个尽量精简的示例，方便我们在正式发布前排查。 [安装指南](https://www.moonbitlang.com/download/) · [报告问题](https://github.com/moonbitlang/moonbit-docs/issues) · [讨论核心库 API](https://github.com/moonbitlang/core/issues)
 
 MoonBit 借鉴了 OCaml、Rust、Swift 和 ReScript。团队曾参与 OCaml 开发，并创建了 ReScript。MoonBit 将 Native 和 Wasm 列为一级支持后端。JS 后端则针对浏览器和用户界面做了优化。
 
