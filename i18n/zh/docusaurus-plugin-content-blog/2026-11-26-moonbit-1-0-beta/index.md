@@ -1,6 +1,6 @@
 ---
 description: "11 月 26 日，MoonBit 1.0 编译器现已稳定，在 1.0 正式版发布前只修复缺陷。"
-slug: moonbit-1-0-beta
+slug: moonbit-1-0-rc
 image: /img/blogs/zh/2026-11-26-moonbit-1-0-beta/cover.png
 tags: [MoonBit]
 ---

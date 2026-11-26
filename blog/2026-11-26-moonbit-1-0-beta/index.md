@@ -1,6 +1,6 @@
 ---
 description: "MoonBit 1.0 release candidate stabilizes the compiler and sets a target date for the full 1.0 release."
-slug: moonbit-1-0-beta
+slug: moonbit-1-0-rc
 image: /img/blogs/2026-11-26-moonbit-1-0-beta/cover.png
 tags: [MoonBit]
 ---
