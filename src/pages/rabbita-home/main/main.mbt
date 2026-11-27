@@ -225,12 +225,14 @@ fn view_hero(dispatch : Emit[Msg], model : Model) -> Html {
             class="btn-primary btn-cta",
             href=link_docs(),
             target=Blank,
+            escape=true,
             btn_get_started(),
           ),
           a(
             class="btn-secondary btn-icon btn-cta",
             href=link_ide(),
             target=Blank,
+            escape=true,
             [text(btn_try_online()), icon_arrow_right()],
           ),
         ]),
@@ -793,10 +795,13 @@ fn comm_block(title : String, see_all_url : String, content : Html) -> Html {
       if see_all_url == "" {
         nothing
       } else {
-        a(class="comm-see-all btn-icon", href=see_all_url, target=Blank, [
-          text(btn_see_all()),
-          icon_arrow_right(),
-        ])
+        a(
+          class="comm-see-all btn-icon",
+          href=see_all_url,
+          target=Blank,
+          escape=true,
+          [text(btn_see_all()), icon_arrow_right()],
+        )
       },
     ]),
     content,
@@ -885,10 +890,16 @@ fn view_voices() -> Html {
 fn view_community() -> Html {
   // Build cards array
   let cards : Array[Html] = get_projects().map(fn(proj) {
-    a(class="comm-project-card", href=proj.url, target=Blank, [
-      span(class="comm-project-name", proj.name),
-      p(class="comm-project-desc", proj.desc),
-    ])
+    a(
+      class="comm-project-card",
+      href=proj.url,
+      target=Blank,
+      escape=true,
+      [
+        span(class="comm-project-name", proj.name),
+        p(class="comm-project-desc", proj.desc),
+      ],
+    )
   })
   // Chunk into batches of 3, cycling from start to pad the last batch
   let n_projects = cards.length()
@@ -935,6 +946,7 @@ fn view_community() -> Html {
             class="comm-link-btn btn-icon",
             href="https://github.com/moonbitlang",
             target=Blank,
+            escape=true,
             [icon_github(), text("moonbitlang")],
           ),
           span(class="comm-links-sep", ", "),
@@ -942,6 +954,7 @@ fn view_community() -> Html {
             class="comm-link-btn btn-icon",
             href="https://github.com/moonbit-community",
             target=Blank,
+            escape=true,
             [icon_github(), text("moonbit-community")],
           ),
           span(class="comm-links-sep", community_sep_and()),
@@ -949,6 +962,7 @@ fn view_community() -> Html {
             class="comm-link-btn",
             href="https://mooncakes.io",
             target=Blank,
+            escape=true,
             "mooncakes.io",
           ),
         ]),
@@ -962,6 +976,7 @@ fn view_community() -> Html {
             class="comm-avatar-link",
             href="https://github.com/\{c.login}",
             target=Blank,
+            escape=true,
             [
               img_with_fallback(
                 class="comm-avatar",
@@ -1010,7 +1025,7 @@ fn view_news_roadmap() -> Html {
                     match item {
                       PlainText(s) => div(class="rdm-item", s)
                       HyperLink(s, url) =>
-                        div(class="rdm-item", [a(href=url, s)])
+                        div(class="rdm-item", [a(href=url, escape=true, s)])
                     }
                   }),
                 ),
@@ -1026,13 +1041,14 @@ fn view_news_roadmap() -> Html {
           a(
             class="comm-see-all btn-icon",
             href=link_blog(),
+            escape=true,
             [text(btn_see_all()), icon_arrow_right()],
           ),
         ]),
         div(
           class="news-grid",
           get_news_items().map(fn(n) {
-            a(class="news-card", href=n.url, [
+            a(class="news-card", href=n.url, escape=true, [
               if n.img == "" {
                 div(class="news-card-img", [nothing])
               } else {
@@ -1057,10 +1073,13 @@ fn view_quickstart() -> Html {
   section(class="quickstart", [
     div(class="quickstart-inner", [
       h2(class="quickstart-tagline", cta_tagline()),
-      a(class="btn-primary btn-icon btn-cta", href=link_ide(), target=Blank, [
-        text(btn_try_now()),
-        icon_arrow_right(),
-      ]),
+      a(
+        class="btn-primary btn-icon btn-cta",
+        href=link_ide(),
+        target=Blank,
+        escape=true,
+        [text(btn_try_now()), icon_arrow_right()],
+      ),
     ]),
   ])
 }
