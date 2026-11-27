@@ -1,0 +1,262 @@
+.page {
+  --ink: #171827;
+  --muted: #55566a;
+  --line: #e6e2ec;
+  --accent-surface: #fcf2f8;
+  --accent-line: #efd4e4;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(0.75rem, 2.5vw, 2rem) 0 clamp(2rem, 4vw, 3rem);
+  color: var(--ink);
+}
+
+:global([data-theme='dark']) .page {
+  --ink: #f6eff8;
+  --muted: #c1b7cb;
+  --line: #383142;
+  --accent-surface: #261b2b;
+  --accent-line: #55354e;
+}
+
+.page :is(section, ol, details) {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
+}
+
+.title {
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(2.3rem, 5.4vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+}
+
+.verify,
+.steps,
+.help {
+  color: var(--muted);
+}
+
+.marketplace {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--accent-line);
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.marketplace:hover {
+  background: var(--accent-surface);
+}
+
+.installOptions > :global(.tabs-container) {
+  margin-bottom: 0;
+}
+
+.methodTabs,
+.systemTabs {
+  --ifm-tabs-padding-horizontal: 0.75rem;
+  --ifm-tabs-padding-vertical: 0.625rem;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.methodTabs {
+  border-bottom: 1px solid var(--line);
+}
+
+.systemTabs {
+  --ifm-tabs-color: color-mix(
+    in srgb,
+    var(--prism-color) 82%,
+    var(--prism-background-color)
+  );
+  --ifm-tabs-color-active: var(--prism-color);
+  --ifm-tabs-color-active-border: color-mix(
+    in srgb,
+    var(--ifm-color-primary) 60%,
+    var(--prism-color)
+  );
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--prism-color) 18%, var(--prism-background-color));
+}
+
+.methodTabs [role='tab']:focus-visible,
+.systemTabs [role='tab']:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: -2px;
+}
+
+.methodTabs + :global(.margin-top--md),
+.systemTabs + :global(.margin-top--md) {
+  margin-top: 0 !important;
+}
+
+.methodTabs + :global(.margin-top--md) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+.methodTabs + :global(.margin-top--md) > [role='tabpanel'] {
+  grid-area: 1 / 1;
+}
+
+/* Let the tallest panel reserve space for stable tab switches. */
+.methodTabs + :global(.margin-top--md) > [role='tabpanel'][hidden] {
+  display: block;
+  visibility: hidden;
+}
+
+.installPanel {
+  padding-block-start: clamp(1rem, 3vw, 1.5rem);
+}
+
+.vscodePanel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.verify {
+  margin: 0.75rem 0 0;
+}
+
+.verify code {
+  white-space: nowrap;
+}
+
+.terminal {
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.terminal > :global(.tabs-container),
+.terminal :global(.theme-code-block) {
+  margin-bottom: 0;
+}
+
+.terminal :global(.theme-code-block) {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.steps {
+  display: grid;
+  gap: 0.65rem;
+  padding-left: 1.45rem;
+}
+
+.steps li {
+  padding-left: 0.18rem;
+}
+
+.steps li::marker {
+  color: var(--ifm-color-primary);
+  font-weight: 700;
+}
+
+.steps kbd {
+  white-space: nowrap;
+}
+
+.demo {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 0.75rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.demo:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 3px;
+}
+
+.demo video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.demoPlay {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  display: grid;
+  width: 3rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 65%);
+  border-radius: 50%;
+  background: rgb(24 22 35 / 88%);
+  transform: translate(-50%, -50%);
+}
+
+.demoPlay::before {
+  margin-left: 0.15rem;
+  border-block: 0.45rem solid transparent;
+  border-left: 0.7rem solid #fff;
+  content: '';
+}
+
+.resources {
+  margin-top: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.resources details {
+  min-width: 0;
+  border-top: 1px solid var(--line);
+}
+
+.resources details[open] {
+  padding-bottom: 0.9rem;
+}
+
+.resources summary {
+  padding: 0.75rem 0;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.resources details > :last-child {
+  margin-bottom: 0;
+}
+
+.resources :global(.tabs) {
+  flex-wrap: wrap;
+}
+
+.resources [role='tab'] {
+  padding: 0.65rem;
+  font-size: 0.875rem;
+}
+
+.installPanel :global(.theme-code-block) button,
+.resources :global(.theme-code-block) button {
+  opacity: 1;
+}
+
+.help {
+  margin: 0.9rem 0 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 760px) {
+  .vscodePanel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vscodePanel > .demo {
+    grid-row: 1;
+  }
+}
